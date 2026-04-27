@@ -44,7 +44,7 @@ def main():
 
     train_loader, val_loader = get_dataloaders(cfg)
     model = build_model(cfg)
-    criterion = build_loss(cfg)
+    criterion = build_loss(cfg, num_samples=len(train_loader.dataset))
 
     trainer = BaseTrainer(model, train_loader, val_loader, criterion, cfg)
 
