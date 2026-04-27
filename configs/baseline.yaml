@@ -1,0 +1,42 @@
+# Baseline 配置 — 默认 CIFAR-10 快速验证
+# 切换 ImageNet: 改 data.dataset=imagenet, data.root=./data/imagenet,
+#               model.num_classes=1000, data.input_size=224, data.batch_size=128
+
+data:
+  dataset: cifar10          # cifar10 | imagenet
+  root: ./data
+  input_size: 32            # CIFAR-10=32, ImageNet=224
+  batch_size: 128
+  num_workers: 4
+  pin_memory: true
+  subset: 1.0              # 取数据集的比例，1.0=全量
+
+model:
+  name: resnet50            # resnet50 | convnext_v2_t | starnet
+  num_classes: 10           # CIFAR-10=10, ImageNet=1000
+  drop_path_rate: 0.0
+
+training:
+  epochs: 100
+  optimizer: sgd            # sgd | adamw
+  base_lr: 0.1
+  weight_decay: 1.0e-4
+  momentum: 0.9
+  scheduler: cosine         # cosine | step | multistep
+  warmup_epochs: 5
+  label_smoothing: 0.1
+  amp: true
+  accumulation_steps: 1
+  grad_clip: 5.0
+  ema_decay: 0.9999
+  channels_last: true
+  compile: false            # torch.compile, PyTorch 2.x
+
+logging:
+  log_interval: 50          # 每 N 个 batch 打印一次
+  eval_interval: 1          # 每 N 个 epoch 验证一次
+  save_interval: 10         # 每 N 个 epoch 保存一次
+  checkpoint_dir: ./checkpoints
+  log_dir: ./logs
+
+seed: 42
