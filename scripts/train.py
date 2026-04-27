@@ -18,6 +18,9 @@ def main():
     parser.add_argument("--epochs", type=int, default=None)
     parser.add_argument("--subset", type=float, default=None)
     parser.add_argument("--resume", type=str, default=None)
+    parser.add_argument("--device", type=str, default="auto",
+                        choices=["auto", "cuda", "cpu"],
+                        help="auto=自动检测, cuda=强制GPU, cpu=强制CPU")
     args = parser.parse_args()
 
     with open(args.config, encoding="utf-8") as f:
@@ -27,6 +30,7 @@ def main():
         cfg["training"]["epochs"] = args.epochs
     if args.subset is not None:
         cfg["data"]["subset"] = args.subset
+    cfg["device"] = args.device
 
     set_seed(cfg.get("seed", 42))
 

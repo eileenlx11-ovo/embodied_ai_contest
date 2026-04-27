@@ -10,6 +10,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from src.models.build_model import build_model
 from src.data.transforms import get_val_transforms
+from src.trainers.base_trainer import resolve_device
 
 
 def main():
@@ -18,12 +19,15 @@ def main():
     parser.add_argument("--checkpoint", type=str, required=True)
     parser.add_argument("--test_dir", type=str, default=None)
     parser.add_argument("--output", type=str, default="submit/result.csv")
+    parser.add_argument("--device", type=str, default="auto",
+                        choices=["auto", "cuda", "cpu"],
+                        help="auto=自动检测, cuda=强制GPU, cpu=强制CPU")
     args = parser.parse_args()
 
     with open(args.config, encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = resolve_device(args.device)
     model = build_model(cfg).to(device)
 
     ckpt = torch.load(args.checkpoint, map_location=device, weights_only=False)

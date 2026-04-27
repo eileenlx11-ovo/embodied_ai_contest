@@ -10,19 +10,23 @@ from src.utils.seed import set_seed
 from src.data.imagenet_dataset import get_dataloaders
 from src.models.build_model import build_model
 from src.utils.metrics import accuracy
+from src.trainers.base_trainer import resolve_device
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=str, default="configs/baseline.yaml")
     parser.add_argument("--checkpoint", type=str, required=True)
+    parser.add_argument("--device", type=str, default="auto",
+                        choices=["auto", "cuda", "cpu"],
+                        help="auto=自动检测, cuda=强制GPU, cpu=强制CPU")
     args = parser.parse_args()
 
     with open(args.config, encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
 
     set_seed(cfg.get("seed", 42))
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = resolve_device(args.device)
 
     _, val_loader = get_dataloaders(cfg)
     model = build_model(cfg).to(device)

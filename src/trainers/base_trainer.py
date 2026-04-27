@@ -7,10 +7,16 @@ from src.utils.metrics import accuracy
 from src.utils.ema import ModelEMA
 
 
+def resolve_device(device_str: str = "auto") -> torch.device:
+    if device_str == "auto":
+        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    return torch.device(device_str)
+
+
 class BaseTrainer:
     def __init__(self, model, train_loader, val_loader, criterion, cfg):
         self.cfg = cfg
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = resolve_device(cfg.get("device", "auto"))
         self.train_loader = train_loader
         self.val_loader = val_loader
         self.criterion = criterion
@@ -25,13 +31,12 @@ class BaseTrainer:
         self.ckpt_dir = cfg["logging"]["checkpoint_dir"]
         os.makedirs(self.ckpt_dir, exist_ok=True)
 
-        # TF32
-        torch.backends.cuda.matmul.allow_tf32 = True
-        torch.backends.cudnn.allow_tf32 = True
-        torch.backends.cudnn.benchmark = True
+        if self.device.type == "cuda":
+            torch.backends.cuda.matmul.allow_tf32 = True
+            torch.backends.cudnn.allow_tf32 = True
+            torch.backends.cudnn.benchmark = True
 
-        # channels last
-        if tc.get("channels_last", False):
+        if tc.get("channels_last", False) and self.device.type == "cuda":
             model = model.to(memory_format=torch.channels_last)
         self.model = model.to(self.device)
 
@@ -59,9 +64,8 @@ class BaseTrainer:
             self.optimizer, [warmup_scheduler, cosine_scheduler], milestones=[warmup_epochs],
         )
 
-        # AMP
         self.use_amp = tc.get("amp", True) and self.device.type == "cuda"
-        self.scaler = torch.amp.GradScaler("cuda", enabled=self.use_amp)
+        self.scaler = torch.amp.GradScaler(self.device.type, enabled=self.use_amp)
 
         # EMA
         ema_decay = tc.get("ema_decay", 0.0)
@@ -82,7 +86,7 @@ class BaseTrainer:
             if self.cfg["training"].get("channels_last", False):
                 images = images.to(memory_format=torch.channels_last)
 
-            with torch.amp.autocast("cuda", enabled=self.use_amp):
+            with torch.amp.autocast(self.device.type, enabled=self.use_amp):
                 outputs = self.model(images)
                 loss = self.criterion(outputs, targets) / self.accum_steps
 
@@ -122,7 +126,7 @@ class BaseTrainer:
             images = images.to(self.device, non_blocking=True)
             targets = targets.to(self.device, non_blocking=True)
 
-            with torch.amp.autocast("cuda", enabled=self.use_amp):
+            with torch.amp.autocast(self.device.type, enabled=self.use_amp):
                 outputs = model(images)
 
             acc1, acc5 = accuracy(outputs, targets, topk=(1, 5))
