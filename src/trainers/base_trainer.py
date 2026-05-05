@@ -6,6 +6,13 @@ from torch.optim.lr_scheduler import LinearLR, CosineAnnealingLR, SequentialLR
 from src.utils.metrics import accuracy
 from src.utils.ema import ModelEMA
 
+try:
+    import wandb
+    _WANDB_AVAILABLE = True
+except ImportError:
+    wandb = None
+    _WANDB_AVAILABLE = False
+
 
 def resolve_device(device_str: str = "auto") -> torch.device:
     if device_str == "auto":
@@ -72,6 +79,22 @@ class BaseTrainer:
         self.ema = ModelEMA(self.model, decay=ema_decay) if ema_decay > 0 else None
 
         self.best_acc = 0.0
+        self.global_step = 0
+
+        # WandB (optional)
+        self.wandb_run = None
+        wb_cfg = cfg.get("logging", {}).get("wandb", {})
+        if wb_cfg.get("enabled", False):
+            if not _WANDB_AVAILABLE:
+                print("WARN: wandb enabled in config but package not installed; skipping.")
+            else:
+                self.wandb_run = wandb.init(
+                    project=wb_cfg.get("project", "embodied-ai"),
+                    name=wb_cfg.get("run_name"),
+                    config=cfg,
+                    mode=wb_cfg.get("mode", "online"),
+                    resume="allow",
+                )
 
     def train_one_epoch(self, epoch):
         self.model.train()
@@ -106,12 +129,20 @@ class BaseTrainer:
             _, predicted = outputs.max(1)
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
+            self.global_step += 1
 
             if (batch_idx + 1) % self.log_interval == 0:
                 avg_loss = total_loss / (batch_idx + 1)
                 acc = 100.0 * correct / total
                 print(f"  Epoch [{epoch}] Batch [{batch_idx+1}/{len(self.train_loader)}] "
                       f"Loss: {avg_loss:.4f} Acc: {acc:.2f}%")
+                if self.wandb_run:
+                    self.wandb_run.log({
+                        "train/loss_running": avg_loss,
+                        "train/acc_running": acc,
+                        "train/lr": self.optimizer.param_groups[0]["lr"],
+                        "epoch": epoch,
+                    }, step=self.global_step)
 
         self.scheduler.step()
         return total_loss / len(self.train_loader), 100.0 * correct / total
@@ -170,18 +201,33 @@ class BaseTrainer:
 
             log = f"Epoch {epoch}/{self.epochs} | Loss: {train_loss:.4f} | Acc: {train_acc:.2f}% | Time: {elapsed:.1f}s"
 
+            epoch_metrics = {
+                "epoch": epoch,
+                "train/loss_epoch": train_loss,
+                "train/acc_epoch": train_acc,
+                "train/epoch_time_sec": elapsed,
+            }
+
             if epoch % self.eval_interval == 0:
                 val_top1, val_top5 = self.validate()
                 log += f" | Val Top-1: {val_top1:.2f}% Top-5: {val_top5:.2f}%"
+                epoch_metrics["val/top1"] = val_top1
+                epoch_metrics["val/top5"] = val_top5
                 if val_top1 > self.best_acc:
                     self.best_acc = val_top1
                     self.save_checkpoint(epoch, val_top1, "best.pth")
                     log += " *best*"
+                epoch_metrics["val/best_top1"] = self.best_acc
 
             print(log)
+            if self.wandb_run:
+                self.wandb_run.log(epoch_metrics, step=self.global_step)
 
             if epoch % self.save_interval == 0:
                 self.save_checkpoint(epoch, self.best_acc, "latest.pth")
 
         self.save_checkpoint(self.epochs, self.best_acc, "latest.pth")
         print(f"Training complete. Best Val Top-1: {self.best_acc:.2f}%")
+        if self.wandb_run:
+            self.wandb_run.summary["best_top1"] = self.best_acc
+            self.wandb_run.finish()

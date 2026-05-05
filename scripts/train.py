@@ -17,6 +17,10 @@ def main():
     parser.add_argument("--config", type=str, default="configs/baseline.yaml")
     parser.add_argument("--epochs", type=int, default=None)
     parser.add_argument("--subset", type=float, default=None)
+    parser.add_argument("--warmup-epochs", type=int, default=None,
+                        help="覆盖 cfg.training.warmup_epochs，方便小 epoch 烟囱测试")
+    parser.add_argument("--eval-interval", type=int, default=None,
+                        help="覆盖 cfg.logging.eval_interval")
     parser.add_argument("--resume", type=str, default=None)
     parser.add_argument("--device", type=str, default="auto",
                         choices=["auto", "cuda", "cpu"],
@@ -30,6 +34,10 @@ def main():
         cfg["training"]["epochs"] = args.epochs
     if args.subset is not None:
         cfg["data"]["subset"] = args.subset
+    if args.warmup_epochs is not None:
+        cfg["training"]["warmup_epochs"] = args.warmup_epochs
+    if args.eval_interval is not None:
+        cfg["logging"]["eval_interval"] = args.eval_interval
     cfg["device"] = args.device
 
     set_seed(cfg.get("seed", 42))

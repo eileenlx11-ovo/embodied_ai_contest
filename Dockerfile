@@ -6,12 +6,15 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /workspace
 
-COPY requirements.txt .
+COPY submit/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ../src/ ./src/
-COPY ../configs/ ./configs/
-COPY ../scripts/ ./scripts/
-COPY run.sh .
+COPY src/ ./src/
+COPY configs/ ./configs/
+COPY scripts/ ./scripts/
+COPY submit/run.sh ./run.sh
 
+RUN chmod +x run.sh
+
+ENV PYTHONPATH=/workspace
 CMD ["bash", "run.sh"]
