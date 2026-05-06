@@ -6,7 +6,7 @@ import yaml
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from src.utils.seed import set_seed
-from src.data.imagenet_dataset import get_dataloaders
+from src.data.imagenet_dataset import get_dataloaders, get_indexed_dataloaders
 from src.models.build_model import build_model
 from src.losses.base_loss import build_loss
 from src.trainers.base_trainer import BaseTrainer
@@ -42,9 +42,14 @@ def main():
 
     set_seed(cfg.get("seed", 42))
 
-    train_loader, val_loader = get_dataloaders(cfg)
+    loss_name = cfg["training"].get("loss", "ce")
+    if loss_name in {"elr", "composite"}:
+        train_loader, val_loader = get_indexed_dataloaders(cfg)
+    else:
+        train_loader, val_loader = get_dataloaders(cfg)
     model = build_model(cfg)
-    criterion = build_loss(cfg, num_samples=len(train_loader.dataset))
+    num_samples = getattr(train_loader.dataset, "num_global_samples", len(train_loader.dataset))
+    criterion = build_loss(cfg, num_samples=num_samples)
 
     trainer = BaseTrainer(model, train_loader, val_loader, criterion, cfg)
 

@@ -9,13 +9,15 @@ import numpy as np
 class IndexedDataset(Dataset):
     def __init__(self, dataset):
         self.dataset = dataset
+        self.num_global_samples = len(dataset.dataset) if isinstance(dataset, Subset) else len(dataset)
 
     def __len__(self):
         return len(self.dataset)
 
     def __getitem__(self, idx):
         data, target = self.dataset[idx]
-        return data, target, idx
+        global_idx = self.dataset.indices[idx] if isinstance(self.dataset, Subset) else idx
+        return data, target, int(global_idx)
 
 
 def get_dataloaders(cfg):
