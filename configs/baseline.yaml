@@ -24,6 +24,7 @@ training:
   momentum: 0.9
   scheduler: cosine         # cosine | step | multistep
   warmup_epochs: 5
+  loss: ce                  # ce | label_smoothing | sce | gce | peer_loss | elr
   label_smoothing: 0.1
   amp: true
   accumulation_steps: 1
@@ -38,5 +39,10 @@ logging:
   save_interval: 10         # 每 N 个 epoch 保存一次
   checkpoint_dir: ./checkpoints
   log_dir: ./logs
+  wandb:
+    enabled: false          # 设为 true 启用 WandB；需 `wandb login`
+    project: embodied-ai
+    run_name: null          # null=自动生成；自定义名称如 rn50_ce_cifar10
+    mode: online            # online | offline | disabled
 
 seed: 42
