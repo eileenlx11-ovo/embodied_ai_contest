@@ -17,6 +17,8 @@
 
 | 日期 | 问题描述 | 影响 | 解决方案 | 状态 |
 |------|---------|------|---------|------|
+| 5/8 | PR1+PR2 合并后需要确认训练入口是否端到端可用 | 若训练通路不通，后续 StarNet/损失函数实验和提交包都会被阻塞 | 已在最新 main 上完成 baseline CIFAR-10 + CE smoke test：CPU、subset=0.01、epochs=2、warmup=1，Best Val Top-1=10.02%；另补测 ELR/index-aware loss 单 epoch，输出 ELR smoke passed | 已解决 |
+| 5/8 | 本机缺少 ImageNet 数据，无法直接执行 StarNet-S2 + 10% subset + 5 epoch 验证 | reviewer 建议的正式通路验证暂时不能在本机复现 | 已确认 data/imagenet/train 和 data/imagenet/val 均不存在；先用 CIFAR-10 小子集验证 StarNet-S2 backbone + trainer 通路，输出 StarNet CIFAR smoke passed；正式 ImageNet 验证需在有数据的机器上运行 | 跟进中 |
 
 ## Week 3 (5/12 - 5/18)
 
@@ -50,3 +52,4 @@
 - Docker 构建层缓存：先 `COPY submit/requirements.txt` 再 `pip install`，再 `COPY src/`，源码变动不触发 pip 重装
 - WandB 离线模式（`mode: offline`）可以在无外网的赛事机器上用，训练完 `wandb sync` 再上传
 - 如果 SSH 也被限，考虑 Cloudflare WARP 或 GitHub CLI HTTPS API（token 认证，走 api.github.com 子域名）
+
