@@ -31,8 +31,7 @@ class DropPath(nn.Module):
             return x
         keep = 1.0 - self.drop_prob
         shape = (x.shape[0],) + (1,) * (x.ndim - 1)
-        mask = torch.rand(shape, dtype=x.dtype, device=x.device).floor_().clamp_(0, 1)
-        mask = (mask + keep).floor_()
+        mask = (torch.rand(shape, dtype=x.dtype, device=x.device) + keep).floor_()
         return x / keep * mask
 
 
