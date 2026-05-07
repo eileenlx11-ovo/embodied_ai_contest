@@ -1,0 +1,48 @@
+# ImageNet-1K + StarNet-S2 (fast experiment model)
+# RTX 4060: batch=256, accum=2, ~3 days for 100 epochs
+# Use for quick loss/hyperparam screening
+
+data:
+  dataset: imagenet
+  root: ./data/imagenet
+  input_size: 224
+  batch_size: 256
+  num_workers: 4
+  pin_memory: true
+  subset: 1.0
+
+model:
+  name: starnet_s2
+  num_classes: 1000
+  drop_path_rate: 0.0
+
+training:
+  epochs: 50
+  optimizer: sgd
+  base_lr: 0.1
+  weight_decay: 1.0e-4
+  momentum: 0.9
+  scheduler: cosine
+  warmup_epochs: 5
+  loss: ce
+  label_smoothing: 0.0
+  amp: true
+  accumulation_steps: 2
+  grad_clip: 5.0
+  ema_decay: 0.9999
+  channels_last: true
+  compile: false
+
+augmentation:
+  randaug: false
+  color_jitter: false
+  random_erasing: false
+
+logging:
+  log_interval: 100
+  eval_interval: 2
+  save_interval: 10
+  checkpoint_dir: ./checkpoints
+  log_dir: ./logs
+
+seed: 42

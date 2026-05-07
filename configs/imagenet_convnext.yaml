@@ -1,0 +1,49 @@
+# ImageNet-1K + ConvNeXt-V2-Tiny (sprint model)
+# RTX 4060: batch=64, accum=4, ~8 days for 100 epochs
+# Only run when time permits after ResNet-50 experiments
+
+data:
+  dataset: imagenet
+  root: ./data/imagenet
+  input_size: 224
+  batch_size: 64
+  num_workers: 4
+  pin_memory: true
+  subset: 1.0
+
+model:
+  name: convnext_v2_t
+  num_classes: 1000
+  drop_path_rate: 0.1
+
+training:
+  epochs: 100
+  optimizer: adamw
+  base_lr: 4.0e-3
+  weight_decay: 0.05
+  scheduler: cosine
+  warmup_epochs: 10
+  loss: ce
+  label_smoothing: 0.1
+  amp: true
+  accumulation_steps: 4
+  grad_clip: 5.0
+  ema_decay: 0.9999
+  channels_last: true
+  compile: false
+
+augmentation:
+  randaug: true
+  randaug_n: 2
+  randaug_m: 9
+  random_erasing: true
+  color_jitter: false
+
+logging:
+  log_interval: 100
+  eval_interval: 2
+  save_interval: 10
+  checkpoint_dir: ./checkpoints
+  log_dir: ./logs
+
+seed: 42

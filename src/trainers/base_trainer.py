@@ -103,15 +103,26 @@ class BaseTrainer:
         correct = 0
         total = 0
 
-        for batch_idx, (images, targets) in enumerate(self.train_loader):
+        for batch_idx, batch in enumerate(self.train_loader):
+            if len(batch) == 3:
+                images, targets, indices = batch
+            else:
+                images, targets = batch
+                indices = None
+
             images = images.to(self.device, non_blocking=True)
             targets = targets.to(self.device, non_blocking=True)
+            if indices is not None:
+                indices = indices.to(self.device, non_blocking=True)
             if self.cfg["training"].get("channels_last", False):
                 images = images.to(memory_format=torch.channels_last)
 
             with torch.amp.autocast(self.device.type, enabled=self.use_amp):
                 outputs = self.model(images)
-                loss = self.criterion(outputs, targets) / self.accum_steps
+                if indices is not None:
+                    loss = self.criterion(outputs, targets, indices=indices) / self.accum_steps
+                else:
+                    loss = self.criterion(outputs, targets) / self.accum_steps
 
             self.scaler.scale(loss).backward()
 
