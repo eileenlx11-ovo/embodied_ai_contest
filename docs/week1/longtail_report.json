@@ -1,0 +1,218 @@
+{
+  "metrics": {
+    "num_classes": 1000,
+    "total_images": 1281167,
+    "max_count": 1300,
+    "min_count": 732,
+    "mean": 1281.2,
+    "median": 1300.0,
+    "std": 70.2,
+    "imbalance_ratio": 1.78,
+    "q1": 1300.0,
+    "q3": 1300.0
+  },
+  "top_classes": [
+    [
+      "n01440764",
+      "tench",
+      1300
+    ],
+    [
+      "n01443537",
+      "goldfish",
+      1300
+    ],
+    [
+      "n01484850",
+      "great white shark",
+      1300
+    ],
+    [
+      "n01491361",
+      "tiger shark",
+      1300
+    ],
+    [
+      "n01494475",
+      "hammerhead",
+      1300
+    ],
+    [
+      "n01496331",
+      "electric ray",
+      1300
+    ],
+    [
+      "n01498041",
+      "stingray",
+      1300
+    ],
+    [
+      "n01514668",
+      "cock",
+      1300
+    ],
+    [
+      "n01514859",
+      "hen",
+      1300
+    ],
+    [
+      "n01518878",
+      "ostrich",
+      1300
+    ],
+    [
+      "n01530575",
+      "brambling",
+      1300
+    ],
+    [
+      "n01531178",
+      "goldfinch",
+      1300
+    ],
+    [
+      "n01532829",
+      "house finch",
+      1300
+    ],
+    [
+      "n01534433",
+      "junco",
+      1300
+    ],
+    [
+      "n01537544",
+      "indigo bunting",
+      1300
+    ],
+    [
+      "n01558993",
+      "robin",
+      1300
+    ],
+    [
+      "n01560419",
+      "bulbul",
+      1300
+    ],
+    [
+      "n01580077",
+      "jay",
+      1300
+    ],
+    [
+      "n01582220",
+      "magpie",
+      1300
+    ],
+    [
+      "n01592084",
+      "chickadee",
+      1300
+    ]
+  ],
+  "bottom_classes": [
+    [
+      "n02089078",
+      "black-and-tan coonhound",
+      732
+    ],
+    [
+      "n02091635",
+      "otterhound",
+      738
+    ],
+    [
+      "n02089973",
+      "English foxhound",
+      754
+    ],
+    [
+      "n02113978",
+      "Mexican hairless",
+      755
+    ],
+    [
+      "n02085782",
+      "Japanese spaniel",
+      772
+    ],
+    [
+      "n02087046",
+      "toy terrier",
+      860
+    ],
+    [
+      "n03197337",
+      "digital watch",
+      889
+    ],
+    [
+      "n03498962",
+      "hatchet",
+      891
+    ],
+    [
+      "n03995372",
+      "power drill",
+      908
+    ],
+    [
+      "n04370456",
+      "sweatshirt",
+      931
+    ],
+    [
+      "n02095889",
+      "Sealyham terrier",
+      936
+    ],
+    [
+      "n02110627",
+      "affenpinscher",
+      954
+    ],
+    [
+      "n03920288",
+      "Petri dish",
+      962
+    ],
+    [
+      "n02606052",
+      "rock beauty",
+      969
+    ],
+    [
+      "n02102973",
+      "Irish water spaniel",
+      969
+    ],
+    [
+      "n04429376",
+      "throne",
+      976
+    ],
+    [
+      "n02095314",
+      "wire-haired fox terrier",
+      977
+    ],
+    [
+      "n03476991",
+      "hair spray",
+      980
+    ],
+    [
+      "n03658185",
+      "letter opener",
+      986
+    ],
+    [
+      "n04265275",
+      "space heater",
+      1004
+    ]
+  ]
+}
