@@ -61,11 +61,12 @@ def main():
     model.eval()
 
     transform = get_val_transforms(cfg)
+    num_workers = cfg["data"].get("num_workers", 4)
 
     if cfg["data"]["dataset"] == "cifar10":
         from torchvision.datasets import CIFAR10
         dataset = CIFAR10(root=cfg["data"]["root"], train=False, download=True, transform=transform)
-        loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False, num_workers=4)
+        loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False, num_workers=num_workers)
 
         os.makedirs(os.path.dirname(args.output), exist_ok=True)
         rows = []
@@ -91,7 +92,7 @@ def main():
     dataset = TestImageDataset(test_dir, transform)
     loader = DataLoader(
         dataset, batch_size=args.batch_size, shuffle=False,
-        num_workers=4, pin_memory=(device.type == "cuda"),
+        num_workers=num_workers, pin_memory=(device.type == "cuda"),
     )
 
     print(f"Predicting {len(dataset)} images from {test_dir}")

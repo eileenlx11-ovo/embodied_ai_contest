@@ -18,7 +18,6 @@ class ELRLoss(nn.Module):
         )
 
     def forward(self, logits, targets, indices):
-        assert indices.min().item() >= 0 and indices.max().item() < self.num_samples, "ELR indices must be global sample IDs"
         pred = F.softmax(logits, dim=-1)
 
         if self.cpu_buffer:

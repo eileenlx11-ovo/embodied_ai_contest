@@ -15,9 +15,6 @@ class NoisyTrainer(BaseTrainer):
         self.num_samples = len(train_loader.dataset)
         self.sample_losses = torch.zeros(self.num_samples)
         self.sample_counts = torch.zeros(self.num_samples)
-        self.needs_indices = hasattr(criterion, "forward") and "indices" in str(
-            criterion.forward.__code__.co_varnames
-        )
 
     def train_one_epoch(self, epoch):
         self.model.train()
@@ -40,8 +37,8 @@ class NoisyTrainer(BaseTrainer):
 
             with torch.amp.autocast(self.device.type, enabled=self.use_amp):
                 outputs = self.model(images)
-                if self.needs_indices and indices is not None:
-                    loss_unreduced = self.criterion(outputs, targets, indices.to(self.device))
+                if indices is not None:
+                    loss_unreduced = self.criterion(outputs, targets, indices=indices.to(self.device))
                 else:
                     loss_unreduced = self.criterion(outputs, targets)
                 loss = loss_unreduced / self.accum_steps

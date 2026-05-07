@@ -48,8 +48,7 @@ def main():
     else:
         train_loader, val_loader = get_dataloaders(cfg)
     model = build_model(cfg)
-    num_samples = getattr(train_loader.dataset, "num_global_samples", len(train_loader.dataset))
-    criterion = build_loss(cfg, num_samples=num_samples)
+    criterion = build_loss(cfg, num_samples=len(train_loader.dataset))
 
     trainer = BaseTrainer(model, train_loader, val_loader, criterion, cfg)
 
