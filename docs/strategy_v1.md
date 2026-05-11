@@ -7,7 +7,7 @@
 ## 实验设置
 
 - 数据集：ImageNet-1K train 10% 子集，val 使用完整验证集
-- 模型：ResNet-50（如本地时间不足，可先用 StarNet 做快速筛查，再用 ResNet-50 复验）
+- 模型：StarNet-S2 快速筛查版。本轮结论仅用于比较 SCE/GCE 的稳定性与相对趋势；最终主训练仍需在 ResNet-50 / ConvNeXt-V2 上复验。
 - 公共参数：
   - epochs: 10
   - warmup_epochs: 1
