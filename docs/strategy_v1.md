@@ -59,6 +59,15 @@ python scripts/plot_loss_sweep.py --input logs --output docs
 
 结论：六组 loss 均未出现 NaN/Inf，说明 SCE/GCE 在 10% 子集上可稳定训练。SCE `alpha=0.5, beta=1.0` 的 train loss 与 train acc 改善最明显，建议作为噪声类 targeted SCE 的第一候选；GCE 建议保留 `q=0.7` 作为备选鲁棒 loss 起点。
 
+### Additional SCE beta check
+
+> 为回应 `alpha/beta` 联合调参要求，补跑 B 噪声报告建议的两个 beta 组合；该表作为主 6 组 sweep 的补充，不改动主汇总图和 CSV。
+
+| run_name | 参数 | Epochs | Initial Loss | Final Loss | Final Train Acc | Best Val Top-1 | Final Val Top-1 | Final Val Top-5 | NaN/Inf | Train Loss 下降 | 结论 |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---|---|---|
+| sce_a05_b05 | alpha=0.5, beta=0.5 | 10 | 5.4582 | 5.0759 | 2.7344% | 0.138% | 0.106% | 0.582% | 否 | 是 | train loss/acc 改善最明显，但 val top-1 未同步提升；可作为 targeted noisy-class fine-tuning 候选 |
+| sce_a07_b03 | alpha=0.7, beta=0.3 | 10 | 6.0440 | 5.8911 | 0.5531% | 0.146% | 0.146% | 0.528% | 否 | 是 | 更平衡，val top-1 略高于 alpha=0.5,beta=0.5；适合作为 radio 等高噪声类的保守候选 |
+
 
 ## 噪声报告结论
 
