@@ -46,16 +46,19 @@ python scripts/plot_loss_sweep.py --input logs --output docs
 
 ## 结果记录
 
-> 当前仓库本地尚未放入 Kaggle ImageNet 数据，以下表格待 6 组实验跑完后由 `docs/week2_loss_sweep.csv` 回填。
+> 本次实验使用 AutoDL 上从 Kaggle zip 按类别均匀抽样构造的物理 10% train subset，因此训练命令使用 `--subset 1.0`；val 使用完整 50,000 张验证集。模型为 StarNet-S2 快速筛查版。
 
-| run_name | NaN/Inf | Train Loss 下降 | Best Val Top-1 | Final Val Top-5 | 结论 |
-|---|---|---|---:|---:|---|
-| sce_a01_b10 | TBD | TBD | TBD | TBD | 待跑 |
-| sce_a05_b10 | TBD | TBD | TBD | TBD | 待跑 |
-| sce_a07_b10 | TBD | TBD | TBD | TBD | 待跑 |
-| gce_q05 | TBD | TBD | TBD | TBD | 待跑 |
-| gce_q07 | TBD | TBD | TBD | TBD | 待跑 |
-| gce_q09 | TBD | TBD | TBD | TBD | 待跑 |
+| run_name | Loss | 参数 | Epochs | Initial Loss | Final Loss | Final Train Acc | Best Val Top-1 | Final Val Top-1 | Final Val Top-5 | NaN/Inf | Train Loss 下降 | 结论 |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|---|---|---|
+| sce_a01_b10 | SCE | alpha=0.1, beta=1.0 | 10 | 4.6878 | 4.6903 | 0.1391% | 0.162% | 0.152% | 0.714% | 否 | 否 | 可跑通但收敛最弱，不推荐作为主配置 |
+| sce_a05_b10 | SCE | alpha=0.5, beta=1.0 | 10 | 7.4553 | 7.3206 | 0.7688% | 0.148% | 0.110% | 0.500% | 否 | 是 | 训练集收敛最明显，可作为噪声类 targeted SCE 候选 |
+| sce_a07_b10 | SCE | alpha=0.7, beta=1.0 | 10 | 8.8394 | 8.7055 | 0.4836% | 0.144% | 0.090% | 0.544% | 否 | 是 | 稳定但验证集收益不明显，优先级低于 alpha=0.5 |
+| gce_q05 | GCE | q=0.5 | 10 | 1.9369 | 1.9352 | 0.2500% | 0.138% | 0.136% | 0.468% | 否 | 是 | 稳定但收敛幅度很小，偏保守 |
+| gce_q07 | GCE | q=0.7 | 10 | 1.4172 | 1.4163 | 0.1992% | 0.146% | 0.140% | 0.484% | 否 | 是 | 稳定，可作为 GCE 默认起点 |
+| gce_q09 | GCE | q=0.9 | 10 | 1.1089 | 1.1087 | 0.1344% | 0.138% | 0.120% | 0.490% | 否 | 是 | 接近 CE 行为，收敛弱于 SCE alpha=0.5 |
+
+结论：六组 loss 均未出现 NaN/Inf，说明 SCE/GCE 在 10% 子集上可稳定训练。SCE `alpha=0.5, beta=1.0` 的 train loss 与 train acc 改善最明显，建议作为噪声类 targeted SCE 的第一候选；GCE 建议保留 `q=0.7` 作为备选鲁棒 loss 起点。
+
 
 ## 噪声报告结论
 
