@@ -86,9 +86,13 @@ python scripts/plot_loss_sweep.py --input logs --output docs
    - `q=0.5` 更抗噪但更可能欠拟合。
    - `q=0.9` 更接近 CE，可用于验证鲁棒 loss 是否确实带来收益。
 
-4. 数据增强策略保持保守。
-   - v1 可启用 RandAug / ColorJitter / RandomErasing 做常规增强。
-   - Mixup / CutMix 当前在 `src/data/transforms.py` 中尚未接入 trainer，v1 文档不把它们列为已启用策略。
+4. 混合增强与常规增强策略。
+   - 本轮 10% loss sweep 的目标是验证 SCE/GCE 自身是否稳定收敛，因此不启用 Mixup/CutMix，避免 soft label 与鲁棒 loss 同时引入额外变量。
+   - v1 常规增强保持保守：RandAug / ColorJitter / RandomErasing 可在主训练中启用，但 loss sweep 阶段保持与 baseline 配置一致。
+   - Mixup / CutMix 当前在 `src/data/transforms.py` 中已有 placeholder 类，但尚未接入 `BaseTrainer` / `NoisyTrainer`，因此本版本策略记录为“暂不启用”。
+   - 后续接入建议：Mixup `alpha=0.2`，CutMix `alpha=1.0`，label smoothing `0.1`。
+   - 接入 Mixup/CutMix 后，需要确认 loss 支持 soft targets；当前 SCE/GCE 实现面向 hard class indices，不能直接和 soft label 混用。
+   - 推荐顺序：先用 CE + label smoothing 验证 Mixup/CutMix，再单独评估 SCE/GCE；不要在同一轮实验里同时改 loss 和混合增强。
 
 5. 学习率策略。
    - 10% 子集 sweep 首先沿用 ImageNet ResNet-50 配置的 SGD + cosine + 1 epoch warmup。
