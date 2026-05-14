@@ -1,3 +1,6 @@
+import csv
+import json
+import math
 import os
 import time
 import torch
@@ -65,11 +68,16 @@ class BaseTrainer:
         # scheduler
         warmup_epochs = tc.get("warmup_epochs", 5)
         total_epochs = tc["epochs"]
-        warmup_scheduler = LinearLR(self.optimizer, start_factor=0.01, total_iters=warmup_epochs)
-        cosine_scheduler = CosineAnnealingLR(self.optimizer, T_max=total_epochs - warmup_epochs)
-        self.scheduler = SequentialLR(
-            self.optimizer, [warmup_scheduler, cosine_scheduler], milestones=[warmup_epochs],
-        )
+        if total_epochs <= warmup_epochs:
+            warmup_epochs = max(0, total_epochs - 1)
+        if warmup_epochs > 0:
+            warmup_scheduler = LinearLR(self.optimizer, start_factor=0.01, total_iters=warmup_epochs)
+            cosine_scheduler = CosineAnnealingLR(self.optimizer, T_max=max(1, total_epochs - warmup_epochs))
+            self.scheduler = SequentialLR(
+                self.optimizer, [warmup_scheduler, cosine_scheduler], milestones=[warmup_epochs],
+            )
+        else:
+            self.scheduler = CosineAnnealingLR(self.optimizer, T_max=max(1, total_epochs))
 
         self.use_amp = tc.get("amp", True) and self.device.type == "cuda"
         self.scaler = torch.amp.GradScaler(self.device.type, enabled=self.use_amp)
@@ -80,6 +88,21 @@ class BaseTrainer:
 
         self.best_acc = 0.0
         self.global_step = 0
+        self.epoch_history = []
+        self.metrics_path = None
+        self.run_dir = None
+        run_name = cfg.get("logging", {}).get("run_name")
+        if run_name:
+            log_dir = cfg.get("logging", {}).get("log_dir", "./logs")
+            self.run_dir = os.path.join(log_dir, run_name)
+            os.makedirs(self.run_dir, exist_ok=True)
+            self.metrics_path = os.path.join(self.run_dir, "metrics.csv")
+            with open(self.metrics_path, "w", newline="", encoding="utf-8") as f:
+                writer = csv.DictWriter(f, fieldnames=[
+                    "epoch", "train_loss", "train_acc", "val_top1", "val_top5",
+                    "best_val_top1", "lr", "epoch_time_sec", "loss", "loss_params",
+                ])
+                writer.writeheader()
 
         # WandB (optional)
         self.wandb_run = None
@@ -179,6 +202,50 @@ class BaseTrainer:
 
         return top1_sum / total, top5_sum / total
 
+    def _write_epoch_metrics(self, metrics):
+        if not self.metrics_path:
+            return
+        tc = self.cfg["training"]
+        row = {
+            "epoch": metrics["epoch"],
+            "train_loss": metrics["train/loss_epoch"],
+            "train_acc": metrics["train/acc_epoch"],
+            "val_top1": metrics.get("val/top1", ""),
+            "val_top5": metrics.get("val/top5", ""),
+            "best_val_top1": metrics.get("val/best_top1", self.best_acc),
+            "lr": self.optimizer.param_groups[0]["lr"],
+            "epoch_time_sec": metrics["train/epoch_time_sec"],
+            "loss": tc.get("loss", "ce"),
+            "loss_params": json.dumps(tc.get("loss_params", {}), sort_keys=True),
+        }
+        with open(self.metrics_path, "a", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=row.keys())
+            writer.writerow(row)
+
+    def _write_summary(self):
+        if not self.run_dir or not self.epoch_history:
+            return
+        train_losses = [m["train/loss_epoch"] for m in self.epoch_history]
+        values = []
+        for metrics in self.epoch_history:
+            for value in metrics.values():
+                if isinstance(value, (int, float)):
+                    values.append(float(value))
+        summary = {
+            "run_name": self.cfg.get("logging", {}).get("run_name"),
+            "loss": self.cfg["training"].get("loss", "ce"),
+            "loss_params": self.cfg["training"].get("loss_params", {}),
+            "epochs": self.epochs,
+            "best_val_top1": self.best_acc,
+            "initial_train_loss": train_losses[0],
+            "final_train_loss": train_losses[-1],
+            "has_nan_or_inf": any(not math.isfinite(v) for v in values),
+            "train_loss_decreased": train_losses[-1] < train_losses[0],
+            "final_metrics": self.epoch_history[-1],
+        }
+        with open(os.path.join(self.run_dir, "summary.json"), "w", encoding="utf-8") as f:
+            json.dump(summary, f, indent=2, ensure_ascii=False)
+
     def save_checkpoint(self, epoch, acc1, filename="latest.pth"):
         state = {
             "epoch": epoch,
@@ -231,6 +298,8 @@ class BaseTrainer:
                 epoch_metrics["val/best_top1"] = self.best_acc
 
             print(log)
+            self.epoch_history.append(epoch_metrics.copy())
+            self._write_epoch_metrics(epoch_metrics)
             if self.wandb_run:
                 self.wandb_run.log(epoch_metrics, step=self.global_step)
 
@@ -238,6 +307,7 @@ class BaseTrainer:
                 self.save_checkpoint(epoch, self.best_acc, "latest.pth")
 
         self.save_checkpoint(self.epochs, self.best_acc, "latest.pth")
+        self._write_summary()
         print(f"Training complete. Best Val Top-1: {self.best_acc:.2f}%")
         if self.wandb_run:
             self.wandb_run.summary["best_top1"] = self.best_acc
