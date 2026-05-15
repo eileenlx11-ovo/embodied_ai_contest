@@ -52,10 +52,11 @@ def main():
 
     trainer = BaseTrainer(model, train_loader, val_loader, criterion, cfg)
 
+    start_epoch = 1
     if args.resume:
-        trainer.load_checkpoint(args.resume)
+        start_epoch = trainer.load_checkpoint(args.resume) + 1
 
-    trainer.fit()
+    trainer.fit(start_epoch=start_epoch)
 
 
 if __name__ == "__main__":
