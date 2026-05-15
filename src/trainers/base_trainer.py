@@ -290,6 +290,14 @@ class BaseTrainer:
     def load_checkpoint(self, path):
         ckpt = torch.load(path, map_location=self.device, weights_only=False)
         self.model.load_state_dict(ckpt["model"])
+        if "optimizer" in ckpt:
+            self.optimizer.load_state_dict(ckpt["optimizer"])
+        if "scheduler" in ckpt:
+            self.scheduler.load_state_dict(ckpt["scheduler"])
+        if "scaler" in ckpt:
+            self.scaler.load_state_dict(ckpt["scaler"])
+        if "best_acc" in ckpt:
+            self.best_acc = ckpt["best_acc"]
         if self.ema and "ema" in ckpt:
             self.ema.load_state_dict(ckpt["ema"])
         if "optimizer" in ckpt:
