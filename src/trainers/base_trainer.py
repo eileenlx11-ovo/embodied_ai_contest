@@ -263,16 +263,24 @@ class BaseTrainer:
     def load_checkpoint(self, path):
         ckpt = torch.load(path, map_location=self.device, weights_only=False)
         self.model.load_state_dict(ckpt["model"])
+        if "optimizer" in ckpt:
+            self.optimizer.load_state_dict(ckpt["optimizer"])
+        if "scheduler" in ckpt:
+            self.scheduler.load_state_dict(ckpt["scheduler"])
+        if "scaler" in ckpt:
+            self.scaler.load_state_dict(ckpt["scaler"])
+        if "best_acc" in ckpt:
+            self.best_acc = ckpt["best_acc"]
         if self.ema and "ema" in ckpt:
             self.ema.load_state_dict(ckpt["ema"])
         return ckpt.get("epoch", 0)
 
-    def fit(self):
+    def fit(self, start_epoch=1):
         print(f"Training on {self.device} for {self.epochs} epochs")
         print(f"Train samples: {len(self.train_loader.dataset)}, "
               f"Val samples: {len(self.val_loader.dataset)}")
 
-        for epoch in range(1, self.epochs + 1):
+        for epoch in range(start_epoch, self.epochs + 1):
             t0 = time.time()
             train_loss, train_acc = self.train_one_epoch(epoch)
             elapsed = time.time() - t0
