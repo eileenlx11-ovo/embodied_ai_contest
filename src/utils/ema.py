@@ -23,3 +23,4 @@ class ModelEMA:
 
     def load_state_dict(self, state_dict):
         self.ema.load_state_dict(state_dict)
+

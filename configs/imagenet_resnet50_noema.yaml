@@ -3,7 +3,7 @@
 
 data:
   dataset: imagenet
-  root: /root/autodl-tmp/imagenet_full/ILSVRC/Data/CLS-LOC
+  root: /root/autodl-tmp/imagenet_10p
   input_size: 224
   batch_size: 128
   num_workers: 4
@@ -28,7 +28,7 @@ training:
   amp: true
   accumulation_steps: 2
   grad_clip: 5.0
-  ema_decay: 0.9999
+  ema_decay: 0.0
   channels_last: true
   compile: false
 

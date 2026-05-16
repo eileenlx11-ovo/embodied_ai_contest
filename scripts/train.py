@@ -25,6 +25,17 @@ def main():
     parser.add_argument("--device", type=str, default="auto",
                         choices=["auto", "cuda", "cpu"],
                         help="auto=自动检测, cuda=强制GPU, cpu=强制CPU")
+    parser.add_argument("--loss", type=str, default=None,
+                        choices=["ce", "label_smoothing", "sce", "gce", "peer_loss", "elr", "composite"],
+                        help="覆盖 cfg.training.loss，便于 loss sweep")
+    parser.add_argument("--sce-alpha", type=float, default=None,
+                        help="覆盖 SCE loss_params.alpha")
+    parser.add_argument("--sce-beta", type=float, default=None,
+                        help="覆盖 SCE loss_params.beta")
+    parser.add_argument("--gce-q", type=float, default=None,
+                        help="覆盖 GCE loss_params.q")
+    parser.add_argument("--run-name", type=str, default=None,
+                        help="本地 metrics 输出目录名")
     args = parser.parse_args()
 
     with open(args.config, encoding="utf-8") as f:
@@ -38,6 +49,17 @@ def main():
         cfg["training"]["warmup_epochs"] = args.warmup_epochs
     if args.eval_interval is not None:
         cfg["logging"]["eval_interval"] = args.eval_interval
+    if args.loss is not None:
+        cfg["training"]["loss"] = args.loss
+        cfg["training"].setdefault("loss_params", {})
+    if args.sce_alpha is not None:
+        cfg["training"].setdefault("loss_params", {})["alpha"] = args.sce_alpha
+    if args.sce_beta is not None:
+        cfg["training"].setdefault("loss_params", {})["beta"] = args.sce_beta
+    if args.gce_q is not None:
+        cfg["training"].setdefault("loss_params", {})["q"] = args.gce_q
+    if args.run_name is not None:
+        cfg.setdefault("logging", {})["run_name"] = args.run_name
     cfg["device"] = args.device
 
     set_seed(cfg.get("seed", 42))
@@ -52,11 +74,10 @@ def main():
 
     trainer = BaseTrainer(model, train_loader, val_loader, criterion, cfg)
 
-    start_epoch = 1
     if args.resume:
-        start_epoch = trainer.load_checkpoint(args.resume) + 1
+        trainer.load_checkpoint(args.resume)
 
-    trainer.fit(start_epoch=start_epoch)
+    trainer.fit()
 
 
 if __name__ == "__main__":
