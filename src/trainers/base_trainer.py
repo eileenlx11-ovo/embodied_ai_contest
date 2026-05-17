@@ -5,9 +5,11 @@ import os
 import time
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from torch.optim.lr_scheduler import LinearLR, CosineAnnealingLR, SequentialLR
 from src.utils.metrics import accuracy
 from src.utils.ema import ModelEMA
+from src.data.transforms import Mixup, CutMix
 
 try:
     import wandb
@@ -68,16 +70,17 @@ class BaseTrainer:
         # scheduler
         warmup_epochs = tc.get("warmup_epochs", 5)
         total_epochs = tc["epochs"]
+        eta_min = tc.get("eta_min", 1e-6)
         if total_epochs <= warmup_epochs:
             warmup_epochs = max(0, total_epochs - 1)
         if warmup_epochs > 0:
             warmup_scheduler = LinearLR(self.optimizer, start_factor=0.01, total_iters=warmup_epochs)
-            cosine_scheduler = CosineAnnealingLR(self.optimizer, T_max=max(1, total_epochs - warmup_epochs))
+            cosine_scheduler = CosineAnnealingLR(self.optimizer, T_max=max(1, total_epochs - warmup_epochs), eta_min=eta_min)
             self.scheduler = SequentialLR(
                 self.optimizer, [warmup_scheduler, cosine_scheduler], milestones=[warmup_epochs],
             )
         else:
-            self.scheduler = CosineAnnealingLR(self.optimizer, T_max=max(1, total_epochs))
+            self.scheduler = CosineAnnealingLR(self.optimizer, T_max=max(1, total_epochs), eta_min=eta_min)
 
         self.use_amp = tc.get("amp", True) and self.device.type == "cuda"
         self.scaler = torch.amp.GradScaler(self.device.type, enabled=self.use_amp)
@@ -85,6 +88,17 @@ class BaseTrainer:
         # EMA
         ema_decay = tc.get("ema_decay", 0.0)
         self.ema = ModelEMA(self.model, decay=ema_decay) if ema_decay > 0 else None
+
+        # Mixup / CutMix (config-gated, default off)
+        aug_cfg = cfg.get("augmentation", {})
+        self.mixup = None
+        self.cutmix = None
+        self.num_classes = cfg["model"]["num_classes"]
+        if aug_cfg.get("mixup", False):
+            self.mixup = Mixup(alpha=aug_cfg.get("mixup_alpha", 0.2))
+        if aug_cfg.get("cutmix", False):
+            self.cutmix = CutMix(alpha=aug_cfg.get("cutmix_alpha", 1.0))
+        self.mixup_prob = aug_cfg.get("mixup_prob", 0.5)
 
         self.best_acc = 0.0
         self.global_step = 0
@@ -140,9 +154,21 @@ class BaseTrainer:
             if self.cfg["training"].get("channels_last", False):
                 images = images.to(memory_format=torch.channels_last)
 
+            # Mixup / CutMix (only when enabled via config)
+            mixed_targets = None
+            if self.mixup or self.cutmix:
+                use_cutmix = self.cutmix and (not self.mixup or torch.rand(1).item() > self.mixup_prob)
+                if use_cutmix:
+                    images, mixed_targets = self.cutmix(images, targets, self.num_classes)
+                elif self.mixup:
+                    images, mixed_targets = self.mixup(images, targets, self.num_classes)
+
             with torch.amp.autocast(self.device.type, enabled=self.use_amp):
                 outputs = self.model(images)
-                if indices is not None:
+                if mixed_targets is not None:
+                    log_probs = F.log_softmax(outputs, dim=-1)
+                    loss = -(mixed_targets * log_probs).sum(dim=-1).mean() / self.accum_steps
+                elif indices is not None:
                     loss = self.criterion(outputs, targets, indices=indices) / self.accum_steps
                 else:
                     loss = self.criterion(outputs, targets) / self.accum_steps
@@ -162,6 +188,7 @@ class BaseTrainer:
             total_loss += loss.item() * self.accum_steps
             _, predicted = outputs.max(1)
             total += targets.size(0)
+            # Use original hard targets for accuracy even when mixup is active
             correct += predicted.eq(targets).sum().item()
             self.global_step += 1
 
