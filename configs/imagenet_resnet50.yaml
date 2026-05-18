@@ -3,7 +3,7 @@
 
 data:
   dataset: imagenet
-  root: ./data/imagenet
+  root: /root/autodl-tmp/imagenet_full/ILSVRC/Data/CLS-LOC
   input_size: 224
   batch_size: 128
   num_workers: 4
