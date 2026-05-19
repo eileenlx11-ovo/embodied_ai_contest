@@ -25,8 +25,7 @@
 
 | 项目 | 值 |
 |------|-----|
-| SSH | `ssh -p 30874 root@connect.cqa1.seetacloud.com` |
-| 密码 | `qK8Z6EsjlA8I` |
+| SSH | `ssh -p <PORT> root@<HOST>`（凭据见团队内部文档，勿提交到仓库） |
 | GPU | RTX 4090D, 24GB VRAM |
 | 项目路径 | `/root/autodl-tmp/embodied_ai_contest/` |
 | 数据路径 | `/root/autodl-tmp/imagenet_full/ILSVRC/Data/CLS-LOC/` (train + val) |
@@ -38,6 +37,7 @@
 - SSH 连接慢，paramiko 需设 `timeout=60, banner_timeout=120`
 - 启动训练必须加 `PYTHONDONTWRITEBYTECODE=1` 防缓存旧代码
 - GPU 当前空闲（0% / 0 MiB），可直接使用
+- SSH 凭据请联系乔（D 组）获取，不要提交到仓库
 
 ---
 
@@ -214,6 +214,11 @@ PYTHONDONTWRITEBYTECODE=1 nohup /root/miniconda3/bin/python -u scripts/train.py 
 # 5. 监控
 tail -f logs/resnet50_mixup_randaug.out
 nvidia-smi -l 30
+
+# 6. Resume 中断的训练
+PYTHONDONTWRITEBYTECODE=1 /root/miniconda3/bin/python -u scripts/train.py \
+  --config configs/imagenet_resnet50_mixup.yaml \
+  --resume checkpoints_mixup/latest.pth
 ```
 
 ---
