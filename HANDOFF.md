@@ -195,8 +195,8 @@ Config 已就绪：`configs/imagenet_resnet50_mixup.yaml`
 ## 十、快速上手
 
 ```bash
-# 1. 连接服务器
-ssh -p 30874 root@connect.cqa1.seetacloud.com
+# 1. 连接服务器（凭据见团队内部文档）
+ssh -p <PORT> root@<HOST>
 
 # 2. 进入项目
 cd /root/autodl-tmp/embodied_ai_contest
