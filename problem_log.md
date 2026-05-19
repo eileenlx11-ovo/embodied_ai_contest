@@ -24,6 +24,10 @@
 
 | 日期 | 问题描述 | 影响 | 解决方案 | 状态 |
 |------|---------|------|---------|------|
+| 5/15 | `make_imagenet_10p.py` 的 `prepare_val()` 未成功创建 val 目录：Kaggle 原始 val 是 flat 的（50000 张平铺），脚本检测到非 class-folder 结构后尝试用 CSV 整理但未生效 | autodl-tmp 上 `imagenet_10p/val/` 不存在，训练时 val 评估完全随机（0.1%），所有 Loss 对比实验结论无效 | SSH 登录远程机器，用 `LOC_val_solution.csv` 将 flat val 按 synset 整理成 1000 个类别子文件夹（symlink），验证 train/val classes 完全对齐 | 已解决 |
+| 5/15 | autodl-tmp1 上 `imagenet_10p/train/` 只有 123 个类（zip 解压中断） | ResNet-50 config 设 num_classes=1000 但 train 只覆盖 123 类；StarNet config 被手动改为 num_classes=123 掩盖了问题 | 将 autodl-tmp1/imagenet_10p symlink 到 autodl-tmp/imagenet_10p（完整 1000 类），修正 StarNet config num_classes=1000 | 已解决 |
+| 5/15 | 之前所有 SCE/GCE 实验（logs/ 下 8 组）Val Top-1 均为 0.1-0.16%，等于随机猜测 | 两周的 Loss 对比实验数据全部作废 | 数据修复后重新启动 5 组 Loss 对比实验（CE/SCE×2/GCE/ELR），10% subset × 30 epochs | 已解决 |
+| 5/15 | EMA decay=0.9999 在短期实验（10% subset + 30ep）中导致 EMA 模型坍缩：预测只输出 2 个类，max logit 达 64（正常应 <10） | validate() 使用 EMA 模型评估，Val Top-1 始终 0.1% 即使 train acc 已达 16%；对比实验无法得出有效结论 | 短期实验禁用 EMA（ema_decay=0），全量训练保留 EMA 0.9999；创建 `imagenet_resnet50_noema.yaml` 用于对比实验 | 已解决 |
 
 ## Week 4 (5/19 - 5/25)
 

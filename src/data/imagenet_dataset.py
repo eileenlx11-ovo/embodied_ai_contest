@@ -61,10 +61,12 @@ def _build_loaders(cfg, train_dataset, val_dataset):
     train_loader = DataLoader(
         train_dataset, batch_size=batch_size, shuffle=True,
         num_workers=num_workers, pin_memory=pin_memory, drop_last=True,
+        persistent_workers=num_workers > 0,
     )
     val_loader = DataLoader(
         val_dataset, batch_size=batch_size * 2, shuffle=False,
         num_workers=num_workers, pin_memory=pin_memory,
+        persistent_workers=num_workers > 0,
     )
     return train_loader, val_loader
 

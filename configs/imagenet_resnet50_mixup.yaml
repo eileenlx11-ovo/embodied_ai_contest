@@ -1,5 +1,5 @@
-# ImageNet-1K + ResNet-50 baseline
-# RTX 4060: batch=128, accum=2, ~5-6 days for 100 epochs
+# ImageNet-1K + ResNet-50 + RandAugment + Mixup
+# Ablation: augmentation improvements over baseline
 
 data:
   dataset: imagenet
@@ -23,6 +23,7 @@ training:
   momentum: 0.9
   scheduler: cosine
   warmup_epochs: 5
+  eta_min: 1.0e-6
   loss: ce
   label_smoothing: 0.1
   amp: true
@@ -33,16 +34,23 @@ training:
   compile: false
 
 augmentation:
-  randaug: false
+  randaug: true
+  randaug_n: 2
+  randaug_m: 9
   color_jitter: false
-  random_erasing: false
+  random_erasing: true
+  mixup: true
+  mixup_alpha: 0.2
+  cutmix: true
+  cutmix_alpha: 1.0
+  mixup_prob: 0.5
 
 logging:
-  run_name: imagenet_baseline_v1
+  run_name: resnet50_mixup_randaug
   log_interval: 100
   eval_interval: 1
   save_interval: 10
-  checkpoint_dir: ./checkpoints
+  checkpoint_dir: ./checkpoints_mixup
   log_dir: ./logs
 
 seed: 42

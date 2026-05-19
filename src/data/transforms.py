@@ -55,12 +55,7 @@ def get_val_transforms(cfg):
 
 
 class Mixup:
-    """Placeholder — defined but not yet wired into BaseTrainer/NoisyTrainer.
-
-    Returns soft targets, so a downstream trainer needs to use a soft-target
-    loss (e.g. `F.cross_entropy` with class-probability targets). Integrate
-    inside the trainer's train_one_epoch before `self.criterion(...)`.
-    """
+    """Batch-level mixup: blends pairs of images and produces soft targets."""
 
     def __init__(self, alpha=0.2):
         self.alpha = alpha
@@ -78,11 +73,7 @@ class Mixup:
 
 
 class CutMix:
-    """Placeholder — defined but not yet wired into BaseTrainer/NoisyTrainer.
-
-    Same integration caveat as `Mixup`: produces soft targets and needs
-    trainer-side hookup before it takes effect.
-    """
+    """Batch-level cutmix: pastes a random patch from one image onto another."""
 
     def __init__(self, alpha=1.0):
         self.alpha = alpha
