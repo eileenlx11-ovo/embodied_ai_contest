@@ -1,0 +1,61 @@
+======================================================================
+ImageNet-1K Long-Tail Analysis Report
+======================================================================
+
+Imbalance Metrics:
+  Classes:       1000
+  Total images:  1,281,167
+  Max count:     1300
+  Min count:     732
+  Mean:          1281.2
+  Median:        1300.0
+  Std:           70.2
+  Q1 / Q3:       1300.0 / 1300.0
+  Imbalance ratio (max/min): 1.78x
+  Relatively balanced.
+
+Top-20 classes (most images):
+--------------------------------------------------
+    1. n01440764  tench                        1300
+    2. n01443537  goldfish                     1300
+    3. n01484850  great white shark            1300
+    4. n01491361  tiger shark                  1300
+    5. n01494475  hammerhead                   1300
+    6. n01496331  electric ray                 1300
+    7. n01498041  stingray                     1300
+    8. n01514668  cock                         1300
+    9. n01514859  hen                          1300
+   10. n01518878  ostrich                      1300
+   11. n01530575  brambling                    1300
+   12. n01531178  goldfinch                    1300
+   13. n01532829  house finch                  1300
+   14. n01534433  junco                        1300
+   15. n01537544  indigo bunting               1300
+   16. n01558993  robin                        1300
+   17. n01560419  bulbul                       1300
+   18. n01580077  jay                          1300
+   19. n01582220  magpie                       1300
+   20. n01592084  chickadee                    1300
+
+Bottom-20 classes (least images):
+--------------------------------------------------
+    1. n02089078  black-and-tan coonhound       732
+    2. n02091635  otterhound                    738
+    3. n02089973  English foxhound              754
+    4. n02113978  Mexican hairless              755
+    5. n02085782  Japanese spaniel              772
+    6. n02087046  toy terrier                   860
+    7. n03197337  digital watch                 889
+    8. n03498962  hatchet                       891
+    9. n03995372  power drill                   908
+   10. n04370456  sweatshirt                    931
+   11. n02095889  Sealyham terrier              936
+   12. n02110627  affenpinscher                 954
+   13. n03920288  Petri dish                    962
+   14. n02606052  rock beauty                   969
+   15. n02102973  Irish water spaniel           969
+   16. n04429376  throne                        976
+   17. n02095314  wire-haired fox terrier       977
+   18. n03476991  hair spray                    980
+   19. n03658185  letter opener                 986
+   20. n04265275  space heater                 1004
