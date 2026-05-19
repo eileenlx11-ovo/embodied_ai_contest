@@ -67,14 +67,17 @@
 
 | Date | Model | Loss | Epochs | Val Top-1 | Val Top-5 | Checkpoint | Notes |
 |------|-------|------|--------|-----------|-----------|------------|-------|
+| TBD | ResNet-50 | Best Loss | 100 | TBD | TBD | best.pth | 正式提交模型 |
 | 2026-05-18 | ResNet-50 | CE+LS | 100 | 77.53% | 93.63% | checkpoints/best.pth | baseline，已提交候选 |
+
 
 ## Key Findings
 
 1. **数据集不是长尾分布**：不平衡比仅 1.78（732~1300 张/类），无需特殊长尾处理
 2. **数据质量高**：损坏 0 张，近空白 0 张，主要噪声来自标签歧义（radio ~60%）
-3. **val 必须按 ImageFolder 类目录组织**：扁平 val 目录会让训练全程显示 Val ≈ 0%（已踩坑）
-4. **历史 loss 对比实验需全部重做**：均跑在 val 损坏期间，无信号
+3. **10% subset 不足以评估 val**：12816 张训练图 + 30 epochs 不够泛化到 50000 val
+4. **val 必须按 ImageFolder 类目录组织**：扁平 val 目录会让训练全程显示 Val ≈ 0%（已踩坑）
+5. **历史 loss 对比实验需全部重做**：均跑在 val 损坏期间，无信号
 
 ## 待办
 
