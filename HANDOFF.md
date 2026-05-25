@@ -1,6 +1,6 @@
 # 项目交接文档
 
-> 交接人：乔（D 组）→ 组长
+> 交接人：陈（D 组）→ 组长
 > 日期：2026-05-18
 > 赛题：网络监督的细粒度图像识别（Webly-Supervised Fine-Grained Image Recognition）
 
