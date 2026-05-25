@@ -166,6 +166,9 @@ class BaseTrainer:
             with torch.amp.autocast(self.device.type, enabled=self.use_amp):
                 outputs = self.model(images)
                 if mixed_targets is not None:
+                    eps = self.cfg["training"].get("label_smoothing", 0.0)
+                    if eps > 0:
+                        mixed_targets = mixed_targets * (1.0 - eps) + eps / self.num_classes
                     log_probs = F.log_softmax(outputs, dim=-1)
                     loss = -(mixed_targets * log_probs).sum(dim=-1).mean() / self.accum_steps
                 elif indices is not None:

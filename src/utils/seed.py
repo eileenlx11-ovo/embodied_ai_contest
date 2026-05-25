@@ -9,5 +9,6 @@ def set_seed(seed: int = 42):
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = False
+        # benchmark=True for ~10% speedup on fixed input shapes; trade off bit-exact reproducibility
+        torch.backends.cudnn.deterministic = False
+        torch.backends.cudnn.benchmark = True
