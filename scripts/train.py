@@ -22,6 +22,10 @@ def main():
     parser.add_argument("--eval-interval", type=int, default=None,
                         help="覆盖 cfg.logging.eval_interval")
     parser.add_argument("--resume", type=str, default=None)
+    parser.add_argument("--resume-mode", type=str, default="full",
+                        choices=["full", "finetune"],
+                        help="full=恢复 optimizer/scheduler/best_acc 继续训练; "
+                             "finetune=只 load model+ema，调度器/best_acc 重置（避免 Bug #3：新旧 schedule 不一致时 LR 反向爬升炸权重）")
     parser.add_argument("--device", type=str, default="auto",
                         choices=["auto", "cuda", "cpu"],
                         help="auto=自动检测, cuda=强制GPU, cpu=强制CPU")
@@ -76,7 +80,7 @@ def main():
 
     start_epoch = 1
     if args.resume:
-        start_epoch = trainer.load_checkpoint(args.resume) + 1
+        start_epoch = trainer.load_checkpoint(args.resume, mode=args.resume_mode) + 1
 
     trainer.fit(start_epoch=start_epoch)
 

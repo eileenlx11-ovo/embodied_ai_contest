@@ -290,11 +290,19 @@ class BaseTrainer:
             state["ema"] = self.ema.state_dict()
         torch.save(state, os.path.join(self.ckpt_dir, filename))
 
-    def load_checkpoint(self, path):
+    def load_checkpoint(self, path, mode="full"):
+        # mode="full": resume mid-training, restore optimizer/scheduler/scaler/best_acc (returns saved epoch).
+        # mode="finetune": only load weights+ema; optimizer/scheduler stay fresh (returns 0, train from epoch 1).
+        #   Use this when continuing into a *different* schedule (Bug #3: old cosine state replayed into new
+        #   schedule causes LR to scale back up and destroy weights).
+        assert mode in ("full", "finetune"), f"unknown resume mode: {mode}"
         ckpt = torch.load(path, map_location=self.device, weights_only=False)
         self.model.load_state_dict(ckpt["model"])
         if self.ema and "ema" in ckpt:
             self.ema.load_state_dict(ckpt["ema"])
+        if mode == "finetune":
+            print(f"[load_checkpoint] mode=finetune: loaded model+ema only, optimizer/scheduler/best_acc kept fresh")
+            return 0
         if "optimizer" in ckpt:
             self.optimizer.load_state_dict(ckpt["optimizer"])
         if "scheduler" in ckpt:
