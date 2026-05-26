@@ -1,0 +1,54 @@
+# ImageNet-1K + ResNet-50 no-EMA config for 30% subset loss rerun
+# Full data root + command-line --subset controls train subset ratio
+
+data:
+  dataset: imagenet
+  root: /root/autodl-tmp/imagenet_full/ILSVRC/Data/CLS-LOC
+  input_size: 224
+  batch_size: 128
+  num_workers: 4
+  pin_memory: true
+  subset: 1.0
+
+model:
+  name: resnet50
+  num_classes: 1000
+  drop_path_rate: 0.0
+
+training:
+  epochs: 100
+  optimizer: sgd
+  base_lr: 0.1
+  weight_decay: 1.0e-4
+  momentum: 0.9
+  scheduler: cosine
+  warmup_epochs: 5
+  eta_min: 1.0e-6
+  loss: ce
+  label_smoothing: 0.1
+  amp: true
+  accumulation_steps: 2
+  grad_clip: 5.0
+  ema_decay: 0.0
+  channels_last: true
+  compile: false
+
+augmentation:
+  randaug: false
+  color_jitter: false
+  random_erasing: false
+  mixup: false
+  mixup_alpha: 0.2
+  cutmix: false
+  cutmix_alpha: 1.0
+  mixup_prob: 0.0
+
+logging:
+  run_name: resnet50_noema_full
+  log_interval: 100
+  eval_interval: 5
+  save_interval: 10
+  checkpoint_dir: ./checkpoints_noema_full
+  log_dir: ./logs
+
+seed: 42
