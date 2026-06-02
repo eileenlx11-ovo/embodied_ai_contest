@@ -37,3 +37,12 @@ Thumbs.db
 *.env
 submit/result.csv
 .claude/
+
+# Local-only server helpers and generated submission artifacts
+server.py
+embodied_ai_submission.tar.gz
+rules_pdftotext.txt
+tmp_rules_text.txt
+tmp/
+_check_extract/
+reviews/.coreview/

@@ -33,16 +33,29 @@
 
 | 日期 | 问题描述 | 影响 | 解决方案 | 状态 |
 |------|---------|------|---------|------|
+| 5/19 | 代码中混入明文凭据（服务器连接信息硬编码进提交历史） | 凭据泄漏风险，且会进入 git 历史难以彻底清除 | 移除明文凭据，连接信息收敛到本地未追踪的 server.py（已 gitignore）；后续密码于 5/20 轮换 | 已解决 |
+| 5/19 | checkpoint resume 只恢复模型权重，未恢复 optimizer/scheduler/scaler 状态 | 中断续训时学习率、动量、AMP scale 全部重置，等于换了套超参，曲线断裂、复现性受损 | resume 逻辑补齐 optimizer/scheduler/GradScaler 三者的 state_dict 恢复，确保断点续训与连续训练等价 | 已解决 |
 
 ## Week 5 (5/26 - 6/1)
 
 | 日期 | 问题描述 | 影响 | 解决方案 | 状态 |
 |------|---------|------|---------|------|
+| 5/26 | Bug #1: mixup 路径下 label_smoothing 失效 — mixup/cutmix 分支绕过了 LS loss 构造 | mixup_v2 前 26ep 实际用的是 hard CE，正则效果打折 | 修复 base_trainer.py 中 mixup 分支的 loss 调用，确保 LS 生效 | 已解决 |
+| 5/26 | Bug #2: cudnn.deterministic=True 与 benchmark=True 同时设置 — deterministic 覆盖 benchmark 导致训练慢 ~5% | epoch_time 偏高（2184s vs 预期 2050s） | 训练时只开 benchmark=True，关闭 deterministic（seed 已固定初始化） | 已解决 |
+| 5/27 | mixup_v2 全增广配方（Mixup+CutMix+RandAug N=2 M=9+RandomErasing）在 100ep 预算下无法收敛到 baseline 水平 | ep77 best=69.08%，远低于 baseline 77.53%；预计终值 71-75% | 诊断：该配方等价 timm A1-tier，需 300-600ep 收敛；100ep 下应使用 A3-tier（弱 aug 或无 aug）。结论：强增广实验作为消融对照保留，不作为提交模型 | 已解决（结论性） |
+| 5/28 | 缺少 "mixup+cutmix only（无 randaug/erasing）" 的数据点 — 无法判断 cutmix 在 100ep 下是正收益还是负收益 | 最终配方选择缺乏依据 | 已跑 full_mixcut 100ep：Mixup α=0.1 + CutMix α=1.0，无 RandAug/Erasing，plain 77.57、HFlip TTA 77.99，最终作为提交候选 | 已解决 |
+| 5/28 | 77.53% baseline ckpt 定位困难 — train_full.log 不在 metrics.csv 体系内，首次查找浪费 30min | 跨会话交接时容易找错日志文件 | 已在 HANDOFF.md 和 memory 中明确标注：权威日志=train_full.log，metrics.csv 中的 imagenet_baseline_v1 是 5/16 跑废的 10% subset 调试 run | 已解决 |
 
 ## Week 6 (6/2 - 6/8)
 
 | 日期 | 问题描述 | 影响 | 解决方案 | 状态 |
 |------|---------|------|---------|------|
+| 6/2 | `submit/run.sh` 默认 CONFIG=imagenet_resnet50.yaml、checkpoint=checkpoints/best.pth — 指向 baseline 而非提交模型 | 评委按默认值复现会跑错配方、读错权重，复现结果对不上提交的 77.99% | 默认值改为 imagenet_resnet50_full_mixcut.yaml + checkpoints_full_mixcut/best.pth；与提交 ckpt 严格对齐 | 已解决 |
+| 6/2 | config 内 data.root 硬编码 `/root/autodl-tmp/...`（我方 AutoDL 路径），与评委挂载路径必然不同 | 评委复现时 ImageFolder 找不到数据，端到端流程第一步即崩 | run.sh 新增 `DATA_ROOT` 环境变量，用 sed 生成 configs/_runtime.yaml 覆盖 root；评委只需 `docker run -e DATA_ROOT=...` 无需改 YAML | 已解决 |
+| 6/2 | 对"可复现 docker"理解需校准：是交镜像 tar 还是源码包？ | 若误做成推理镜像（COPY 进 ckpt），违背规则 §九(二)"完整训练+验证代码+复现脚本"，可能被判不合规 | 确认交可复现训练源码包：Dockerfile 不 COPY checkpoint/数据，run.sh 跑完整 train→eval→predict→validate；评委自行 build & run | 已解决（结论性） |
+| 6/2 | HFlip TTA（原图+水平翻转 softmax 平均）是否触犯规则 §5"禁止模型集成" | 若被判为集成，提交的 77.99% 作废、回退到 plain 77.57% | 判定：单模型、单组权重、仅推理期两次前向平均，不属于多模型集成 → 合规。技术报告需明确论证此点 | 已解决（结论性） |
+| 6/2 | 提交模型选 raw 还是 EMA 权重 | 选错少 ~0.13pp | summary.json：raw top-1=77.57 > EMA 77.438，best_source=raw；提交 best.pth（raw） | 已解决 |
+| 6/2 | 镜像无法在本机/服务器构建验证（均未装 docker，AutoDL 容器不能嵌套 docker） | Dockerfile/requirements 的潜在错误无法在提交前暴露 | 静态检查全过（py_compile、依赖、路径自洽）；提交前须在有 docker 的机器上 `docker build` 验证一次 | 待验证 |
 
 ## 关键决策记录
 

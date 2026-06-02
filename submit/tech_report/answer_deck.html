@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>网络监督的细粒度图像识别答辩</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #5d6778;
+      --line: #d9dee8;
+      --panel: #f5f7fb;
+      --blue: #2457a6;
+      --green: #2f7d57;
+      --red: #a43d3d;
+      --amber: #9b681e;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: #e9edf5; color: var(--ink); }
+    body {
+      font-family: "DengXian", "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      padding: clamp(28px, 4vw, 64px);
+      background: var(--white);
+    }
+
+    .slide.active {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: clamp(18px, 2.4vh, 28px);
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: clamp(13px, 1vw, 16px);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+    h1 {
+      font-size: clamp(42px, 6.2vw, 82px);
+      line-height: 1.05;
+      font-weight: 700;
+      max-width: 1100px;
+    }
+
+    h2 {
+      font-size: clamp(30px, 3.6vw, 54px);
+      line-height: 1.08;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: clamp(18px, 1.6vw, 26px);
+      line-height: 1.2;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: clamp(18px, 1.6vw, 26px);
+      line-height: 1.45;
+      max-width: 980px;
+      margin-top: 20px;
+    }
+
+    .content {
+      min-height: 0;
+      display: grid;
+      align-content: center;
+      gap: clamp(18px, 2.5vh, 28px);
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+      font-size: clamp(12px, 0.9vw, 15px);
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px, 2.6vw, 34px); align-items: stretch; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 2vw, 26px); align-items: stretch; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(12px, 1.4vw, 20px); align-items: stretch; }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: clamp(18px, 2vw, 28px);
+      min-width: 0;
+    }
+
+    .metric {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: clamp(16px, 1.8vw, 24px);
+      min-height: 142px;
+      display: grid;
+      align-content: space-between;
+      gap: 14px;
+    }
+
+    .metric strong {
+      font-family: "Times New Roman", serif;
+      font-size: clamp(38px, 5vw, 70px);
+      line-height: 1;
+      color: var(--blue);
+    }
+
+    .metric span, .metric small {
+      color: var(--muted);
+      font-size: clamp(14px, 1vw, 17px);
+      line-height: 1.4;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.2em;
+      color: var(--ink);
+      font-size: clamp(16px, 1.25vw, 22px);
+      line-height: 1.6;
+    }
+
+    li + li { margin-top: 8px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: clamp(14px, 1vw, 18px);
+      line-height: 1.45;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th { background: var(--panel); color: var(--muted); font-weight: 700; }
+    tr:last-child td { border-bottom: 0; }
+    .num { text-align: right; font-family: "Times New Roman", serif; font-weight: 700; }
+    .good { color: var(--green); font-weight: 700; }
+    .warn { color: var(--amber); font-weight: 700; }
+    .bad { color: var(--red); font-weight: 700; }
+
+    code, pre {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: clamp(13px, 0.95vw, 16px);
+      line-height: 1.55;
+    }
+
+    pre {
+      margin: 0;
+      padding: 16px 18px;
+      background: #101827;
+      color: #edf2ff;
+      border-radius: 8px;
+      overflow: auto;
+      max-height: 42vh;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      min-height: 150px;
+      background: var(--white);
+      display: grid;
+      gap: 10px;
+    }
+
+    .step b { color: var(--blue); font-size: clamp(17px, 1.2vw, 21px); }
+    .step p { color: var(--muted); font-size: clamp(14px, 1vw, 17px); line-height: 1.45; }
+
+    .tag {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: var(--muted);
+      background: var(--white);
+      font-size: clamp(12px, 0.85vw, 14px);
+      margin: 4px 6px 4px 0;
+    }
+
+    .image {
+      width: 100%;
+      max-height: 50vh;
+      object-fit: contain;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    .bar-list { display: grid; gap: 12px; }
+    .bar-row { display: grid; grid-template-columns: 150px 1fr 70px; gap: 12px; align-items: center; }
+    .bar-label { color: var(--muted); font-size: clamp(13px, 0.95vw, 16px); }
+    .bar-track { height: 16px; background: #e1e6ef; border-radius: 999px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--blue); }
+    .bar-val { text-align: right; font-family: "Times New Roman", serif; font-weight: 700; }
+
+    .note {
+      border-left: 5px solid var(--blue);
+      background: var(--panel);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      color: var(--muted);
+      font-size: clamp(15px, 1.1vw, 19px);
+      line-height: 1.55;
+    }
+
+    .cover-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: clamp(24px, 4vw, 60px);
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      body { overflow: auto; }
+      .deck { height: auto; min-height: 100vh; }
+      .slide { position: relative; min-height: 100vh; }
+      .grid-2, .grid-3, .grid-4, .cover-layout, .flow { grid-template-columns: 1fr; }
+      .slide.active { min-height: 100vh; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" id="deck">
+    <section class="slide active">
+      <div class="topline"><span>网络监督的细粒度图像识别</span><span>01 / 10</span></div>
+      <div class="content cover-layout">
+        <div>
+          <h1>单模型 ResNet-50 的噪声鲁棒训练方案</h1>
+          <p class="subtitle">ImageNet-1K from scratch · Mixup/CutMix · raw/EMA 双评估 · HFlip TTA</p>
+          <p class="subtitle">上海理工大学 · 2026 年 6 月</p>
+        </div>
+        <div class="panel">
+          <h3>最终验证结果</h3>
+          <div class="metric"><span>Plain validation</span><strong>77.57%</strong><small>Top-1, single checkpoint</small></div>
+          <div style="height:14px"></div>
+          <div class="metric"><span>Single-model HFlip TTA</span><strong>77.99%</strong><small>Top-1, no ensemble</small></div>
+        </div>
+      </div>
+      <div class="footer"><span>Team: 姚 / 乔 / 龚 / 陈</span><span>Use ← → or Space to navigate</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"><span>赛题约束</span><span>02 / 10</span></div>
+      <div class="content">
+        <h2>任务不是“堆模型”，而是在严格约束下做稳单模型</h2>
+        <div class="grid-4">
+          <div class="metric"><span>Train</span><strong>1.28M</strong><small>ImageNet-1K training images</small></div>
+          <div class="metric"><span>Validation</span><strong>50K</strong><small>每类 50 张</small></div>
+          <div class="metric"><span>Test</span><strong>100K</strong><small>生成 CSV 提交</small></div>
+          <div class="metric"><span>Model</span><strong>1</strong><small>单 checkpoint, no ensemble</small></div>
+        </div>
+        <div class="grid-2">
+          <div class="panel">
+            <h3>规则边界</h3>
+            <ul>
+              <li>不使用预训练模型</li>
+              <li>不引入 ImageNet-1K 之外的数据</li>
+              <li>最终结果只对应一个模型</li>
+              <li>推理时间和模型大小不作为主要限制</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>设计原则</h3>
+            <ul>
+              <li>先建立强 baseline，再做可解释消融</li>
+              <li>噪声鲁棒优先保留数据覆盖度</li>
+              <li>所有 checkpoint 明确记录 best source</li>
+              <li>最终 CSV 可由固定命令复现</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer"><span>Constraint-driven design</span><span>02</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"><span>核心结果</span><span>03 / 10</span></div>
+      <div class="content">
+        <h2>最终路线：完整数据 + 温和 Mixup/CutMix</h2>
+        <table>
+          <thead>
+            <tr><th>实验</th><th>数据</th><th>训练增强</th><th class="num">Top-1</th><th class="num">Top-5</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>baseline_v1</td><td>full</td><td>RRC + HFlip</td><td class="num">77.53</td><td class="num">93.63</td></tr>
+            <tr><td>cleaned_v1</td><td>C1+C2 cleaned</td><td>RRC + HFlip</td><td class="num warn">76.84</td><td class="num">92.63</td></tr>
+            <tr><td>full_mixcut</td><td>full</td><td>Mixup0.1 + CutMix1.0</td><td class="num good">77.57</td><td class="num">93.77</td></tr>
+            <tr><td>full_mixcut + HFlip TTA</td><td>full</td><td>同一模型双视角推理</td><td class="num good">77.99</td><td class="num">93.97</td></tr>
+          </tbody>
+        </table>
+        <div class="note">HFlip TTA 是同一个 checkpoint 对原图和水平翻转图各前向一次后平均概率，不使用第二个模型，不属于多模型集成。</div>
+      </div>
+      <div class="footer"><span>Best candidate: submit/full_mixcut_hflip.csv</span><span>03</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"><span>数据与清洗</span><span>04 / 10</span></div>
+      <div class="content grid-2">
+        <div>
+          <h2>为什么没有把清洗作为最终路线</h2>
+          <div class="panel">
+            <h3>清洗尝试</h3>
+            <ul>
+              <li>C1：剔除明确类别冲突与同形异义样本</li>
+              <li>C2：teacher-loss top 10%，单类最多删除 15%</li>
+              <li>exclude_file 支持注释、空行过滤、0 匹配 crash</li>
+              <li>merge 阶段对缺失输入文件直接报错</li>
+            </ul>
+          </div>
+          <div style="height:18px"></div>
+          <div class="note">cleaned_v1 Top-1 = 76.84，低于 baseline。高 loss 样本可能既包含错标，也包含困难但有效的正样本。</div>
+        </div>
+        <div>
+          <img class="image" src="../../docs/class_distribution_full.png" alt="class distribution" />
+          <div style="height:18px"></div>
+          <div class="bar-list panel">
+            <h3>路线判断</h3>
+            <div class="bar-row"><span class="bar-label">保留覆盖度</span><div class="bar-track"><div class="bar-fill" style="width:92%"></div></div><span class="bar-val">高</span></div>
+            <div class="bar-row"><span class="bar-label">直接删噪声</span><div class="bar-track"><div class="bar-fill" style="width:58%;background:var(--amber)"></div></div><span class="bar-val">谨慎</span></div>
+            <div class="bar-row"><span class="bar-label">软监督正则</span><div class="bar-track"><div class="bar-fill" style="width:88%;background:var(--green)"></div></div><span class="bar-val">最终</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer"><span>Data coverage beats aggressive removal in this setting</span><span>04</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"><span>最终训练配方</span><span>05 / 10</span></div>
+      <div class="content">
+        <h2>强基线 + 轻量 label-space 增强</h2>
+        <div class="flow">
+          <div class="step"><b>Backbone</b><p>ResNet-50, 1000 classes, from scratch</p></div>
+          <div class="step"><b>Optimization</b><p>SGD + momentum 0.9, WD 1e-4, warmup + cosine</p></div>
+          <div class="step"><b>Regularization</b><p>CE + label smoothing 0.1, EMA 0.9999, grad clip 5.0</p></div>
+          <div class="step"><b>Mixing</b><p>Mixup α=0.1, CutMix α=1.0, no RandAug/Erasing</p></div>
+        </div>
+        <div class="grid-2">
+          <div class="panel">
+            <h3>mixup_prob=0.5 的实际语义</h3>
+            <p class="subtitle" style="font-size:clamp(16px,1.2vw,20px);margin:0">当 Mixup 和 CutMix 同时启用时，50% batch 使用 Mixup，50% batch 使用 CutMix；不是 50% batch 不增强。</p>
+          </div>
+          <div class="panel">
+            <h3>为什么砍掉强增广</h3>
+            <p class="subtitle" style="font-size:clamp(16px,1.2vw,20px);margin:0">RandAugment + RandomErasing 在 100ep 预算下收敛不足，mixup_v2 最终 76.91，低于 baseline。</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer"><span>Final recipe: configs/imagenet_resnet50_full_mixcut.yaml</span><span>05</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"><span>噪声鲁棒机制</span><span>06 / 10</span></div>
+      <div class="content grid-2">
+        <div>
+          <h2>保留样本，软化监督</h2>
+          <div class="panel">
+            <ul>
+              <li>网络标签噪声会让 one-hot 监督过度自信</li>
+              <li>Label smoothing 降低单个标签的确定性</li>
+              <li>Mixup 把两个样本和标签线性混合</li>
+              <li>CutMix 用局部区域混合提升局部判别鲁棒性</li>
+              <li>最终不删除大量样本，减少覆盖度损失</li>
+            </ul>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>从硬标签到软标签</h3>
+          <pre>one_hot(y)
+  ↓ label smoothing
+soft_target
+  ↓ Mixup / CutMix
+λ * target_a + (1 - λ) * target_b
+  ↓ CE on soft target
+lower gradient dominance from noisy labels</pre>
+          <div style="height:16px"></div>
+          <span class="tag">Vicinal risk minimization</span>
+          <span class="tag">Implicit noise robustness</span>
+          <span class="tag">Full data coverage</span>
+        </div>
+      </div>
+      <div class="footer"><span>Noise robustness by soft supervision</span><span>06</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"><span>消融与负结果</span><span>07 / 10</span></div>
+      <div class="content">
+        <h2>负结果帮助确定复杂度边界</h2>
+        <table>
+          <thead>
+            <tr><th>路线</th><th class="num">结果</th><th>结论</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CE + LS baseline</td><td class="num">77.53</td><td>强基线，后续路线必须超过它</td></tr>
+            <tr><td>SCE / GCE</td><td class="num bad">未超过</td><td>当前弱噪声场景下复杂鲁棒 loss 不占优</td></tr>
+            <tr><td>Mixup+CutMix+RandAug+Erasing</td><td class="num warn">76.91</td><td>100ep 下强增广收敛不足</td></tr>
+            <tr><td>C1+C2 cleaned</td><td class="num warn">76.84</td><td>删样本降低覆盖度</td></tr>
+            <tr><td>Mixup0.1 + CutMix1.0</td><td class="num good">77.57</td><td>最终训练配方</td></tr>
+          </tbody>
+        </table>
+        <div class="grid-2">
+          <img class="image" src="../../docs/week2_loss_curves.png" alt="loss curves" />
+          <div class="note">路线收敛到“温和增强”不是拍脑袋，而是由强增广、清洗、鲁棒 loss 三类负结果共同指向。</div>
+        </div>
+      </div>
+      <div class="footer"><span>Ablation-driven decisions</span><span>07</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"><span>工程闭环</span><span>08 / 10</span></div>
+      <div class="content">
+        <h2>代码审查直接影响最终精度</h2>
+        <div class="grid-3">
+          <div class="panel">
+            <h3>训练路径</h3>
+            <ul>
+              <li>Mixup 分支 label smoothing 生效</li>
+              <li>CutMix clone 后贴 patch</li>
+              <li>resume scheduler 模式修复</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>模型选择</h3>
+            <ul>
+              <li>raw/EMA 双评估</li>
+              <li>`best_source` 写入 checkpoint</li>
+              <li>`best.pth` 才是最终权重</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>数据清洗</h3>
+            <ul>
+              <li>exclude_file 0 匹配直接报错</li>
+              <li>teacher ckpt key 兼容</li>
+              <li>merge 缺输入直接失败</li>
+            </ul>
+          </div>
+        </div>
+        <div class="note">full_mixcut 最优为 raw：77.57；EMA 峰值：77.438。没有 dual-eval 会错过最终最优源。</div>
+      </div>
+      <div class="footer"><span>Review, fix, verify</span><span>08</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"><span>提交与复现</span><span>09 / 10</span></div>
+      <div class="content grid-2">
+        <div>
+          <h2>最终只依赖一个 checkpoint</h2>
+          <div class="panel">
+            <h3>Checkpoint metadata</h3>
+            <pre>checkpoints_full_mixcut/best.pth
+epoch=100
+best_source=raw
+best_acc=77.57
+best_raw_acc=77.57
+best_ema_acc=77.438</pre>
+          </div>
+          <div style="height:18px"></div>
+          <div class="metric"><span>Final CSV</span><strong>100K</strong><small>rows, format validation passed</small></div>
+        </div>
+        <div class="panel">
+          <h3>Prediction command</h3>
+          <pre>python scripts/predict.py \
+  --config configs/imagenet_resnet50_full_mixcut.yaml \
+  --checkpoint checkpoints_full_mixcut/best.pth \
+  --tta hflip \
+  --output submit/full_mixcut_hflip.csv</pre>
+          <div style="height:18px"></div>
+          <ul>
+            <li>输出格式：`filename, four-digit class id`</li>
+            <li>无 header，共 100000 行</li>
+            <li>`latest.pth` 只用于恢复训练，不用于提交</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer"><span>Reproducible inference path</span><span>09</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"><span>总结</span><span>10 / 10</span></div>
+      <div class="content">
+        <h2>结论：温和软监督比激进清洗更适合当前任务</h2>
+        <div class="grid-3">
+          <div class="metric"><span>Baseline</span><strong>77.53</strong><small>CE+LS, weak aug</small></div>
+          <div class="metric"><span>Final plain</span><strong>77.57</strong><small>Mixup/CutMix only</small></div>
+          <div class="metric"><span>Final TTA</span><strong>77.99</strong><small>single-model HFlip</small></div>
+        </div>
+        <div class="grid-2">
+          <div class="panel">
+            <h3>最终方案</h3>
+            <ul>
+              <li>单模型、从零训练、无额外数据、无预训练</li>
+              <li>完整数据保留覆盖度</li>
+              <li>Mixup/CutMix 软化 noisy label 监督</li>
+              <li>raw/EMA 双评估保证选对最终权重</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>后续方向</h3>
+            <ul>
+              <li>更长 schedule 下重新评估强增广</li>
+              <li>高噪声类别使用软权重而非直接删除</li>
+              <li>在 from-scratch 约束下尝试更现代主干</li>
+            </ul>
+          </div>
+        </div>
+        <h2 style="text-align:center;color:var(--blue)">谢谢，欢迎提问</h2>
+      </div>
+      <div class="footer"><span>End</span><span>10</span></div>
+    </section>
+  </main>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    let index = 0;
+
+    function show(next) {
+      index = Math.max(0, Math.min(slides.length - 1, next));
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+        event.preventDefault();
+        show(index + 1);
+      }
+      if (["ArrowLeft", "PageUp"].includes(event.key)) {
+        event.preventDefault();
+        show(index - 1);
+      }
+      if (event.key === "Home") show(0);
+      if (event.key === "End") show(slides.length - 1);
+    });
+  </script>
+</body>
+</html>

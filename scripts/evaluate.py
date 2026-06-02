@@ -32,12 +32,26 @@ def main():
     model = build_model(cfg).to(device)
 
     ckpt = torch.load(args.checkpoint, map_location=device, weights_only=False)
-    if "ema" in ckpt:
-        model.load_state_dict(ckpt["ema"])
-        print("Loaded EMA weights")
+    if isinstance(ckpt, dict):
+        best_source = ckpt.get("best_source")
+        if best_source == "raw" and "model" in ckpt:
+            model.load_state_dict(ckpt["model"])
+            print("Loaded model weights (best_source=raw)")
+        elif best_source == "ema" and "ema" in ckpt:
+            model.load_state_dict(ckpt["ema"])
+            print("Loaded EMA weights (best_source=ema)")
+        elif "ema" in ckpt:
+            model.load_state_dict(ckpt["ema"])
+            print("Loaded EMA weights")
+        elif "model" in ckpt:
+            model.load_state_dict(ckpt["model"])
+            print("Loaded model weights")
+        else:
+            model.load_state_dict(ckpt)
+            print("Loaded raw state_dict")
     else:
-        model.load_state_dict(ckpt["model"])
-        print("Loaded model weights")
+        model.load_state_dict(ckpt)
+        print("Loaded raw state_dict")
 
     model.eval()
     top1_sum, top5_sum, total = 0.0, 0.0, 0

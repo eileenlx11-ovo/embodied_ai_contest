@@ -98,9 +98,13 @@ class BaseTrainer:
             self.mixup = Mixup(alpha=aug_cfg.get("mixup_alpha", 0.2))
         if aug_cfg.get("cutmix", False):
             self.cutmix = CutMix(alpha=aug_cfg.get("cutmix_alpha", 1.0))
+        # mixup_prob = P(use mixup) when both mixup+cutmix enabled; P(cutmix) = 1 - mixup_prob
         self.mixup_prob = aug_cfg.get("mixup_prob", 0.5)
 
         self.best_acc = 0.0
+        self.best_raw_acc = 0.0
+        self.best_ema_acc = 0.0
+        self.latest_selected_source = None
         self.global_step = 0
         self.epoch_history = []
         self.metrics_path = None
@@ -114,6 +118,7 @@ class BaseTrainer:
             with open(self.metrics_path, "w", newline="", encoding="utf-8") as f:
                 writer = csv.DictWriter(f, fieldnames=[
                     "epoch", "train_loss", "train_acc", "val_top1", "val_top5",
+                    "val_raw_top1", "val_ema_top1", "val_selected_source",
                     "best_val_top1", "lr", "epoch_time_sec", "loss", "loss_params",
                 ])
                 writer.writeheader()
@@ -139,6 +144,9 @@ class BaseTrainer:
         total_loss = 0.0
         correct = 0
         total = 0
+        num_batches = len(self.train_loader)
+        tail_batches = num_batches % self.accum_steps
+        tail_start = num_batches - tail_batches if tail_batches else num_batches
 
         for batch_idx, batch in enumerate(self.train_loader):
             if len(batch) == 3:
@@ -154,6 +162,10 @@ class BaseTrainer:
             if self.cfg["training"].get("channels_last", False):
                 images = images.to(memory_format=torch.channels_last)
 
+            is_last_batch = (batch_idx + 1) == len(self.train_loader)
+            in_tail_window = tail_batches > 0 and batch_idx >= tail_start
+            loss_divisor = tail_batches if in_tail_window else self.accum_steps
+
             # Mixup / CutMix (only when enabled via config)
             mixed_targets = None
             if self.mixup or self.cutmix:
@@ -167,15 +179,17 @@ class BaseTrainer:
                 outputs = self.model(images)
                 if mixed_targets is not None:
                     log_probs = F.log_softmax(outputs, dim=-1)
-                    loss = -(mixed_targets * log_probs).sum(dim=-1).mean() / self.accum_steps
+                    raw_loss = -(mixed_targets * log_probs).sum(dim=-1).mean()
                 elif indices is not None:
-                    loss = self.criterion(outputs, targets, indices=indices) / self.accum_steps
+                    raw_loss = self.criterion(outputs, targets, indices=indices)
                 else:
-                    loss = self.criterion(outputs, targets) / self.accum_steps
+                    raw_loss = self.criterion(outputs, targets)
+                loss = raw_loss / loss_divisor
 
             self.scaler.scale(loss).backward()
 
-            if (batch_idx + 1) % self.accum_steps == 0:
+            should_step = ((batch_idx + 1) % self.accum_steps == 0) or is_last_batch
+            if should_step:
                 if self.grad_clip > 0:
                     self.scaler.unscale_(self.optimizer)
                     nn.utils.clip_grad_norm_(self.model.parameters(), self.grad_clip)
@@ -185,7 +199,7 @@ class BaseTrainer:
                 if self.ema:
                     self.ema.update(self.model)
 
-            total_loss += loss.item() * self.accum_steps
+            total_loss += raw_loss.item()
             _, predicted = outputs.max(1)
             total += targets.size(0)
             # Use original hard targets for accuracy even when mixup is active
@@ -211,6 +225,10 @@ class BaseTrainer:
     @torch.no_grad()
     def validate(self):
         model = self.ema.ema if self.ema else self.model
+        return self._validate_model(model)
+
+    @torch.no_grad()
+    def _validate_model(self, model):
         model.eval()
         top1_sum, top5_sum, total = 0.0, 0.0, 0
 
@@ -239,6 +257,9 @@ class BaseTrainer:
             "train_acc": metrics["train/acc_epoch"],
             "val_top1": metrics.get("val/top1", ""),
             "val_top5": metrics.get("val/top5", ""),
+            "val_raw_top1": metrics.get("val/raw_top1", ""),
+            "val_ema_top1": metrics.get("val/ema_top1", ""),
+            "val_selected_source": metrics.get("val/selected_source", ""),
             "best_val_top1": metrics.get("val/best_top1", self.best_acc),
             "lr": self.optimizer.param_groups[0]["lr"],
             "epoch_time_sec": metrics["train/epoch_time_sec"],
@@ -264,6 +285,8 @@ class BaseTrainer:
             "loss_params": self.cfg["training"].get("loss_params", {}),
             "epochs": self.epochs,
             "best_val_top1": self.best_acc,
+            "best_raw_top1": self.best_raw_acc,
+            "best_ema_top1": self.best_ema_acc,
             "initial_train_loss": train_losses[0],
             "final_train_loss": train_losses[-1],
             "has_nan_or_inf": any(not math.isfinite(v) for v in values),
@@ -273,14 +296,19 @@ class BaseTrainer:
         with open(os.path.join(self.run_dir, "summary.json"), "w", encoding="utf-8") as f:
             json.dump(summary, f, indent=2, ensure_ascii=False)
 
-    def save_checkpoint(self, epoch, acc1, filename="latest.pth"):
+    def save_checkpoint(self, epoch, acc1, filename="latest.pth", best_source=None, source_acc=None):
         state = {
             "epoch": epoch,
             "model": self.model.state_dict(),
             "optimizer": self.optimizer.state_dict(),
             "scheduler": self.scheduler.state_dict(),
             "scaler": self.scaler.state_dict(),
+            "acc1": acc1,
             "best_acc": self.best_acc,
+            "best_raw_acc": self.best_raw_acc,
+            "best_ema_acc": self.best_ema_acc,
+            "best_source": best_source,
+            "source_acc": acc1 if source_acc is None else source_acc,
             "cfg": self.cfg,
         }
         if self.ema:
@@ -300,6 +328,11 @@ class BaseTrainer:
             self.scaler.load_state_dict(ckpt["scaler"])
         if "best_acc" in ckpt:
             self.best_acc = ckpt["best_acc"]
+        if "best_raw_acc" in ckpt:
+            self.best_raw_acc = ckpt["best_raw_acc"]
+        if "best_ema_acc" in ckpt:
+            self.best_ema_acc = ckpt["best_ema_acc"]
+        self.latest_selected_source = ckpt.get("best_source")
         return ckpt.get("epoch", 0)
 
     def fit(self, start_epoch=1):
@@ -324,13 +357,39 @@ class BaseTrainer:
             }
 
             if epoch % self.eval_interval == 0:
-                val_top1, val_top5 = self.validate()
-                log += f" | Val Top-1: {val_top1:.2f}% Top-5: {val_top5:.2f}%"
+                if self.ema:
+                    ema_top1, ema_top5 = self._validate_model(self.ema.ema)
+                    raw_top1, raw_top5 = self._validate_model(self.model)
+                    selected_source = "ema" if ema_top1 >= raw_top1 else "raw"
+                    val_top1, val_top5 = (ema_top1, ema_top5) if selected_source == "ema" else (raw_top1, raw_top5)
+                    epoch_metrics["val/ema_top1"] = ema_top1
+                    epoch_metrics["val/raw_top1"] = raw_top1
+                    epoch_metrics["val/selected_source"] = selected_source
+                    log += (f" | Val Top-1: {val_top1:.2f}% Top-5: {val_top5:.2f}%"
+                            f" ({selected_source}; EMA {ema_top1:.2f}%, Raw {raw_top1:.2f}%)")
+
+                    if ema_top1 > self.best_ema_acc:
+                        self.best_ema_acc = ema_top1
+                        self.save_checkpoint(epoch, ema_top1, "best_ema.pth", best_source="ema", source_acc=ema_top1)
+                    if raw_top1 > self.best_raw_acc:
+                        self.best_raw_acc = raw_top1
+                        self.save_checkpoint(epoch, raw_top1, "best_raw.pth", best_source="raw", source_acc=raw_top1)
+                else:
+                    val_top1, val_top5 = self._validate_model(self.model)
+                    selected_source = "raw"
+                    epoch_metrics["val/raw_top1"] = val_top1
+                    epoch_metrics["val/selected_source"] = selected_source
+                    if val_top1 > self.best_raw_acc:
+                        self.best_raw_acc = val_top1
+                        self.save_checkpoint(epoch, val_top1, "best_raw.pth", best_source="raw", source_acc=val_top1)
+                    log += f" | Val Top-1: {val_top1:.2f}% Top-5: {val_top5:.2f}%"
+
+                self.latest_selected_source = selected_source
                 epoch_metrics["val/top1"] = val_top1
                 epoch_metrics["val/top5"] = val_top5
                 if val_top1 > self.best_acc:
                     self.best_acc = val_top1
-                    self.save_checkpoint(epoch, val_top1, "best.pth")
+                    self.save_checkpoint(epoch, val_top1, "best.pth", best_source=selected_source, source_acc=val_top1)
                     log += " *best*"
                 epoch_metrics["val/best_top1"] = self.best_acc
 
@@ -341,9 +400,9 @@ class BaseTrainer:
                 self.wandb_run.log(epoch_metrics, step=self.global_step)
 
             if epoch % self.save_interval == 0:
-                self.save_checkpoint(epoch, self.best_acc, "latest.pth")
+                self.save_checkpoint(epoch, self.best_acc, "latest.pth", best_source=self.latest_selected_source)
 
-        self.save_checkpoint(self.epochs, self.best_acc, "latest.pth")
+        self.save_checkpoint(self.epochs, self.best_acc, "latest.pth", best_source=self.latest_selected_source)
         self._write_summary()
         print(f"Training complete. Best Val Top-1: {self.best_acc:.2f}%")
         if self.wandb_run:

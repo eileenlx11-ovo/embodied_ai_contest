@@ -57,31 +57,48 @@
 
 ## Augmentation Ablation
 
-| Date | Config | Result | Notes |
-|------|--------|--------|-------|
-| 2026-05-18 | resnet50_mixup_randaug.yaml | 训练中 | Mixup(α=0.2) + CutMix(α=1.0) + RandAug(2,9) + RandomErasing |
+增广配方对收敛速度影响极大。核心结论：**100ep 预算下，重增广（RandAug+Erasing）收敛不完全，应减到 Mixup+CutMix only。**
 
-预期：突破 baseline 77.53%，目标 ≥ 78.0%（冲刺线）。
+| Date | Config | 增广配方 | Val Top-1 | Notes |
+| ---- | ------ | -------- | --------- | ----- |
+| 2026-05-26 | mixup_v2 (resnet50_mixup_e100_v2) | Mixup(α=0.2)+CutMix(α=1.0)+RandAug(2,9)+RandomErasing | **76.91%** (终值) | A1-tier 全增广；ep77 才 69.08%，靠后程拉到 76.91%，仍未破 baseline |
+| 2026-06-02 | full_mixcut (resnet50_full_mixcut) | Mixup(α=0.1)+CutMix(α=1.0)，去掉 RandAug/Erasing | **77.57%** plain / **77.99%** HFlip TTA | 最终提交候选；`best_source=raw`，单模型 HFlip TTA +0.42pp |
+| 2026-05-30 | cleaned_mixcut | 同 full_mixcut，但用清洗数据 | 废（仅 2ep 即停，让 GPU 给 full_mixcut） | — |
+
+**同期 val top-1 对比（ep13-17，EMA 已充满电的可比区间）**：
+
+| Epoch | baseline | mixup_v2 | cleaned_v1 | full_mixcut |
+| ----- | -------- | -------- | ---------- | ----------- |
+| ep15 | **56.60** | 53.69 | 54.97 | 54.31 |
+| ep17 | **56.96** | 52.12 | 54.52 | 54.24 |
+
+同期排序：**baseline > cleaned_v1 ≈ full_mixcut > mixup_v2**。full_mixcut 与 cleaned_v1 几乎重合，落后 baseline 约 2.7pp。这符合预期——Mixup/CutMix 作为正则化会压低前中期收敛速度（训练信号被混合，train acc 仅 ~28% vs baseline ~50%），换取后期泛化。真正胜负看后程 ep70-100，前期领先的 baseline 未必是终点赢家（参照 mixup_v2 靠后程从 ep77=69% 拉到终值 76.91%）。
+
+> ⚠️ **读数陷阱（答辩须知）**：baseline / mixup_v2 前 ~9 个 epoch 的 Val Top-1 恒为 0.10%，并非模型没学，而是 validate() 用 EMA 模型评估、EMA decay=0.9999 启动极慢，前期 EMA 权重接近初始噪声 → val≈随机。约 ep10-11 EMA「充电」完成后 val 才跳到真实值（baseline ep10:0.1%→ep11:29%→ep15:56%）。**因此跨实验比较 val 必须从 ep13+ 起比，早期数字不可比。** full_mixcut/cleaned_v1 用了 raw/EMA 取 max 的评估逻辑，前期即显示真实 raw 值。
 
 ## Full Training Runs
 
-| Date | Model | Loss | Epochs | Val Top-1 | Val Top-5 | Checkpoint | Notes |
-|------|-------|------|--------|-----------|-----------|------------|-------|
-| TBD | ResNet-50 | Best Loss | 100 | TBD | TBD | best.pth | 正式提交模型 |
-| 2026-05-18 | ResNet-50 | CE+LS | 100 | 77.53% | 93.63% | checkpoints/best.pth | baseline，已提交候选 |
+| Date | Model | 数据/增广 | Epochs | Val Top-1 | Val Top-5 | Checkpoint | Notes |
+| ---- | ----- | --------- | ------ | --------- | --------- | ---------- | ----- |
+| 2026-05-18 | ResNet-50 | 全量 / 无增广 | 100 | **77.53%** | 93.63% | checkpoints/best.pth | 历史强基线 |
+| 2026-05-26 | ResNet-50 | 全量 / Mixup+CutMix+RandAug+Erase | 100 | 76.91% | — | checkpoints_mixup_v2/best.pth | 全增广，100ep 未破 baseline |
+| 2026-05-30 | ResNet-50 | C1+C2 清洗 / 无增广 | 100 | 76.84% | 92.63% | checkpoints_cleaned_v1/best.pth | 清洗数据，与 mixup_v2 基本打平 |
+| 2026-06-02 | ResNet-50 | 全量 / Mixup+CutMix | 100 | **77.57%** plain / **77.99%** HFlip TTA | 93.77% plain / 93.97% HFlip TTA | checkpoints_full_mixcut/best.pth | 最终提交候选，best_source=raw |
 
+> 截至 2026-06-02：full_mixcut 已完成并超过 baseline。最终提交路线为 `checkpoints_full_mixcut/best.pth` + single-model HFlip TTA，验证集 Top-1 77.99。
 
 ## Key Findings
 
 1. **数据集不是长尾分布**：不平衡比仅 1.78（732~1300 张/类），无需特殊长尾处理
 2. **数据质量高**：损坏 0 张，近空白 0 张，主要噪声来自标签歧义（radio ~60%）
-3. **10% subset 不足以评估 val**：12816 张训练图 + 30 epochs 不够泛化到 50000 val
-4. **val 必须按 ImageFolder 类目录组织**：扁平 val 目录会让训练全程显示 Val ≈ 0%（已踩坑）
-5. **历史 loss 对比实验需全部重做**：均跑在 val 损坏期间，无信号
+3. **val 必须按 ImageFolder 类目录组织**：扁平 val 目录会让训练全程显示 Val ≈ 0%（已踩坑）
+4. **历史 loss 对比实验需全部重做**：均跑在 val 损坏期间，无信号
 
 ## 待办
 
-- [ ] mixup 训练完成后评估
+- [x] mixup 训练完成后评估（mixup_v2=76.91%，full_mixcut=77.57 plain / 77.99 HFlip TTA）
+- [x] full_mixcut 跑完后定提交模型（超过 baseline 77.53%）
+- [x] 选定 checkpoint → HFlip TTA → 生成提交 CSV（`submit/full_mixcut_hflip.csv`）
 - [ ] 噪声鲁棒 loss 重做（赛题主观分 30% 的核心支撑）
-- [ ] 接入赛题提供的 100K 测试集（当前 `data/imagenet/` 下未见 test 目录）
-- [ ] 确认提交 CSV 格式（逗号分隔，是否带空格、是否带 header）
+- [x] 接入赛题提供的 100K 测试集并完成 full_mixcut_hflip 推理
+- [x] 确认提交 CSV 格式（100000 行、无 header、`.JPEG` 文件名、4 位类别编号）
