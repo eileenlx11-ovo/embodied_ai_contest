@@ -133,10 +133,10 @@ python scripts/predict.py \
   --config configs/imagenet_resnet50_full_mixcut.yaml \
   --checkpoint checkpoints_full_mixcut/best.pth \
   --tta hflip \
-  --output submit/full_mixcut_hflip.csv
+  --output submit/result.csv
 ```
 
-**输出**：`submit/full_mixcut_hflip.csv`，100000 rows，格式校验通过。
+**输出**：`submit/result.csv`，100000 rows，格式校验通过。
 
 ---
 
