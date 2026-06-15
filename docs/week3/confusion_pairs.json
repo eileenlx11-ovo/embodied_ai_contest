@@ -1,0 +1,82 @@
+[
+  {
+    "rank": 1,
+    "true_class_id": "n03642806",
+    "true_class_name": "laptop",
+    "pred_class_id": "n03832673",
+    "pred_class_name": "notebook",
+    "misclass_count": 27
+  },
+  {
+    "rank": 2,
+    "true_class_id": "n03710637",
+    "true_class_name": "maillot",
+    "pred_class_id": "n03710721",
+    "pred_class_name": "maillot",
+    "misclass_count": 26
+  },
+  {
+    "rank": 3,
+    "true_class_id": "n04008634",
+    "true_class_name": "projectile",
+    "pred_class_id": "n03773504",
+    "pred_class_name": "missile",
+    "misclass_count": 24
+  },
+  {
+    "rank": 4,
+    "true_class_id": "n02669723",
+    "true_class_name": "academic gown",
+    "pred_class_id": "n03787032",
+    "pred_class_name": "mortarboard",
+    "misclass_count": 22
+  },
+  {
+    "rank": 5,
+    "true_class_id": "n02979186",
+    "true_class_name": "cassette player",
+    "pred_class_id": "n04392985",
+    "pred_class_name": "tape player",
+    "misclass_count": 22
+  },
+  {
+    "rank": 6,
+    "true_class_id": "n01756291",
+    "true_class_name": "sidewinder",
+    "pred_class_id": "n01753488",
+    "pred_class_name": "horned viper",
+    "misclass_count": 20
+  },
+  {
+    "rank": 7,
+    "true_class_id": "n02107908",
+    "true_class_name": "Appenzeller",
+    "pred_class_id": "n02107574",
+    "pred_class_name": "Greater Swiss Mountain dog",
+    "misclass_count": 20
+  },
+  {
+    "rank": 8,
+    "true_class_id": "n13133613",
+    "true_class_name": "ear",
+    "pred_class_id": "n12144580",
+    "pred_class_name": "corn",
+    "misclass_count": 20
+  },
+  {
+    "rank": 9,
+    "true_class_id": "n03710721",
+    "true_class_name": "maillot",
+    "pred_class_id": "n03710637",
+    "pred_class_name": "maillot",
+    "misclass_count": 19
+  },
+  {
+    "rank": 10,
+    "true_class_id": "n01667778",
+    "true_class_name": "terrapin",
+    "pred_class_id": "n01667114",
+    "pred_class_name": "mud turtle",
+    "misclass_count": 18
+  }
+]
