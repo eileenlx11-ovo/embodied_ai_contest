@@ -1,6 +1,7 @@
 FROM pytorch/pytorch:2.1.0-cuda12.1-cudnn8-devel
 
-RUN apt-get update && apt-get install -y \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     libgl1-mesa-glx libglib2.0-0 wget && \
     rm -rf /var/lib/apt/lists/*
 

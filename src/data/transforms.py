@@ -95,6 +95,7 @@ class CutMix:
         x1 = np.clip(cx - cut_w // 2, 0, W)
         x2 = np.clip(cx + cut_w // 2, 0, W)
 
+        images = images.clone()
         images[:, :, y1:y2, x1:x2] = images[idx, :, y1:y2, x1:x2]
         lam = 1.0 - (y2 - y1) * (x2 - x1) / (H * W)
 

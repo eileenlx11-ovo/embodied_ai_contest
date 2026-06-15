@@ -1,0 +1,55 @@
+# ImageNet-1K + ResNet-50 — C1+C2 cleaned + Mixup/CutMix (no image-level aug)
+# Mixup alpha=0.1 + CutMix alpha=1.0, mixup_prob=0.5
+# No RandAug, no RandomErasing
+
+data:
+  dataset: imagenet
+  root: /root/autodl-tmp/imagenet_full/ILSVRC/Data/CLS-LOC
+  input_size: 224
+  batch_size: 128
+  num_workers: 4
+  pin_memory: true
+  subset: 1.0
+  exclude_file: data/train_exclude.txt
+
+model:
+  name: resnet50
+  num_classes: 1000
+  drop_path_rate: 0.0
+
+training:
+  epochs: 100
+  optimizer: sgd
+  base_lr: 0.1
+  weight_decay: 1.0e-4
+  momentum: 0.9
+  scheduler: cosine
+  warmup_epochs: 5
+  loss: ce
+  label_smoothing: 0.1
+  amp: true
+  accumulation_steps: 2
+  grad_clip: 5.0
+  ema_decay: 0.9999
+  channels_last: true
+  compile: false
+
+augmentation:
+  mixup: true
+  mixup_alpha: 0.1
+  mixup_prob: 0.5
+  cutmix: true
+  cutmix_alpha: 1.0
+  randaug: false
+  color_jitter: false
+  random_erasing: false
+
+logging:
+  run_name: resnet50_cleaned_mixcut
+  log_interval: 100
+  eval_interval: 1
+  save_interval: 10
+  checkpoint_dir: ./checkpoints_cleaned_mixcut
+  log_dir: ./logs
+
+seed: 42
