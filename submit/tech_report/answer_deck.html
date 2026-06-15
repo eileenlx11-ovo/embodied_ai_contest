@@ -247,14 +247,14 @@
   }
   .meta{
     font-family:var(--mono);
-    font-size:max(10px,.78vw);
+    font-size:max(12px,.9vw);
     letter-spacing:.18em;text-transform:uppercase;
     opacity:.6;
   }
   .meta-row{
     display:flex;gap:1.4em;align-items:baseline;flex-wrap:wrap;
     font-family:var(--mono);
-    font-size:max(11px,.85vw);letter-spacing:.18em;text-transform:uppercase;
+    font-size:max(12.5px,.95vw);letter-spacing:.18em;text-transform:uppercase;
     opacity:.65;
   }
   .meta-row span:not(.dot){display:inline-block}
@@ -310,7 +310,7 @@
   .stat-card.accent-top{border-top-color:var(--accent);border-top-width:3px}
   .stat-card .stat-label{
     font-family:var(--mono);
-    font-size:max(10px,.78vw);
+    font-size:max(12px,.9vw);
     letter-spacing:.24em;text-transform:uppercase;
     opacity:.6;
   }
@@ -379,7 +379,7 @@
   .pipeline-section:first-of-type{border-top:0;padding-top:0;margin-top:2.4vh}
   .pipeline-label{
     font-family:var(--mono);
-    font-size:max(10px,.82vw);
+    font-size:max(12px,.92vw);
     letter-spacing:.24em;text-transform:uppercase;
     opacity:.6;margin-bottom:1.8vh;
   }
@@ -413,7 +413,7 @@
   .step-desc{
     font-family:var(--sans),var(--sans-zh);
     font-weight:400;
-    font-size:max(11px,.88vw);
+    font-size:max(13px,1vw);
     line-height:1.45;
     opacity:.7;
   }
@@ -539,7 +539,7 @@
   .img-cap{
     display:block;margin-top:.8vh;
     font-family:var(--mono);
-    font-size:max(10px,.78vw);
+    font-size:max(12px,.9vw);
     letter-spacing:.2em;text-transform:uppercase;
     opacity:.6;
   }
@@ -567,7 +567,7 @@
   .swiss-img-caption{
     display:flex;justify-content:space-between;gap:var(--sp-5);
     margin-top:var(--sp-4);
-    font-family:var(--mono);font-size:max(9px,.68vw);
+    font-family:var(--mono);font-size:max(11px,.8vw);
     letter-spacing:.16em;text-transform:uppercase;color:var(--text-helper);
     border-top:1px solid var(--border-subtle);padding-top:var(--sp-4)
   }
@@ -579,7 +579,7 @@
   /* ============ Bar Chart (扁平几何图表) ============ */
   .bar-chart{display:flex;flex-direction:column;gap:1.4vh}
   .bar-row{display:grid;grid-template-columns:8em 1fr 4em;gap:1.4vw;align-items:center}
-  .bar-row .bar-label{font-family:var(--mono);font-size:max(10px,.82vw);letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+  .bar-row .bar-label{font-family:var(--mono);font-size:max(12px,.92vw);letter-spacing:.16em;text-transform:uppercase;opacity:.7}
   .bar-row .bar-track{height:14px;background:rgba(127,127,127,.18);position:relative}
   .bar-row .bar-fill{height:100%;background:var(--accent);position:absolute;left:0;top:0}
   .bar-row .bar-fill.ink{background:currentColor}
@@ -713,10 +713,10 @@
     border-left:1px solid var(--grey-2)
   }
   .kpi-row-4 > .kpi-cell:first-child{padding-left:0;border-left:none}
-  .kpi-cell .lbl{font-family:var(--mono);font-size:max(10px,.74vw);letter-spacing:.22em;text-transform:uppercase;opacity:.55;margin-bottom:1.2vh}
+  .kpi-cell .lbl{font-family:var(--mono);font-size:max(11.5px,.86vw);letter-spacing:.22em;text-transform:uppercase;opacity:.55;margin-bottom:1.2vh}
   .kpi-cell .nb{font-family:var(--sans);font-weight:250;font-size:3.2vw;line-height:1;letter-spacing:-.025em;font-feature-settings:"tnum"}
   .kpi-cell .nb .unit{font-size:.32em;font-weight:300;opacity:.6;margin-left:.1em;vertical-align:.4em}
-  .kpi-cell .note{font-family:var(--sans),var(--sans-zh);font-size:max(11px,.82vw);line-height:1.5;opacity:.7;margin-top:1.2vh}
+  .kpi-cell .note{font-family:var(--sans),var(--sans-zh);font-size:max(12.5px,.92vw);line-height:1.5;opacity:.7;margin-top:1.2vh}
 
   /* 时间线轴 — 通用 axis token, 横纵共享
      axis 列 = 24px 固定宽,dot 直径 8px,绝对居中在 axis 列中线 (12px)
@@ -816,7 +816,7 @@
   .timeline-h .th-node.up .label{bottom:calc(50% + 22px)}
   .timeline-h .th-node.down .label{top:calc(50% + 22px)}
   .timeline-h .th-node .yr{
-    font-family:var(--mono);font-size:max(10px,.74vw);letter-spacing:.06em;
+    font-family:var(--mono);font-size:max(11.5px,.86vw);letter-spacing:.06em;
     color:var(--text-helper);font-weight:500
   }
   .timeline-h .th-node.accent .yr{color:var(--accent)}
@@ -826,7 +826,7 @@
   }
   .timeline-h .th-node.accent .name{color:var(--accent)}
   .timeline-h .th-node .desc{
-    font-family:var(--sans),var(--sans-zh);font-size:max(10px,.78vw);
+    font-family:var(--sans),var(--sans-zh);font-size:max(12px,.9vw);
     color:var(--text-secondary);font-weight:300;line-height:1.4
   }
 
@@ -852,11 +852,11 @@
   .sub-card.ink{background:var(--ink);color:var(--paper)}
   .sub-card .nb-corner{
     position:absolute;top:1.6vh;right:1.4vw;
-    font-family:var(--mono);font-size:max(10px,.78vw);
+    font-family:var(--mono);font-size:max(12px,.9vw);
     letter-spacing:.18em;opacity:.55
   }
   .sub-card .ttl{font-family:var(--sans),var(--sans-zh);font-weight:500;font-size:max(15px,1.5vw);line-height:1.2;letter-spacing:-.015em;margin-bottom:1vh}
-  .sub-card .desc{font-family:var(--sans),var(--sans-zh);font-size:max(11px,.86vw);line-height:1.55;opacity:.78;margin-top:auto}
+  .sub-card .desc{font-family:var(--sans),var(--sans-zh);font-size:max(12.5px,.95vw);line-height:1.55;opacity:.78;margin-top:auto}
   .sub-card .lucide{width:2.4vw;height:2.4vw;stroke-width:1.4;color:currentColor;margin-bottom:1.6vh;flex-shrink:0}
   .sub-card.accent .lucide{color:var(--accent-on)}
 
@@ -871,14 +871,14 @@
   .stack-block.b-accent{background:var(--accent);color:var(--accent-on)}
   .stack-block.b-grey{background:var(--grey-1);color:var(--ink)}
   .stack-block.b-ink{background:var(--ink);color:var(--paper)}
-  .stack-block .layer-nb{font-family:var(--mono);font-size:max(11px,.82vw);letter-spacing:.22em;opacity:.65;margin-bottom:auto}
+  .stack-block .layer-nb{font-family:var(--mono);font-size:max(12.5px,.92vw);letter-spacing:.22em;opacity:.65;margin-bottom:auto}
   .stack-block .layer-icon{margin-bottom:1.6vh}
   .stack-block .layer-icon svg{width:3vw;height:3vw}
   .stack-block .layer-icon .stroke{fill:none;stroke:currentColor;stroke-width:1.6}
   .stack-block .layer-ttl{font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(17px,2vw);line-height:1.1;margin-top:1vh;letter-spacing:-.02em}
-  .stack-block .layer-desc{font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(11px,.88vw);line-height:1.55;opacity:.88;margin-top:1.4vh}
+  .stack-block .layer-desc{font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(13px,1vw);line-height:1.55;opacity:.88;margin-top:1.4vh}
   .stack-block .lucide{width:2.6vw;height:2.6vw;stroke-width:1.4;margin-bottom:1.6vh;flex-shrink:0}
-  .stack-block .layer-tag{font-family:var(--mono);font-size:max(9px,.7vw);letter-spacing:.2em;text-transform:uppercase;opacity:.7;margin-top:1.6vh;border-top:1px solid currentColor;padding-top:1vh}
+  .stack-block .layer-tag{font-family:var(--mono);font-size:max(12.5px,.92vw);letter-spacing:.2em;text-transform:uppercase;opacity:.7;margin-top:1.6vh;border-top:1px solid currentColor;padding-top:1vh}
 
   /* 不等高柱状 KPI 塔 (参考图 6) */
   .bar-towers{
@@ -909,11 +909,11 @@
   /* 默认所有 KPI 塔统一为浅描边卡 — 不抢戏;只有 .b-accent 突出为 IKB */
   .bar-tower .body-block{background:var(--paper);color:var(--ink);border:1px solid var(--grey-2)}
   .bar-tower .body-block.b-accent{background:var(--accent);color:var(--accent-on);border-color:var(--accent)}
-  .bar-tower .lbl{font-family:var(--mono);font-size:max(10px,.78vw);letter-spacing:.2em;text-transform:uppercase;opacity:.65;margin-bottom:1vh}
+  .bar-tower .lbl{font-family:var(--mono);font-size:max(11px,.84vw);letter-spacing:.2em;text-transform:uppercase;opacity:.65;margin-bottom:1vh}
   .bar-tower .nb{font-family:var(--sans);font-weight:250;font-size:max(20px,2.8vw);line-height:1;letter-spacing:-.03em;font-feature-settings:"tnum"}
   .bar-tower .body-block.b-accent .nb{font-weight:300}
   .bar-tower .nb .unit{font-size:.36em;font-weight:300;opacity:.7;margin-left:.08em;vertical-align:.4em}
-  .bar-tower .sub{font-family:var(--sans),var(--sans-zh);font-size:max(11px,.84vw);opacity:.75;margin-top:1.2vh;line-height:1.5}
+  .bar-tower .sub{font-family:var(--sans),var(--sans-zh);font-size:max(12.5px,.95vw);opacity:.78;margin-top:1.2vh;line-height:1.5}
   .bar-tower .cap{background:var(--grey-1);color:var(--ink)}
   .bar-tower .lucide{width:1.6vw;height:1.6vw;stroke-width:1.4}
 
@@ -924,7 +924,7 @@
   /* category label / eyebrow / section tag — small, bold, uppercase */
   .t-cat{
     font-family:var(--mono);
-    font-size:11px;font-weight:600;
+    font-size:12px;font-weight:600;
     letter-spacing:.18em;text-transform:uppercase;
     color:var(--text-helper);line-height:1.3
   }
@@ -934,7 +934,7 @@
   /* page chrome / breadcrumb / running header — extra-small mono */
   .t-meta{
     font-family:var(--mono);
-    font-size:11px;font-weight:500;
+    font-size:13px;font-weight:500;
     letter-spacing:.16em;text-transform:uppercase;
     color:var(--text-helper);line-height:1.45
   }
@@ -1094,7 +1094,7 @@
     font-size:max(18px,1.6vw);letter-spacing:-.02em
   }
   .v-bar-chart .col-lbl{
-    font-family:var(--mono);font-size:max(10px,.74vw);
+    font-family:var(--mono);font-size:max(11.5px,.86vw);
     letter-spacing:.18em;text-transform:uppercase;opacity:.6;
     text-align:center;flex:0 0 auto
   }
@@ -1108,7 +1108,7 @@
   .duo-compare .vrule{background:var(--grey-2);width:1px;align-self:stretch}
   .duo-compare .col{display:flex;flex-direction:column;gap:1.6vh;padding:0 .4vw}
   .duo-compare .col-tag{
-    font-family:var(--mono);font-size:max(10px,.74vw);
+    font-family:var(--mono);font-size:max(11.5px,.86vw);
     letter-spacing:.22em;text-transform:uppercase;
     color:var(--grey-3);
     display:flex;align-items:center;gap:.6vw
@@ -1135,7 +1135,7 @@
   }
   .duo-compare .col-list li{
     font-family:var(--sans),var(--sans-zh);
-    font-size:max(11px,.88vw);line-height:1.5;
+    font-size:max(13px,1vw);line-height:1.5;
     padding-left:1.4em;position:relative
   }
   .duo-compare .col-list li::before{
@@ -1155,7 +1155,7 @@
   /* 极简页眉 — t-meta 风格 (Carbon productive label-01) */
   .canvas-card .chrome-min{
     display:flex;justify-content:space-between;align-items:flex-start;
-    font-family:var(--mono);font-size:11px;font-weight:500;
+    font-family:var(--mono);font-size:12.5px;font-weight:500;
     letter-spacing:.16em;text-transform:uppercase;
     color:var(--text-helper);
     flex:0 0 auto;
@@ -1238,7 +1238,7 @@
     <canvas class="ascii-bg" aria-hidden="true"></canvas>
     <div class="chrome-min">
       <div class="l">USST · 嵌入式 AI 大赛 · Webly-Supervised FGIR</div>
-      <div class="r">2026.06 · 01 / 10</div>
+      <div class="r"><span style="color:rgba(255,255,255,.9)">D · 陈 主讲</span> · 2026.06 · 01 / 10</div>
     </div>
     <div style="flex:1;padding:0;display:grid;grid-template-rows:auto auto 1fr auto;gap:2vh">
       <div data-anim="kicker" class="t-meta" style="color:rgba(255,255,255,.78);letter-spacing:.22em">WEBLY-SUPERVISED FINE-GRAINED IMAGE RECOGNITION</div>
@@ -1246,19 +1246,19 @@
       <div data-anim="subtitle" style="display:grid;grid-template-columns:1fr auto;gap:3vw;align-items:end;border-top:1px solid rgba(255,255,255,.22);padding-top:2.4vh;margin-top:1vh">
         <div style="display:flex;flex-direction:column;gap:1vh;max-width:60ch">
           <span style="font-family:var(--sans),var(--sans-zh);font-size:max(15px,1.25vw);line-height:1.4;color:#fff;font-weight:300">ResNet-50 from scratch<br/>+ Mixup/CutMix 单模型方案</span>
-          <span style="font-family:var(--mono);font-size:max(11px,.85vw);color:rgba(255,255,255,.7);letter-spacing:.12em">SINGLE 4090D · FROM-SCRATCH · 100 EP</span>
+          <span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:rgba(255,255,255,.7);letter-spacing:.12em">SINGLE 4090D · FROM-SCRATCH · 100 EP</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(3,auto);gap:1.6vw 2vw;align-items:baseline">
           <div style="display:flex;flex-direction:column;gap:.4vh;border-left:1px solid rgba(255,255,255,.3);padding-left:1.2vw">
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:rgba(255,255,255,.7);letter-spacing:.15em">BASELINE</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:rgba(255,255,255,.7);letter-spacing:.15em">BASELINE</span>
             <span style="font-family:var(--sans);font-weight:200;font-size:min(3.2vw,5.4vh);line-height:.9;color:#fff;letter-spacing:-.03em">77.58<span style="font-size:.4em;font-weight:300;opacity:.7;margin-left:.1em">%</span></span>
           </div>
           <div style="display:flex;flex-direction:column;gap:.4vh;border-left:1px solid rgba(255,255,255,.3);padding-left:1.2vw">
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:rgba(255,255,255,.7);letter-spacing:.15em">FINAL TTA</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:rgba(255,255,255,.7);letter-spacing:.15em">FINAL TTA</span>
             <span style="font-family:var(--sans);font-weight:200;font-size:min(3.2vw,5.4vh);line-height:.9;color:#fff;letter-spacing:-.03em">77.99<span style="font-size:.4em;font-weight:300;opacity:.7;margin-left:.1em">%</span></span>
           </div>
           <div style="display:flex;flex-direction:column;gap:.4vh;border-left:1px solid rgba(255,255,255,.3);padding-left:1.2vw">
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:rgba(255,255,255,.7);letter-spacing:.15em">DATA</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:rgba(255,255,255,.7);letter-spacing:.15em">DATA</span>
             <span style="font-family:var(--sans);font-weight:200;font-size:min(3.2vw,5.4vh);line-height:.9;color:#fff;letter-spacing:-.03em">128<span style="font-size:.4em;font-weight:300;opacity:.7;margin-left:.1em">万</span></span>
           </div>
         </div>
@@ -1266,19 +1266,19 @@
       <div data-anim="bottom" style="display:grid;grid-template-columns:1fr auto;gap:3vw;align-items:end;border-top:1px solid rgba(255,255,255,.22);padding-top:2vh">
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.6vw">
           <div style="display:flex;flex-direction:column;gap:.4vh">
-            <span style="font-family:var(--mono);font-size:max(10px,.76vw);color:rgba(255,255,255,.6);letter-spacing:.15em">D · 项目 / 工程</span>
+            <span style="font-family:var(--mono);font-size:max(11.5px,.88vw);color:rgba(255,255,255,.6);letter-spacing:.15em">D · 项目 / 工程</span>
             <span style="font-family:var(--sans),var(--sans-zh);font-size:max(13px,1.05vw);font-weight:400;color:#fff">陈嘉豪</span>
           </div>
           <div style="display:flex;flex-direction:column;gap:.4vh">
-            <span style="font-family:var(--mono);font-size:max(10px,.76vw);color:rgba(255,255,255,.6);letter-spacing:.15em">A · 训练</span>
+            <span style="font-family:var(--mono);font-size:max(11.5px,.88vw);color:rgba(255,255,255,.6);letter-spacing:.15em">A · 训练</span>
             <span style="font-family:var(--sans),var(--sans-zh);font-size:max(13px,1.05vw);font-weight:400;color:#fff">乔蓬旭</span>
           </div>
           <div style="display:flex;flex-direction:column;gap:.4vh">
-            <span style="font-family:var(--mono);font-size:max(10px,.76vw);color:rgba(255,255,255,.6);letter-spacing:.15em">B · 数据</span>
+            <span style="font-family:var(--mono);font-size:max(11.5px,.88vw);color:rgba(255,255,255,.6);letter-spacing:.15em">B · 数据</span>
             <span style="font-family:var(--sans),var(--sans-zh);font-size:max(13px,1.05vw);font-weight:400;color:#fff">姚林青</span>
           </div>
           <div style="display:flex;flex-direction:column;gap:.4vh">
-            <span style="font-family:var(--mono);font-size:max(10px,.76vw);color:rgba(255,255,255,.6);letter-spacing:.15em">C · 算法</span>
+            <span style="font-family:var(--mono);font-size:max(11.5px,.88vw);color:rgba(255,255,255,.6);letter-spacing:.15em">C · 算法</span>
             <span style="font-family:var(--sans),var(--sans-zh);font-size:max(13px,1.05vw);font-weight:400;color:#fff">龚琳茜</span>
           </div>
         </div>
@@ -1291,54 +1291,54 @@
 <!-- =========== P2 · S05 Three Sub-cards · 三大挑战 =========== -->
 <section class="slide light" data-layout="S05" data-animate="sub-stack">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l">Problem · 三大挑战</div><div class="r">02 / 10</div></div>
+    <div class="chrome-min"><div class="l">Problem · 三大挑战</div><div class="r"><span style="color:var(--accent)">B · 姚</span> · 02 / 10</div></div>
     <div style="flex:1;padding:0;display:grid;grid-template-columns:2fr 9fr;gap:3vw;align-items:stretch">
       <div data-anim="head" style="display:flex;flex-direction:column;gap:1.6vh;padding-top:1vh;justify-content:space-between">
         <div style="display:flex;flex-direction:column;gap:1.6vh">
           <span class="t-cat" style="color:var(--accent)">Three Forces</span>
-          <h2 style="font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(6.4vw,11.2vh);line-height:.94;letter-spacing:-.035em">三个<br/>挑战<br/>一个<span style="color:var(--accent);font-style:italic">判断</span></h2>
+          <h2 style="font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(6.4vw,11.2vh);line-height:1.04;letter-spacing:-.035em">三个<br/>挑战<br/>一个<br/><span style="color:var(--accent);font-style:italic">判断</span></h2>
         </div>
         <div style="display:flex;flex-direction:column;gap:1vh;padding-top:2vh;border-top:1px solid var(--border-subtle)">
-          <span class="t-meta">DATASET ANCHOR</span>
-          <p style="font-size:max(13px,1vw);line-height:1.5;color:var(--text-secondary);font-weight:300">128 万训练 · 1000 类 · 5 万 val · 10 万 test</p>
-          <p style="font-size:max(12px,.9vw);line-height:1.5;color:var(--text-helper);font-weight:300">弱噪场景的最大公约数 = 数据增广，不是噪声鲁棒损失</p>
+          <span class="t-meta" style="font-size:max(11px,.84vw)">DATASET ANCHOR</span>
+          <p style="font-size:max(14px,1.08vw);line-height:1.5;color:var(--text-secondary);font-weight:300">128 万训练 · 1000 类 · 5 万 val · 10 万 test</p>
+          <p style="font-size:max(13px,1vw);line-height:1.5;color:var(--text-helper);font-weight:300">弱噪场景的最大公约数 = 数据增广，不是噪声鲁棒损失</p>
         </div>
       </div>
       <div data-anim="cards" style="display:flex;flex-direction:column;gap:2vh;height:100%">
         <article class="card-fill sub-card" style="padding:3vh 2.4vw;display:grid;grid-template-columns:auto 1fr auto;gap:2.4vw;align-items:center;background:var(--grey-1);flex:1">
           <span style="font-family:var(--sans);font-weight:200;font-size:min(5.6vw,10vh);line-height:.9;color:var(--accent)">01</span>
           <div style="display:flex;flex-direction:column;gap:.8vh">
-            <span class="t-meta" style="color:var(--text-helper)">LABEL · 标签层</span>
-            <h4 style="font-weight:500;font-size:max(18px,1.6vw);margin:0">标签噪声 · Label Noise</h4>
-            <p style="font-size:max(13px,1vw);line-height:1.55;color:var(--text-secondary);font-weight:300">整体噪声率 5–15%；radio / modem / spatula 等高噪类别可达 60%，标签歧义严重</p>
+            <span class="t-meta" style="color:var(--text-helper);font-size:max(11px,.84vw)">LABEL · 标签层</span>
+            <h4 style="font-weight:500;font-size:max(20px,1.75vw);margin:0">标签噪声 · Label Noise</h4>
+            <p style="font-size:max(14.5px,1.12vw);line-height:1.55;color:var(--text-secondary);font-weight:300">整体噪声率 5–15%；radio / modem / spatula 等高噪类别可达 60%，标签歧义严重</p>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.4vh;border-left:1px solid var(--border-subtle);padding-left:1.2vw">
             <span style="font-family:var(--sans);font-weight:200;font-size:min(3.2vw,5.6vh);line-height:.9;letter-spacing:-.03em">5–15<span style="font-size:.4em;font-weight:300;opacity:.7;margin-left:.1em">%</span></span>
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.15em">OVERALL</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-helper);letter-spacing:.15em">OVERALL</span>
           </div>
         </article>
         <article class="card-fill sub-card" style="padding:3vh 2.4vw;display:grid;grid-template-columns:auto 1fr auto;gap:2.4vw;align-items:center;background:var(--grey-1);flex:1">
           <span style="font-family:var(--sans);font-weight:200;font-size:min(5.6vw,10vh);line-height:.9;color:var(--accent)">02</span>
           <div style="display:flex;flex-direction:column;gap:.8vh">
-            <span class="t-meta" style="color:var(--text-helper)">CLASS · 类别层</span>
-            <h4 style="font-weight:500;font-size:max(18px,1.6vw);margin:0">长尾分布 · Long-Tail</h4>
-            <p style="font-size:max(13px,1vw);line-height:1.55;color:var(--text-secondary);font-weight:300">类别数量分布存在差异但不构成严重长尾；本项目没有把重采样或 class-balanced loss 作为主路线</p>
+            <span class="t-meta" style="color:var(--text-helper);font-size:max(11px,.84vw)">CLASS · 类别层</span>
+            <h4 style="font-weight:500;font-size:max(20px,1.75vw);margin:0">长尾分布 · Long-Tail</h4>
+            <p style="font-size:max(14.5px,1.12vw);line-height:1.55;color:var(--text-secondary);font-weight:300">类别数量分布存在差异但不构成严重长尾；本项目没有把重采样或 class-balanced loss 作为主路线</p>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.4vh;border-left:1px solid var(--border-subtle);padding-left:1.2vw">
             <span style="font-family:var(--sans);font-weight:200;font-size:min(3.2vw,5.6vh);line-height:.9;letter-spacing:-.03em">1.78<span style="font-size:.5em;font-weight:300;opacity:.7;margin-left:.1em">×</span></span>
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.15em">HEAD / TAIL</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-helper);letter-spacing:.15em">HEAD / TAIL</span>
           </div>
         </article>
         <article class="card-fill sub-card" style="padding:3vh 2.4vw;display:grid;grid-template-columns:auto 1fr auto;gap:2.4vw;align-items:center;background:var(--grey-1);flex:1">
           <span style="font-family:var(--sans);font-weight:200;font-size:min(5.6vw,10vh);line-height:.9;color:var(--accent)">03</span>
           <div style="display:flex;flex-direction:column;gap:.8vh">
-            <span class="t-meta" style="color:var(--text-helper)">DOMAIN · 域偏移</span>
-            <h4 style="font-weight:500;font-size:max(18px,1.6vw);margin:0">数据偏差 · Domain Shift</h4>
-            <p style="font-size:max(13px,1vw);line-height:1.55;color:var(--text-secondary);font-weight:300">web 图像 vs 标准 ImageNet val 域分布存在偏移，弱噪场景下数据增广收益更稳健</p>
+            <span class="t-meta" style="color:var(--text-helper);font-size:max(11px,.84vw)">DOMAIN · 域偏移</span>
+            <h4 style="font-weight:500;font-size:max(20px,1.75vw);margin:0">数据偏差 · Domain Shift</h4>
+            <p style="font-size:max(14.5px,1.12vw);line-height:1.55;color:var(--text-secondary);font-weight:300">web 图像 vs 标准 ImageNet val 域分布存在偏移，弱噪场景下数据增广收益更稳健</p>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.4vh;border-left:1px solid var(--border-subtle);padding-left:1.2vw">
             <span style="font-family:var(--sans);font-weight:200;font-size:min(3.2vw,5.6vh);line-height:.9;letter-spacing:-.03em">128<span style="font-size:.5em;font-weight:300;opacity:.7;margin-left:.1em">万→5 万</span></span>
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.15em">TRAIN / VAL</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-helper);letter-spacing:.15em">TRAIN / VAL</span>
           </div>
         </article>
       </div>
@@ -1349,7 +1349,7 @@
 <!-- =========== P3 · S21 Tech Spec · 整体方案 + 硬件规格 =========== -->
 <section class="slide light" data-layout="S21" data-animate="tech-spec">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l">Framework · 硬件规格 · 训练 timeline</div><div class="r">03 / 10</div></div>
+    <div class="chrome-min"><div class="l">Framework · 硬件规格 · 训练 timeline</div><div class="r"><span style="color:var(--accent)">D · 陈</span> · 03 / 10</div></div>
     <div data-anim="line" style="display:flex;flex-direction:column;gap:1.2vh;margin-bottom:3vh">
       <div class="t-meta">FOUR-STAGE PIPELINE · SINGLE GPU FROM-SCRATCH</div>
       <h2 style="font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(5.6vw,10vh);line-height:.96;letter-spacing:-.03em">从 web 数据到 result.csv</h2>
@@ -1362,42 +1362,42 @@
         </div>
         <ol style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:1.8vh;flex:1;justify-content:center">
           <li style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:start;border-bottom:1px solid var(--border-subtle);padding-bottom:1.6vh">
-            <span style="font-family:var(--mono);font-size:max(11px,.85vw);color:var(--text-helper);letter-spacing:.18em;padding-top:.4vh">01</span>
+            <span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-helper);letter-spacing:.18em;padding-top:.4vh">01</span>
             <div style="display:flex;flex-direction:column;gap:.4vh">
               <span style="font-size:max(15px,1.2vw);font-weight:500;line-height:1.2">数据准备</span>
-              <span style="font-family:var(--mono);font-size:max(10px,.8vw);color:var(--text-secondary);letter-spacing:.05em">val 重建 · 1000 类校验 · symlink 修复</span>
+              <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-secondary);letter-spacing:.05em">val 重建 · 1000 类校验 · symlink 修复</span>
             </div>
           </li>
           <li style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:start;border-bottom:1px solid var(--border-subtle);padding-bottom:1.6vh">
-            <span style="font-family:var(--mono);font-size:max(11px,.85vw);color:var(--text-helper);letter-spacing:.18em;padding-top:.4vh">02</span>
+            <span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-helper);letter-spacing:.18em;padding-top:.4vh">02</span>
             <div style="display:flex;flex-direction:column;gap:.4vh">
               <span style="font-size:max(15px,1.2vw);font-weight:500;line-height:1.2">训练 · ResNet-50</span>
-              <span style="font-family:var(--mono);font-size:max(10px,.8vw);color:var(--text-secondary);letter-spacing:.05em">Mixup/CutMix · 100 ep · EMA · AMP · accum=2</span>
+              <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-secondary);letter-spacing:.05em">Mixup/CutMix · 100 ep · EMA · AMP · accum=2</span>
             </div>
           </li>
           <li style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:start;border-bottom:1px solid var(--accent);padding-bottom:1.6vh;background:rgba(158,27,27,.04);margin:0 -.6vw;padding-left:.6vw;padding-right:.6vw;padding-top:1vh">
-            <span style="font-family:var(--mono);font-size:max(11px,.85vw);color:var(--accent);letter-spacing:.18em;padding-top:.4vh">03</span>
+            <span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--accent);letter-spacing:.18em;padding-top:.4vh">03</span>
             <div style="display:flex;flex-direction:column;gap:.4vh">
               <span style="font-size:max(15px,1.2vw);font-weight:500;line-height:1.2;color:var(--accent)">推理 · 单模型 HFlip TTA</span>
-              <span style="font-family:var(--mono);font-size:max(10px,.8vw);color:var(--accent);letter-spacing:.05em">+0.42 pp Top-1 · one checkpoint</span>
+              <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--accent);letter-spacing:.05em">+0.42 pp Top-1 · one checkpoint</span>
             </div>
           </li>
           <li style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:start;border-bottom:1px solid var(--border-subtle);padding-bottom:1.6vh">
-            <span style="font-family:var(--mono);font-size:max(11px,.85vw);color:var(--text-helper);letter-spacing:.18em;padding-top:.4vh">04</span>
+            <span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-helper);letter-spacing:.18em;padding-top:.4vh">04</span>
             <div style="display:flex;flex-direction:column;gap:.4vh">
               <span style="font-size:max(15px,1.2vw);font-weight:500;line-height:1.2">提交 · 6/6 截止</span>
-              <span style="font-family:var(--mono);font-size:max(10px,.8vw);color:var(--text-secondary);letter-spacing:.05em">result.csv · Dockerfile · 技术方案</span>
+              <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-secondary);letter-spacing:.05em">result.csv · Dockerfile · 技术方案</span>
             </div>
           </li>
         </ol>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1vw;border-top:1px solid var(--ink);padding-top:1.4vh">
           <div style="display:flex;flex-direction:column;gap:.4vh">
-            <span class="t-meta" style="color:var(--text-helper)">DEADLINE</span>
-            <span style="font-family:var(--mono);font-size:max(13px,1.05vw);font-weight:500;color:var(--ink)">提交 · 6/6</span>
+            <span class="t-meta" style="color:var(--text-helper)">SUBMIT</span>
+            <span style="font-family:var(--mono);font-size:max(14px,1.1vw);font-weight:500;color:var(--ink)">提交 · 6/6</span>
           </div>
           <div style="display:flex;flex-direction:column;gap:.4vh;align-items:flex-end">
-            <span class="t-meta" style="color:var(--text-helper)">DEFENSE</span>
-            <span style="font-family:var(--mono);font-size:max(13px,1.05vw);font-weight:500;color:var(--accent)">答辩 · 6/14</span>
+            <span class="t-meta" style="color:var(--text-helper)">ARTIFACTS</span>
+            <span style="font-family:var(--mono);font-size:max(14px,1.1vw);font-weight:500;color:var(--accent)">csv · docker · 报告</span>
           </div>
         </div>
       </div>
@@ -1407,51 +1407,46 @@
             <div style="height:1px;background:var(--ink)"></div>
             <span class="t-meta">DATASET</span>
             <span class="kpi-num" style="font-family:var(--sans);font-weight:200;font-size:min(4.2vw,7.4vh);line-height:.95;letter-spacing:-.04em">128<span style="font-size:.5em;font-weight:300;opacity:.7;margin-left:.1em">万</span></span>
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.15em">TRAIN IMAGES</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-helper);letter-spacing:.15em">TRAIN IMAGES</span>
           </div>
           <div style="display:flex;flex-direction:column;gap:.6vh">
             <div style="height:1px;background:var(--ink)"></div>
             <span class="t-meta">CLASSES</span>
             <span class="kpi-num" style="font-family:var(--sans);font-weight:200;font-size:min(4.2vw,7.4vh);line-height:.95;letter-spacing:-.04em">1 000</span>
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.15em">IMAGENET-1K</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-helper);letter-spacing:.15em">IMAGENET-1K</span>
           </div>
           <div style="display:flex;flex-direction:column;gap:.6vh">
             <div style="height:1px;background:var(--accent)"></div>
             <span class="t-meta" style="color:var(--accent)">HARDWARE</span>
             <span class="kpi-num" style="font-family:var(--sans);font-weight:200;font-size:min(4.2vw,7.4vh);line-height:.95;letter-spacing:-.04em;color:var(--accent)">4090D</span>
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.15em">SINGLE · 24 GB · AMP</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-helper);letter-spacing:.15em">SINGLE · 24 GB · AMP</span>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:.6vh">
           <div style="display:flex;justify-content:space-between;align-items:baseline">
-            <span class="t-meta">PER-EPOCH WALL TIME · 100 EP</span>
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.15em">↑ MIN / EPOCH</span>
+            <span class="t-meta">VAL TOP-1 收敛 · 100 EP</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-helper);letter-spacing:.15em">0.8% → 77.57%</span>
           </div>
           <div style="height:1px;background:var(--border-subtle)"></div>
         </div>
-        <div class="spec-bars" style="display:grid;grid-template-columns:repeat(10,1fr);gap:.5vw;align-items:end;height:100%;min-height:14vh">
-          <span class="bar-vert" style="display:block;width:100%;height:62%;background:var(--ink);transform-origin:bottom"></span>
-          <span class="bar-vert" style="display:block;width:100%;height:58%;background:var(--ink);transform-origin:bottom"></span>
-          <span class="bar-vert" style="display:block;width:100%;height:60%;background:var(--ink);transform-origin:bottom"></span>
-          <span class="bar-vert" style="display:block;width:100%;height:55%;background:var(--ink);transform-origin:bottom"></span>
-          <span class="bar-vert" style="display:block;width:100%;height:64%;background:var(--ink);transform-origin:bottom"></span>
-          <span class="bar-vert" style="display:block;width:100%;height:57%;background:var(--ink);transform-origin:bottom"></span>
-          <span class="bar-vert" style="display:block;width:100%;height:61%;background:var(--ink);transform-origin:bottom"></span>
-          <span class="bar-vert" style="display:block;width:100%;height:59%;background:var(--ink);transform-origin:bottom"></span>
-          <span class="bar-vert" style="display:block;width:100%;height:88%;background:var(--accent);transform-origin:bottom"></span>
-          <span class="bar-vert" style="display:block;width:100%;height:54%;background:var(--ink);transform-origin:bottom"></span>
+        <div class="spec-curve" style="position:relative;height:100%;min-height:14vh">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
+            <polyline fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" points="0.00,98.99 1.01,85.38 2.02,70.10 3.03,58.58 4.04,52.95 5.05,53.77 6.06,48.37 7.07,43.32 8.08,41.02 9.09,38.77 10.10,37.89 11.11,35.84 12.12,34.55 13.13,34.82 14.14,32.12 15.15,32.56 16.16,32.20 17.17,32.45 18.18,32.64 19.19,28.70 20.20,27.07 21.21,28.52 22.22,27.68 23.23,26.03 24.24,26.77 25.25,25.23 26.26,24.90 27.27,25.65 28.28,25.16 29.29,27.08 30.30,22.69 31.31,25.64 32.32,25.37 33.33,22.55 34.34,22.51 35.35,27.59 36.36,20.92 37.37,23.23 38.38,23.90 39.39,22.78 40.40,22.85 41.41,20.22 42.42,22.67 43.43,19.11 44.44,23.62 45.45,23.05 46.46,19.34 47.47,20.41 48.48,20.85 49.49,21.77 50.51,20.61 51.52,17.14 52.53,20.17 53.54,19.63 54.55,18.10 55.56,18.12 56.57,19.09 57.58,19.87 58.59,16.30 59.60,19.02 60.61,15.37 61.62,16.66 62.63,17.03 63.64,16.19 64.65,17.22 65.66,16.95 66.67,15.28 67.68,16.92 68.69,16.07 69.70,16.42 70.71,15.66 71.72,14.49 72.73,14.03 73.74,14.29 74.75,13.31 75.76,12.25 76.77,11.70 77.78,11.10 78.79,11.45 79.80,10.32 80.81,9.59 81.82,10.12 82.83,8.64 83.84,8.23 84.85,7.80 85.86,7.45 86.87,7.06 87.88,6.66 88.89,6.14 89.90,5.57 90.91,5.26 91.92,4.76 92.93,4.39 93.94,3.88 94.95,4.05 95.96,3.68 96.97,3.46 97.98,3.25 98.99,3.19 100.00,3.04"/>
+            <circle cx="100.00" cy="3.04" r="1.6" fill="var(--accent)" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <span style="position:absolute;right:0;top:0;font-family:var(--mono);font-size:max(11px,.82vw);color:var(--accent);font-weight:500">77.57%</span>
         </div>
         <div style="display:grid;grid-template-columns:1fr auto;gap:2vw;align-items:end;border-top:1px solid var(--ink);padding-top:1.4vh">
           <div style="display:flex;flex-direction:column;gap:.4vh">
             <span class="t-meta">TOTAL TRAINING BUDGET</span>
-            <span style="font-family:var(--sans);font-weight:200;font-size:min(5.6vw,9.6vh);line-height:.95;letter-spacing:-.04em">≈ 55<span style="font-size:.4em;font-weight:300;opacity:.7;margin-left:.1em">h</span></span>
+            <span style="font-family:var(--sans);font-weight:200;font-size:min(5.6vw,9.6vh);line-height:.95;letter-spacing:-.04em">≈ 50<span style="font-size:.4em;font-weight:300;opacity:.7;margin-left:.1em">h</span></span>
           </div>
           <div style="display:flex;flex-direction:column;gap:.6vh;align-items:flex-end">
             <span class="t-meta" style="color:var(--text-helper)">CFG TAGS</span>
             <div style="display:flex;gap:.6vw;flex-wrap:wrap;justify-content:flex-end">
-              <span style="font-family:var(--mono);font-size:max(10px,.78vw);border:1px solid var(--ink);padding:.4vh .8vw;letter-spacing:.12em">SGD · M=.9</span>
-              <span style="font-family:var(--mono);font-size:max(10px,.78vw);border:1px solid var(--ink);padding:.4vh .8vw;letter-spacing:.12em">COSINE · WARM=5</span>
-              <span style="font-family:var(--mono);font-size:max(10px,.78vw);border:1px solid var(--accent);color:var(--accent);padding:.4vh .8vw;letter-spacing:.12em">EMA · .9999</span>
+              <span style="font-family:var(--mono);font-size:max(12px,.9vw);border:1px solid var(--ink);padding:.4vh .8vw;letter-spacing:.12em">SGD · M=0.9</span>
+              <span style="font-family:var(--mono);font-size:max(12px,.9vw);border:1px solid var(--ink);padding:.4vh .8vw;letter-spacing:.12em">COSINE · WARM=5</span>
+              <span style="font-family:var(--mono);font-size:max(12px,.9vw);border:1px solid var(--accent);color:var(--accent);padding:.4vh .8vw;letter-spacing:.12em">EMA · 0.9999</span>
             </div>
           </div>
         </div>
@@ -1463,7 +1458,7 @@
 <!-- =========== P4 · S08 Duo Compare · 数据 vs 增广 =========== -->
 <section class="slide light" data-layout="S08" data-animate="duo-mirror">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l">Data · 质量 vs Recipe</div><div class="r">04 / 10</div></div>
+    <div class="chrome-min"><div class="l">Data · 质量 vs Recipe</div><div class="r"><span style="color:var(--accent)">C · 龚</span> · 04 / 10</div></div>
     <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr auto;gap:2.4vh">
       <div data-anim="head" style="display:flex;flex-direction:column;gap:1.2vh">
         <div class="t-meta">DATA QUALITY × AUGMENTATION RECIPE</div>
@@ -1474,11 +1469,11 @@
           <span class="t-cat" style="color:var(--text-helper)">A · 数据质量</span>
           <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:300;font-size:min(3.4vw,6vh);line-height:1;letter-spacing:-.02em">128 万张<br/>0 张报废</h3>
           <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:1vh;margin-top:.4vh">
-            <li style="display:grid;grid-template-columns:auto 1fr auto;gap:1.2vw;align-items:baseline;border-top:1px solid var(--border-subtle);padding-top:1vh"><span style="font-family:var(--mono);color:var(--text-helper);font-size:max(11px,.85vw)">01</span><span style="font-size:max(13px,1vw);font-weight:300">损坏文件</span><span style="font-family:var(--mono);font-size:max(12px,.92vw);font-weight:500">0 张</span></li>
-            <li style="display:grid;grid-template-columns:auto 1fr auto;gap:1.2vw;align-items:baseline;border-top:1px solid var(--border-subtle);padding-top:1vh"><span style="font-family:var(--mono);color:var(--text-helper);font-size:max(11px,.85vw)">02</span><span style="font-size:max(13px,1vw);font-weight:300">近空白图</span><span style="font-family:var(--mono);font-size:max(12px,.92vw);font-weight:500">0 张</span></li>
-            <li style="display:grid;grid-template-columns:auto 1fr auto;gap:1.2vw;align-items:baseline;border-top:1px solid var(--border-subtle);padding-top:1vh"><span style="font-family:var(--mono);color:var(--text-helper);font-size:max(11px,.85vw)">03</span><span style="font-size:max(13px,1vw);font-weight:300">极小图</span><span style="font-family:var(--mono);font-size:max(12px,.92vw);font-weight:500;color:var(--text-helper)">≤ 0.05 %</span></li>
+            <li style="display:grid;grid-template-columns:auto 1fr auto;gap:1.2vw;align-items:baseline;border-top:1px solid var(--border-subtle);padding-top:1vh"><span style="font-family:var(--mono);color:var(--text-helper);font-size:max(12.5px,.95vw)">01</span><span style="font-size:max(13px,1vw);font-weight:300">损坏文件</span><span style="font-family:var(--mono);font-size:max(13.5px,1.02vw);font-weight:500">0 张</span></li>
+            <li style="display:grid;grid-template-columns:auto 1fr auto;gap:1.2vw;align-items:baseline;border-top:1px solid var(--border-subtle);padding-top:1vh"><span style="font-family:var(--mono);color:var(--text-helper);font-size:max(12.5px,.95vw)">02</span><span style="font-size:max(13px,1vw);font-weight:300">近空白图</span><span style="font-family:var(--mono);font-size:max(13.5px,1.02vw);font-weight:500">0 张</span></li>
+            <li style="display:grid;grid-template-columns:auto 1fr auto;gap:1.2vw;align-items:baseline;border-top:1px solid var(--border-subtle);padding-top:1vh"><span style="font-family:var(--mono);color:var(--text-helper);font-size:max(12.5px,.95vw)">03</span><span style="font-size:max(13px,1vw);font-weight:300">极小图</span><span style="font-family:var(--mono);font-size:max(13.5px,1.02vw);font-weight:500;color:var(--text-helper)">≤ 0.05 %</span></li>
           </ul>
-          <p style="font-size:max(12px,.92vw);line-height:1.6;color:var(--text-secondary);font-weight:300">结论 · 数据本身可用，主要风险来自 web 标签噪声 — 优先保留数据覆盖度，再用软监督降低噪声样本影响。</p>
+          <p style="font-size:max(13.5px,1.02vw);line-height:1.6;color:var(--text-secondary);font-weight:300">结论 · 数据本身可用，主要风险来自 web 标签噪声 — 优先保留数据覆盖度，再用软监督降低噪声样本影响。</p>
           <div style="margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:1vw;border-top:1px solid var(--ink);padding-top:1.6vh">
             <div style="display:flex;flex-direction:column;gap:.4vh">
               <span class="t-meta" style="color:var(--text-helper)">USABLE</span>
@@ -1495,22 +1490,22 @@
           <span class="t-cat" style="color:var(--accent)">B · 增广 Recipe</span>
           <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:300;font-size:min(3.4vw,6vh);line-height:1;letter-spacing:-.02em;color:var(--accent)">77.99 %<br/>最终提交 · raw + HFlip TTA</h3>
           <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:1vh;margin-top:.4vh">
-            <li style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:baseline;border-top:1px solid var(--border-subtle);padding-top:1vh"><span style="font-family:var(--mono);color:var(--text-helper);font-size:max(11px,.85vw);min-width:4ch">基础</span><span style="font-size:max(13px,1vw);font-weight:300">RRC(224) + HFlip</span></li>
-            <li style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:baseline;border-top:1px solid var(--border-subtle);padding-top:1vh"><span style="font-family:var(--mono);color:var(--text-helper);font-size:max(11px,.85vw);min-width:4ch">取舍</span><span style="font-size:max(13px,1vw);font-weight:300">不启用 RandAugment / RandomErasing</span></li>
-            <li style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:baseline;border-top:1px solid var(--border-subtle);padding-top:1vh"><span style="font-family:var(--mono);color:var(--accent);font-size:max(11px,.85vw);min-width:4ch">正则</span><span style="font-size:max(13px,1vw);font-weight:400">+ Mixup α=0.1 · CutMix α=1.0 · prob=0.5</span></li>
+            <li style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:baseline;border-top:1px solid var(--border-subtle);padding-top:1vh"><span style="font-family:var(--mono);color:var(--text-helper);font-size:max(12.5px,.95vw);min-width:4ch">基础</span><span style="font-size:max(13px,1vw);font-weight:300">RRC(224) + HFlip</span></li>
+            <li style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:baseline;border-top:1px solid var(--border-subtle);padding-top:1vh"><span style="font-family:var(--mono);color:var(--text-helper);font-size:max(12.5px,.95vw);min-width:4ch">取舍</span><span style="font-size:max(13px,1vw);font-weight:300">不启用 RandAugment / RandomErasing</span></li>
+            <li style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:baseline;border-top:1px solid var(--border-subtle);padding-top:1vh"><span style="font-family:var(--mono);color:var(--accent);font-size:max(12.5px,.95vw);min-width:4ch">正则</span><span style="font-size:max(13px,1vw);font-weight:400">+ Mixup α=0.1 · CutMix α=1.0 · prob=0.5</span></li>
           </ul>
-          <p style="font-size:max(11px,.88vw);line-height:1.55;color:var(--text-secondary);font-weight:300;margin-top:1.2vh"><strong style="color:var(--text-helper);font-family:var(--mono);font-size:max(10px,.8vw)">不加 TTA</strong> · 同 raw 权重下 full_mixcut <strong style="color:var(--accent)">77.57</strong> ≈ baseline 77.58 > 强增广 76.91。<br/><strong style="color:var(--accent);font-family:var(--mono);font-size:max(10px,.8vw)">+HFlip TTA</strong> · full_mixcut <strong style="color:var(--accent)">77.99</strong> ≈ baseline 77.97（提交配置）。</p>
+          <p style="font-size:max(13px,1vw);line-height:1.55;color:var(--text-secondary);font-weight:300;margin-top:1.2vh"><strong style="color:var(--text-helper);font-family:var(--mono);font-size:max(12px,.9vw)">不加 TTA</strong> · 同 raw 权重下 full_mixcut <strong style="color:var(--accent)">77.57</strong> ≈ baseline 77.58 > 强增广 76.91。<br/><strong style="color:var(--accent);font-family:var(--mono);font-size:max(12px,.9vw)">+HFlip TTA</strong> · full_mixcut <strong style="color:var(--accent)">77.99</strong> ≈ baseline 77.97（提交配置）。</p>
           <div style="margin-top:auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8vw;border-top:1px solid var(--accent);padding-top:1.4vh">
             <div style="display:flex;flex-direction:column;gap:.4vh">
-              <span class="t-meta" style="color:var(--accent);font-size:max(9px,.7vw)">FULL_MIXCUT</span>
+              <span class="t-meta" style="color:var(--accent);font-size:max(12.5px,.92vw)">FULL_MIXCUT</span>
               <span style="font-family:var(--sans);font-weight:200;font-size:min(2.8vw,4.8vh);line-height:.9;letter-spacing:-.04em;color:var(--accent)">77.57<span style="font-size:.4em;font-weight:300;opacity:.7;margin-left:.1em">%</span></span>
             </div>
             <div style="display:flex;flex-direction:column;gap:.4vh">
-              <span class="t-meta" style="color:var(--text-helper);font-size:max(9px,.7vw)">BASELINE</span>
+              <span class="t-meta" style="color:var(--text-helper);font-size:max(12.5px,.92vw)">BASELINE</span>
               <span style="font-family:var(--sans);font-weight:200;font-size:min(2.8vw,4.8vh);line-height:.9;letter-spacing:-.04em;color:var(--text-primary)">77.58<span style="font-size:.4em;font-weight:300;opacity:.7;margin-left:.1em">%</span></span>
             </div>
             <div style="display:flex;flex-direction:column;gap:.4vh">
-              <span class="t-meta" style="color:var(--text-helper);font-size:max(9px,.7vw)">强增广</span>
+              <span class="t-meta" style="color:var(--text-helper);font-size:max(12.5px,.92vw)">强增广</span>
               <span style="font-family:var(--sans);font-weight:200;font-size:min(2.8vw,4.8vh);line-height:.9;letter-spacing:-.04em;color:var(--text-helper)">76.91<span style="font-size:.4em;font-weight:300;opacity:.7;margin-left:.1em">%</span></span>
             </div>
           </div>
@@ -1528,7 +1523,7 @@
 <!-- =========== P5 · S06 KPI Tower · 损失函数对比 (鲁棒损失证伪) =========== -->
 <section class="slide light" data-layout="S06" data-animate="measure-up">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l">Loss Comparison · 鲁棒损失证伪</div><div class="r">05 / 10</div></div>
+    <div class="chrome-min"><div class="l">Loss Comparison · 鲁棒损失证伪</div><div class="r"><span style="color:var(--accent)">C · 龚</span> · 05 / 10</div></div>
     <div style="flex:1;padding:0;display:grid;grid-template-rows:auto auto 1fr auto;gap:2.4vh">
       <div data-anim="line" style="display:flex;flex-direction:column;gap:1.2vh">
         <div class="t-meta">40 EP · VAL TOP-1 · RESNET-50 · WEAK AUG</div>
@@ -1573,7 +1568,7 @@
         </div>
       </div>
       <div data-anim="foot" style="display:grid;grid-template-columns:1fr auto auto;gap:2vw;align-items:end;border-top:1px solid var(--border-subtle);padding-top:1.6vh">
-        <p style="font-size:max(12px,.92vw);line-height:1.5;color:var(--text-secondary);font-weight:300;max-width:62ch">本任务噪声率 <strong style="color:var(--ink)">5–15%</strong> 属<strong style="color:var(--ink)">弱噪场景</strong>，SCE/GCE 为 40%+ 高噪率设计，假设不成立 → 算力转向<strong style="color:var(--accent)">数据增广方向</strong>。</p>
+        <p style="font-size:max(13.5px,1.02vw);line-height:1.5;color:var(--text-secondary);font-weight:300;max-width:62ch">本任务噪声率 <strong style="color:var(--ink)">5–15%</strong> 属<strong style="color:var(--ink)">弱噪场景</strong>，SCE/GCE 为 40%+ 高噪率设计，假设不成立 → 算力转向<strong style="color:var(--accent)">数据增广方向</strong>。</p>
         <div style="display:flex;flex-direction:column;align-items:end;gap:.4vh">
           <span class="t-meta" style="color:var(--text-helper)">SAMPLES PER ROUND</span>
           <span style="font-family:var(--mono);font-weight:500;font-size:max(13px,1vw);color:var(--ink)">385 K · 30% subset</span>
@@ -1587,35 +1582,35 @@
 <!-- =========== P6 · S20 Stacked Ledger · 消融实验汇总 =========== -->
 <section class="slide light" data-layout="S20" data-animate="stacked-ledger">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l">Ablation · 5 行账单</div><div class="r">06 / 10</div></div>
+    <div class="chrome-min"><div class="l">Ablation · 5 行账单</div><div class="r"><span style="color:var(--accent)">D · 陈</span> · 06 / 10</div></div>
     <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr;gap:3vh">
       <div data-anim="head" style="display:flex;flex-direction:column;gap:1.2vh">
         <div class="t-meta">VAL TOP-1 · ALL EXPERIMENTS</div>
         <h2 style="font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(5.4vw,9.6vh);line-height:.96;letter-spacing:-.03em">核心消融 · 一图全览</h2>
       </div>
       <div data-anim="ledger" class="stacked-ledger" style="display:flex;flex-direction:column">
-        <div class="ledger-row" style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:baseline;padding:2.2vh 0;border-bottom:1px solid var(--border-subtle)">
-          <span style="font-family:var(--mono);font-size:max(12px,.92vw);color:var(--text-helper);letter-spacing:.1em">BASELINE_V1 · 100ep · weak aug</span>
+        <div class="ledger-row" style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:baseline;padding:1.85vh 0;border-bottom:1px solid var(--border-subtle)">
+          <span style="font-family:var(--mono);font-size:max(13.5px,1.02vw);color:var(--text-helper);letter-spacing:.1em">BASELINE_V1 · 100ep · weak aug</span>
           <span style="font-size:max(13px,1.05vw);font-weight:300;color:var(--text-secondary)">full data · RRC + HFlip · CE+LS</span>
           <span style="font-family:var(--mono);font-weight:300;font-size:min(5.2vw,9vh);letter-spacing:-.03em;line-height:.95">77.58</span>
         </div>
-        <div class="ledger-row" style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:baseline;padding:2.2vh 0;border-bottom:1px solid var(--border-subtle)">
-          <span style="font-family:var(--mono);font-size:max(12px,.92vw);color:var(--text-helper);letter-spacing:.1em">CLEANED_V1 · C1+C2 · weak aug</span>
+        <div class="ledger-row" style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:baseline;padding:1.85vh 0;border-bottom:1px solid var(--border-subtle)">
+          <span style="font-family:var(--mono);font-size:max(13.5px,1.02vw);color:var(--text-helper);letter-spacing:.1em">CLEANED_V1 · C1+C2 · weak aug</span>
           <span style="font-size:max(13px,1.05vw);font-weight:300;color:var(--text-secondary)">删样本降低覆盖度 · 不作为最终路线</span>
           <span style="font-family:var(--mono);font-weight:300;font-size:min(5.2vw,9vh);letter-spacing:-.03em;line-height:.95;color:var(--text-secondary)">76.84</span>
         </div>
-        <div class="ledger-row" style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:baseline;padding:2.2vh 0;border-bottom:1px solid var(--border-subtle)">
-          <span style="font-family:var(--mono);font-size:max(12px,.92vw);color:var(--text-helper);letter-spacing:.1em">FULL_STRONG_AUG · 100ep</span>
+        <div class="ledger-row" style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:baseline;padding:1.85vh 0;border-bottom:1px solid var(--border-subtle)">
+          <span style="font-family:var(--mono);font-size:max(13.5px,1.02vw);color:var(--text-helper);letter-spacing:.1em">FULL_STRONG_AUG · 100ep</span>
           <span style="font-size:max(13px,1.05vw);font-weight:300;color:var(--text-secondary)">Mixup+CutMix+RandAug+Erasing · 100ep 收敛不足</span>
           <span style="font-family:var(--mono);font-weight:300;font-size:min(5.2vw,9vh);letter-spacing:-.03em;line-height:.95;color:var(--text-secondary)">76.91</span>
         </div>
-        <div class="ledger-row" style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:baseline;padding:2.2vh 0;border-bottom:1px solid var(--border-subtle)">
-          <span style="font-family:var(--mono);font-size:max(12px,.92vw);color:var(--accent);letter-spacing:.1em">FULL_MIXCUT · 100ep · plain val</span>
+        <div class="ledger-row" style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:baseline;padding:1.85vh 0;border-bottom:1px solid var(--border-subtle)">
+          <span style="font-family:var(--mono);font-size:max(13.5px,1.02vw);color:var(--accent);letter-spacing:.1em">FULL_MIXCUT · 100ep · plain val</span>
           <span style="font-size:max(13px,1.05vw);font-weight:400;color:var(--accent)">最终训练 recipe · best_source=raw</span>
           <span style="font-family:var(--mono);font-weight:300;font-size:min(5.2vw,9vh);letter-spacing:-.03em;line-height:.95;color:var(--accent)">77.57</span>
         </div>
-        <div class="ledger-row" style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:baseline;padding:2.2vh 0;border-top:2px solid var(--accent);border-bottom:none">
-          <span style="font-family:var(--mono);font-size:max(12px,.92vw);color:var(--accent);letter-spacing:.1em">FULL_MIXCUT_HFLIP · single checkpoint</span>
+        <div class="ledger-row" style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:baseline;padding:1.85vh 0;border-top:2px solid var(--accent);border-bottom:none">
+          <span style="font-family:var(--mono);font-size:max(13.5px,1.02vw);color:var(--accent);letter-spacing:.1em">FULL_MIXCUT_HFLIP · single checkpoint</span>
           <span style="font-size:max(13px,1.05vw);font-weight:500;color:var(--accent)">同一模型两视角推理 · no ensemble</span>
           <span style="font-family:var(--mono);font-weight:200;font-size:min(5.2vw,9vh);letter-spacing:-.03em;line-height:.95;color:var(--accent)">77.99</span>
         </div>
@@ -1624,60 +1619,60 @@
   </div>
 </section>
 
-<!-- =========== P7 · S13 Three Forces Cards · 3 个 Trainer Bug =========== -->
+<!-- =========== P7 · S13 Three Forces Cards · 3 个工程复盘 (D·陈 主讲) =========== -->
 <section class="slide light" data-layout="S13" data-animate="three-forces">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l">Engineering Rigor · Trainer Bugs</div><div class="r">07 / 10</div></div>
+    <div class="chrome-min"><div class="l">Engineering Rigor · 三个工程复盘</div><div class="r"><span style="color:var(--accent)">D · 陈</span> · 07 / 10</div></div>
     <div style="flex:1;padding:0;display:grid;grid-template-columns:5fr 11fr;gap:3vw;align-items:stretch">
       <div data-anim="hero" class="hero-ink-col" style="background:var(--ink);color:#fff;padding:3.6vh 2vw;display:flex;flex-direction:column;gap:2vh;justify-content:space-between">
         <span class="t-cat" style="color:rgba(255,255,255,.7)">Methodology</span>
-        <h2 style="font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(4.6vw,8.2vh);line-height:.96;letter-spacing:-.03em;color:#fff">3 个 Trainer Bug<br/>= 3 道方法论</h2>
-        <p style="font-size:max(12px,.92vw);line-height:1.6;color:rgba(255,255,255,.78);font-weight:300">发现 bug 不是失败 — 是把<br/><strong style="color:var(--accent-bright)">"看不见的实验变量"</strong><br/>变成<br/><strong style="color:#fff">"看得见的方法论"</strong>.</p>
+        <h2 style="font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(4.8vw,8.4vh);line-height:.96;letter-spacing:-.03em;color:#fff">3 个隐形坑<br/>= 3 道方法论</h2>
+        <p style="font-size:max(14px,1.05vw);line-height:1.6;color:rgba(255,255,255,.82);font-weight:300">最贵的 bug 不在代码报错里 — 是<br/><strong style="color:var(--accent-bright)">"指标静默作废"</strong><br/>把<strong style="color:#fff">看不见的实验变量</strong><br/>变成看得见的方法论.</p>
       </div>
       <div data-anim="cards" style="display:flex;flex-direction:column;gap:1.6vh;height:100%">
         <article class="force-card card-fill" style="background:var(--grey-1);padding:2.6vh 2vw;display:grid;grid-template-columns:auto 1fr 1.4fr 1.4fr;gap:1.6vw;align-items:center;flex:1">
           <span class="force-num" style="font-family:var(--sans);font-weight:200;font-size:min(5.6vw,9.6vh);line-height:.9;color:var(--accent)">#1</span>
           <div style="display:flex;flex-direction:column;gap:.6vh;justify-content:center">
-            <span class="t-meta" style="color:var(--text-helper)">SYMPTOM</span>
-            <h4 style="font-weight:500;font-size:max(14px,1.15vw);margin:0;line-height:1.25">LS 静默失效<br/><span style="font-weight:300;color:var(--text-secondary)">Label Smoothing</span></h4>
+            <span class="t-meta" style="color:var(--text-helper);font-size:max(11px,.84vw)">SYMPTOM · 数据层</span>
+            <h4 style="font-weight:500;font-size:max(16px,1.3vw);margin:0;line-height:1.25">val 目录错配<br/><span style="font-weight:300;color:var(--text-secondary)">8 组实验静默作废</span></h4>
           </div>
           <div style="display:flex;flex-direction:column;gap:.6vh;border-left:1px solid var(--border-subtle);padding-left:1.2vw;justify-content:center">
-            <span class="t-meta" style="color:var(--text-helper)">IMPACT</span>
-            <p style="font-size:max(11px,.88vw);line-height:1.55;color:var(--text-secondary);font-weight:300;margin:0">mixup 分支跳过 LS → mixup 系列与 baseline 变量不可控，归因不干净</p>
+            <span class="t-meta" style="color:var(--text-helper);font-size:max(11px,.84vw)">IMPACT</span>
+            <p style="font-size:max(13px,1vw);line-height:1.55;color:var(--text-secondary);font-weight:300;margin:0">flat val 没整理成 1000 类子目录 → <strong style="font-weight:500;color:var(--ink)">Train 90.45% / Val 0.10%</strong>，两周 SCE/GCE 对比全废</p>
           </div>
           <div style="display:flex;flex-direction:column;gap:.6vh;border-left:1px solid var(--accent);padding-left:1.2vw;justify-content:center">
-            <span class="t-meta" style="color:var(--accent)">FIX</span>
-            <p style="font-size:max(11px,.88vw);line-height:1.55;color:var(--text-primary);font-weight:300;margin:0">mixup 路径显式注入：<code style="font-family:var(--mono);font-size:.92em;color:var(--accent)">mixed × (1-ε) + ε/N</code></p>
+            <span class="t-meta" style="color:var(--accent);font-size:max(11px,.84vw)">FIX</span>
+            <p style="font-size:max(13px,1vw);line-height:1.55;color:var(--text-primary);font-weight:300;margin:0">用 <code style="font-family:var(--mono);font-size:.92em;color:var(--accent)">val_solution.csv</code> 按 synset 重组 val · 校验 train/val 类对齐</p>
           </div>
         </article>
         <article class="force-card card-fill" style="background:var(--grey-1);padding:2.6vh 2vw;display:grid;grid-template-columns:auto 1fr 1.4fr 1.4fr;gap:1.6vw;align-items:center;flex:1">
           <span class="force-num" style="font-family:var(--sans);font-weight:200;font-size:min(5.6vw,9.6vh);line-height:.9;color:var(--accent)">#2</span>
           <div style="display:flex;flex-direction:column;gap:.6vh;justify-content:center">
-            <span class="t-meta" style="color:var(--text-helper)">SYMPTOM</span>
-            <h4 style="font-weight:500;font-size:max(14px,1.15vw);margin:0;line-height:1.25">cudnn 配置冲突<br/><span style="font-weight:300;color:var(--text-secondary)">Performance</span></h4>
+            <span class="t-meta" style="color:var(--text-helper);font-size:max(11px,.84vw)">SYMPTOM · EMA 层</span>
+            <h4 style="font-weight:500;font-size:max(16px,1.3vw);margin:0;line-height:1.25">EMA 双重坑<br/><span style="font-weight:300;color:var(--text-secondary)">充电慢 + BN buffer 漏同步</span></h4>
           </div>
           <div style="display:flex;flex-direction:column;gap:.6vh;border-left:1px solid var(--border-subtle);padding-left:1.2vw;justify-content:center">
-            <span class="t-meta" style="color:var(--text-helper)">IMPACT</span>
-            <p style="font-size:max(11px,.88vw);line-height:1.55;color:var(--text-secondary);font-weight:300;margin:0"><code style="font-family:var(--mono);font-size:.92em">deterministic=True</code> 时 benchmark 实际不生效，100ep 慢 <strong style="font-weight:500;color:var(--ink)">5–15%</strong> (~2–7h)</p>
+            <span class="t-meta" style="color:var(--text-helper);font-size:max(11px,.84vw)">IMPACT</span>
+            <p style="font-size:max(13px,1vw);line-height:1.55;color:var(--text-secondary);font-weight:300;margin:0">decay 0.9999 短实验充不满 + 漏同步 BN running stats → train 已 16% 但 <strong style="font-weight:500;color:var(--ink)">val 恒 0.1%</strong></p>
           </div>
           <div style="display:flex;flex-direction:column;gap:.6vh;border-left:1px solid var(--accent);padding-left:1.2vw;justify-content:center">
-            <span class="t-meta" style="color:var(--accent)">FIX</span>
-            <p style="font-size:max(11px,.88vw);line-height:1.55;color:var(--text-primary);font-weight:300;margin:0">trade-off bit-exact 换速度：<code style="font-family:var(--mono);font-size:.92em;color:var(--accent)">determ=False · benchmark=True</code></p>
+            <span class="t-meta" style="color:var(--accent);font-size:max(11px,.84vw)">FIX</span>
+            <p style="font-size:max(13px,1vw);line-height:1.55;color:var(--text-primary);font-weight:300;margin:0">EMA 同步 <code style="font-family:var(--mono);font-size:.92em;color:var(--accent)">buffers()</code> · 短实验关 EMA(decay=0)</p>
           </div>
         </article>
         <article class="force-card card-accent" style="background:var(--accent);color:#fff;padding:2.6vh 2vw;display:grid;grid-template-columns:auto 1fr 1.4fr 1.4fr;gap:1.6vw;align-items:center;flex:1">
           <span class="force-num" style="font-family:var(--sans);font-weight:200;font-size:min(5.6vw,9.6vh);line-height:.9;color:#fff">#3</span>
           <div style="display:flex;flex-direction:column;gap:.6vh;justify-content:center">
-            <span class="t-meta" style="color:rgba(255,255,255,.7)">SYMPTOM</span>
-            <h4 style="font-weight:500;font-size:max(14px,1.15vw);margin:0;line-height:1.25;color:#fff">resume scheduler<br/><span style="font-weight:300;color:rgba(255,255,255,.85)">Just Fixed · 5/26</span></h4>
+            <span class="t-meta" style="color:rgba(255,255,255,.7);font-size:max(11px,.84vw)">SYMPTOM · 训练状态层</span>
+            <h4 style="font-weight:500;font-size:max(16px,1.3vw);margin:0;line-height:1.25;color:#fff">resume 状态丢失<br/><span style="font-weight:300;color:rgba(255,255,255,.85)">只恢复了权重</span></h4>
           </div>
           <div style="display:flex;flex-direction:column;gap:.6vh;border-left:1px solid rgba(255,255,255,.3);padding-left:1.2vw;justify-content:center">
-            <span class="t-meta" style="color:rgba(255,255,255,.7)">IMPACT</span>
-            <p style="font-size:max(11px,.88vw);line-height:1.55;color:rgba(255,255,255,.92);font-weight:300;margin:0">cosine 旧 state 替换进新 schedule → LR 反向爬升炸毁权重，<strong style="font-weight:500;color:#fff">val 72.51 → 12.64</strong></p>
+            <span class="t-meta" style="color:rgba(255,255,255,.7);font-size:max(11px,.84vw)">IMPACT</span>
+            <p style="font-size:max(13px,1vw);line-height:1.55;color:rgba(255,255,255,.92);font-weight:300;margin:0">断点续训只 load 模型，<strong style="font-weight:500;color:#fff">LR / 动量 / AMP scale 全重置</strong> → 等于换套超参，曲线断裂</p>
           </div>
           <div style="display:flex;flex-direction:column;gap:.6vh;border-left:1px solid rgba(255,255,255,.5);padding-left:1.2vw;justify-content:center">
-            <span class="t-meta" style="color:#fff">FIX</span>
-            <p style="font-size:max(11px,.88vw);line-height:1.55;color:#fff;font-weight:300;margin:0">新增 <code style="font-family:var(--mono);font-size:.92em;color:#fff;background:rgba(255,255,255,.18);padding:.1em .4em">--resume-mode finetune</code>，只 load model+ema，调度器重置</p>
+            <span class="t-meta" style="color:#fff;font-size:max(11px,.84vw)">FIX</span>
+            <p style="font-size:max(13px,1vw);line-height:1.55;color:#fff;font-weight:300;margin:0">checkpoint 补齐 <code style="font-family:var(--mono);font-size:.92em;color:#fff;background:rgba(255,255,255,.18);padding:.1em .4em">optimizer + scheduler + scaler</code> 三态恢复</p>
           </div>
         </article>
       </div>
@@ -1688,7 +1683,7 @@
 <!-- =========== P8 · S19 Four Cards · 单 checkpoint 推理与提交 =========== -->
 <section class="slide light" data-layout="S19" data-animate="four-cards">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l">Inference · 推理端增益</div><div class="r">08 / 10</div></div>
+    <div class="chrome-min"><div class="l">Inference · 推理端增益</div><div class="r"><span style="color:var(--accent)">A · 乔</span> · 08 / 10</div></div>
     <div style="flex:1;padding:0;display:grid;grid-template-rows:auto auto 1fr auto;gap:2vh">
       <div data-anim="head-rule" style="height:3px;width:80px;background:var(--accent)"></div>
       <div data-anim="head" style="display:grid;grid-template-columns:1fr auto;gap:3vw;align-items:end">
@@ -1699,75 +1694,75 @@
         <div style="display:flex;flex-direction:column;gap:.4vh;align-items:flex-end;border-left:1px solid var(--border-subtle);padding-left:1.6vw">
           <span class="t-meta" style="color:var(--text-helper)">EST. WALL TIME</span>
           <span style="font-family:var(--sans);font-weight:200;font-size:min(4.4vw,7.6vh);line-height:.9;letter-spacing:-.03em;color:var(--accent)">~ 6<span style="font-size:.4em;font-weight:300;opacity:.7;margin-left:.1em">min</span></span>
-          <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.12em">10 万张 · 单模型 · TTA</span>
+          <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-helper);letter-spacing:.12em">10 万张 · 单模型 · TTA</span>
         </div>
       </div>
       <div data-anim="cards" class="four-cards" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.6vw;align-items:stretch">
         <div class="fc-col" style="display:flex;flex-direction:column;gap:1.2vh;border-top:3px solid var(--accent);padding-top:1.6vh">
           <span class="t-meta">— 01 / HFLIP</span>
-          <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:300;font-size:min(2.8vw,5vh);line-height:1;letter-spacing:-.02em">HFlip<br/>TTA</h3>
-          <p style="font-size:max(12px,.92vw);line-height:1.55;color:var(--text-secondary);font-weight:300">每张图水平翻转后再前向一次，softmax 平均，对方向偏置鲁棒。</p>
+          <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:300;font-size:min(3.2vw,5.6vh);line-height:1;letter-spacing:-.02em">HFlip<br/>TTA</h3>
+          <p style="font-size:max(13.5px,1.02vw);line-height:1.55;color:var(--text-secondary);font-weight:300">每张图水平翻转后再前向一次，softmax 平均，对方向偏置鲁棒。</p>
           <div style="display:flex;flex-direction:column;justify-content:space-around;gap:.6vh;background:var(--grey-1);padding:1.4vh 1vw;flex:1">
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(9.5px,.72vw);color:var(--text-helper);letter-spacing:.14em">MECH</span><span style="font-family:var(--mono);font-size:max(11px,.86vw);color:var(--text-primary);text-align:right">softmax(x) ⊕ softmax(flip x)</span></div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(9.5px,.72vw);color:var(--text-helper);letter-spacing:.14em">SCOPE</span><span style="font-family:var(--mono);font-size:max(11px,.86vw);color:var(--text-primary);text-align:right">forward × 2</span></div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(9.5px,.72vw);color:var(--text-helper);letter-spacing:.14em">NOTE</span><span style="font-family:var(--mono);font-size:max(11px,.86vw);color:var(--text-primary);text-align:right">训练已带 HFlip</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(11px,.84vw);color:var(--text-helper);letter-spacing:.14em">MECH</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-primary);text-align:right">softmax(x) ⊕ softmax(flip x)</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(11px,.84vw);color:var(--text-helper);letter-spacing:.14em">SCOPE</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-primary);text-align:right">forward × 2</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(11px,.84vw);color:var(--text-helper);letter-spacing:.14em">NOTE</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-primary);text-align:right">训练已带 HFlip</span></div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:.4vw">
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);border:1px solid var(--border-subtle);padding:.3vh .6vw;letter-spacing:.1em;color:var(--text-secondary)">×2 INFER</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);border:1px solid var(--border-subtle);padding:.3vh .6vw;letter-spacing:.1em;color:var(--text-secondary)">×2 INFER</span>
           </div>
           <div style="border-top:1px solid var(--border-subtle);padding-top:1vh;display:flex;justify-content:space-between;align-items:baseline">
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.12em">ΔTOP-1</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-helper);letter-spacing:.12em">ΔTOP-1</span>
             <span style="font-family:var(--mono);font-size:max(13px,1.05vw);color:var(--accent);font-weight:500">+ 0.42 pp</span>
           </div>
         </div>
         <div class="fc-col" style="display:flex;flex-direction:column;gap:1.2vh;border-top:3px solid var(--accent);padding-top:1.6vh">
           <span class="t-meta">— 02 / BEST SOURCE</span>
-          <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:300;font-size:min(2.8vw,5vh);line-height:1;letter-spacing:-.02em">raw/EMA<br/>双评估</h3>
-          <p style="font-size:max(12px,.92vw);line-height:1.55;color:var(--text-secondary);font-weight:300">同一个 checkpoint 记录 best_source，predict.py 自动加载 raw 或 EMA 最优权重。</p>
+          <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:300;font-size:min(3.2vw,5.6vh);line-height:1;letter-spacing:-.02em">raw/EMA<br/>双评估</h3>
+          <p style="font-size:max(13.5px,1.02vw);line-height:1.55;color:var(--text-secondary);font-weight:300">同一个 checkpoint 记录 best_source，predict.py 自动加载 raw 或 EMA 最优权重。</p>
           <div style="display:flex;flex-direction:column;justify-content:space-around;gap:.6vh;background:var(--grey-1);padding:1.4vh 1vw;flex:1">
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(9.5px,.72vw);color:var(--text-helper);letter-spacing:.14em">MECH</span><span style="font-family:var(--mono);font-size:max(11px,.86vw);color:var(--text-primary);text-align:right">best_source=raw</span></div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(9.5px,.72vw);color:var(--text-helper);letter-spacing:.14em">RAW</span><span style="font-family:var(--mono);font-size:max(11px,.86vw);color:var(--text-primary);text-align:right">77.57</span></div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(9.5px,.72vw);color:var(--text-helper);letter-spacing:.14em">EMA</span><span style="font-family:var(--mono);font-size:max(11px,.86vw);color:var(--text-primary);text-align:right">77.438</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(11px,.84vw);color:var(--text-helper);letter-spacing:.14em">MECH</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-primary);text-align:right">best_source=raw</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(11px,.84vw);color:var(--text-helper);letter-spacing:.14em">RAW</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-primary);text-align:right">77.57</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(11px,.84vw);color:var(--text-helper);letter-spacing:.14em">EMA</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-primary);text-align:right">77.438</span></div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:.4vw">
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);border:1px solid var(--border-subtle);padding:.3vh .6vw;letter-spacing:.1em;color:var(--text-secondary)">1 CKPT</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);border:1px solid var(--border-subtle);padding:.3vh .6vw;letter-spacing:.1em;color:var(--text-secondary)">1 CKPT</span>
           </div>
           <div style="border-top:1px solid var(--border-subtle);padding-top:1vh;display:flex;justify-content:space-between;align-items:baseline">
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.12em">SOURCE</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-helper);letter-spacing:.12em">SOURCE</span>
             <span style="font-family:var(--mono);font-size:max(13px,1.05vw);color:var(--accent);font-weight:500">raw</span>
           </div>
         </div>
         <div class="fc-col" style="display:flex;flex-direction:column;gap:1.2vh;border-top:3px solid var(--ink);padding-top:1.6vh">
           <span class="t-meta">— 03 / MEMORY</span>
-          <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:300;font-size:min(2.8vw,5vh);line-height:1;letter-spacing:-.02em">CPU logits<br/>累加器</h3>
-          <p style="font-size:max(12px,.92vw);line-height:1.55;color:var(--text-secondary);font-weight:300">10万 × 1000 × 4B ≈ 400MB，全部累加在 CPU 避免 GPU OOM。</p>
+          <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:300;font-size:min(3.2vw,5.6vh);line-height:1;letter-spacing:-.02em">CPU logits<br/>累加器</h3>
+          <p style="font-size:max(13.5px,1.02vw);line-height:1.55;color:var(--text-secondary);font-weight:300">10万 × 1000 × 4B ≈ 400MB，全部累加在 CPU 避免 GPU OOM。</p>
           <div style="display:flex;flex-direction:column;justify-content:space-around;gap:.6vh;background:var(--grey-1);padding:1.4vh 1vw;flex:1">
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(9.5px,.72vw);color:var(--text-helper);letter-spacing:.14em">SHAPE</span><span style="font-family:var(--mono);font-size:max(11px,.86vw);color:var(--text-primary);text-align:right">100k × 1000</span></div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(9.5px,.72vw);color:var(--text-helper);letter-spacing:.14em">DTYPE</span><span style="font-family:var(--mono);font-size:max(11px,.86vw);color:var(--text-primary);text-align:right">float32</span></div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(9.5px,.72vw);color:var(--text-helper);letter-spacing:.14em">DEVICE</span><span style="font-family:var(--mono);font-size:max(11px,.86vw);color:var(--text-primary);text-align:right">CPU pinned</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(11px,.84vw);color:var(--text-helper);letter-spacing:.14em">SHAPE</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-primary);text-align:right">100k × 1000</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(11px,.84vw);color:var(--text-helper);letter-spacing:.14em">DTYPE</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-primary);text-align:right">float32</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(11px,.84vw);color:var(--text-helper);letter-spacing:.14em">DEVICE</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-primary);text-align:right">CPU pinned</span></div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:.4vw">
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);border:1px solid var(--border-subtle);padding:.3vh .6vw;letter-spacing:.1em;color:var(--text-secondary)">CPU ACCUM</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);border:1px solid var(--border-subtle);padding:.3vh .6vw;letter-spacing:.1em;color:var(--text-secondary)">CPU ACCUM</span>
           </div>
           <div style="border-top:1px solid var(--border-subtle);padding-top:1vh;display:flex;justify-content:space-between;align-items:baseline">
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.12em">FOOTPRINT</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-helper);letter-spacing:.12em">FOOTPRINT</span>
             <span style="font-family:var(--mono);font-size:max(13px,1.05vw);color:var(--ink);font-weight:500">~ 400 MB</span>
           </div>
         </div>
         <div class="fc-col" style="display:flex;flex-direction:column;gap:1.2vh;border-top:3px solid var(--ink);padding-top:1.6vh">
           <span class="t-meta">— 04 / SPEED</span>
-          <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:300;font-size:min(2.8vw,5vh);line-height:1;letter-spacing:-.02em">AMP<br/>autocast</h3>
-          <p style="font-size:max(12px,.92vw);line-height:1.55;color:var(--text-secondary);font-weight:300">FP16 自动混合精度，10 万张全量推理预计 3–5 分钟完成。</p>
+          <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:300;font-size:min(3.2vw,5.6vh);line-height:1;letter-spacing:-.02em">AMP<br/>autocast</h3>
+          <p style="font-size:max(13.5px,1.02vw);line-height:1.55;color:var(--text-secondary);font-weight:300">FP16 自动混合精度，10 万张全量推理预计 3–5 分钟完成。</p>
           <div style="display:flex;flex-direction:column;justify-content:space-around;gap:.6vh;background:var(--grey-1);padding:1.4vh 1vw;flex:1">
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(9.5px,.72vw);color:var(--text-helper);letter-spacing:.14em">DTYPE</span><span style="font-family:var(--mono);font-size:max(11px,.86vw);color:var(--text-primary);text-align:right">torch.float16</span></div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(9.5px,.72vw);color:var(--text-helper);letter-spacing:.14em">SCOPE</span><span style="font-family:var(--mono);font-size:max(11px,.86vw);color:var(--text-primary);text-align:right">forward only</span></div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(9.5px,.72vw);color:var(--text-helper);letter-spacing:.14em">BATCH</span><span style="font-family:var(--mono);font-size:max(11px,.86vw);color:var(--text-primary);text-align:right">256 @ 4090D</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(11px,.84vw);color:var(--text-helper);letter-spacing:.14em">DTYPE</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-primary);text-align:right">torch.float16</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(11px,.84vw);color:var(--text-helper);letter-spacing:.14em">SCOPE</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-primary);text-align:right">forward only</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.6vw"><span style="font-family:var(--mono);font-size:max(11px,.84vw);color:var(--text-helper);letter-spacing:.14em">BATCH</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-primary);text-align:right">256 @ 4090D</span></div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:.4vw">
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);border:1px solid var(--border-subtle);padding:.3vh .6vw;letter-spacing:.1em;color:var(--text-secondary)">FP16</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);border:1px solid var(--border-subtle);padding:.3vh .6vw;letter-spacing:.1em;color:var(--text-secondary)">FP16</span>
           </div>
           <div style="border-top:1px solid var(--border-subtle);padding-top:1vh;display:flex;justify-content:space-between;align-items:baseline">
-            <span style="font-family:var(--mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.12em">10 万张</span>
+            <span style="font-family:var(--mono);font-size:max(12px,.9vw);color:var(--text-helper);letter-spacing:.12em">10 万张</span>
             <span style="font-family:var(--mono);font-size:max(13px,1.05vw);color:var(--ink);font-weight:500">3–5 min</span>
           </div>
         </div>
@@ -1783,7 +1778,7 @@
 <!-- =========== P9 · S02 Vertical Timeline · 7 阶段进度 =========== -->
 <section class="slide light" data-layout="S02" data-animate="timeline-vertical">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l">Timeline · 项目演进</div><div class="r">09 / 10</div></div>
+    <div class="chrome-min"><div class="l">Timeline · 项目演进</div><div class="r"><span style="color:var(--accent)">D · 陈</span> · 09 / 10</div></div>
     <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr;gap:2.6vh">
       <div data-anim="head" style="display:flex;flex-direction:column;gap:1vh">
         <div class="t-meta">2026 · APR – JUN · USST TEAM</div>
@@ -1794,13 +1789,13 @@
           <span style="position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:1px;border-left:1px dashed var(--grey-2)"></span>
         </div>
         <div style="display:grid;grid-template-rows:repeat(7,1fr);gap:0">
-          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:1.2vh 0"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw)">4/28 – 5/4</span><span style="font-size:max(13px,1vw);font-weight:300">数据准备 · 下载校验 · AutoDL 部署</span><span style="font-family:var(--mono);font-size:max(11px,.85vw);color:var(--text-helper)">128 万张</span></div>
-          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:1.2vh 0"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw)">5/5 – 5/11</span><span style="font-size:max(13px,1vw);font-weight:300">Pipeline 搭建 · 5 种 Loss · StarNet / ResNet-50 集成</span><span style="font-family:var(--mono);font-size:max(11px,.85vw);color:var(--text-helper)">5 losses</span></div>
-          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:1.2vh 0"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw)">5/12 – 5/15</span><span style="font-size:max(13px,1vw);font-weight:300">数据问题修复 · val 缺失 · train 123 类 · EMA buffer sync</span><span style="font-family:var(--mono);font-size:max(11px,.85vw);color:var(--text-helper)">9 issues</span></div>
-          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:1.2vh 0"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw);color:var(--accent)">5/15 – 5/18</span><span style="font-size:max(13px,1vw);font-weight:400">Baseline 100ep 收敛 · 已交付主指标</span><span style="font-family:var(--mono);font-size:max(13px,1.05vw);color:var(--accent);font-weight:500">77.53 %</span></div>
-          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:1.2vh 0"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw)">5/19 – 5/25</span><span style="font-size:max(13px,1vw);font-weight:300">消融对比 · 4 组 Loss + 2 组增广 = 6 组 30/40ep 实验</span><span style="font-family:var(--mono);font-size:max(11px,.85vw);color:var(--text-helper)">6 runs</span></div>
-          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:1.2vh 0"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw)">5/26</span><span style="font-size:max(13px,1vw);font-weight:300">Trainer 全代码审校 · 3 Bug 修复 · raw/EMA dual-eval 上线</span><span style="font-family:var(--mono);font-size:max(11px,.85vw);color:var(--accent)">3 bugs</span></div>
-          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;padding:1.2vh 0;border-top:2px solid var(--accent)"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw);color:var(--accent)">5/30 – 6/2</span><span style="font-size:max(13px,1vw);font-weight:500">full_mixcut 100ep 收敛 · HFlip TTA 77.99 · Docker / 报告整理</span><span style="font-family:var(--mono);font-size:max(11px,.85vw);color:var(--accent)">FINAL</span></div>
+          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:1.2vh 0"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw)">4/28 – 5/4</span><span style="font-size:max(13px,1vw);font-weight:300">数据准备 · 下载校验 · AutoDL 部署</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-helper)">128 万张</span></div>
+          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:1.2vh 0"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw)">5/5 – 5/11</span><span style="font-size:max(13px,1vw);font-weight:300">Pipeline 搭建 · 5 种 Loss · StarNet / ResNet-50 集成</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-helper)">5 losses</span></div>
+          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:1.2vh 0"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw)">5/12 – 5/15</span><span style="font-size:max(13px,1vw);font-weight:300">数据问题修复 · val 缺失 · train 123 类 · EMA buffer sync</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-helper)">9 issues</span></div>
+          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:1.2vh 0"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw);color:var(--accent)">5/15 – 5/18</span><span style="font-size:max(13px,1vw);font-weight:400">Baseline 100ep 收敛 · 主指标达标</span><span style="font-family:var(--mono);font-size:max(13px,1.05vw);color:var(--accent);font-weight:500">77.53 %</span></div>
+          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:1.2vh 0"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw)">5/19 – 5/25</span><span style="font-size:max(13px,1vw);font-weight:300">消融对比 · 4 组 Loss + 2 组增广 = 6 组 30/40ep 实验</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--text-helper)">6 runs</span></div>
+          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;border-bottom:1px solid var(--border-subtle);padding:1.2vh 0"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw)">5/26</span><span style="font-size:max(13px,1vw);font-weight:300">Trainer 全代码审校 · 3 个工程复盘 · raw/EMA dual-eval 上线</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--accent)">code review</span></div>
+          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:2vw;align-items:baseline;padding:1.2vh 0;border-top:2px solid var(--accent)"><span style="font-family:var(--mono);font-weight:500;font-size:max(12px,.95vw);color:var(--accent)">5/30 – 6/2</span><span style="font-size:max(13px,1vw);font-weight:500">full_mixcut 100ep 收敛 · HFlip TTA 77.99 · Docker / 报告整理</span><span style="font-family:var(--mono);font-size:max(12.5px,.95vw);color:var(--accent)">FINAL</span></div>
         </div>
       </div>
     </div>
@@ -1820,35 +1815,35 @@
         <div data-anim="manifesto" style="display:flex;flex-direction:column;gap:2vh;position:relative;z-index:1">
           <div class="t-meta" style="color:rgba(255,255,255,.78);letter-spacing:.22em;margin-bottom:1.6vh">MANIFESTO</div>
           <h2 style="font-family:var(--sans),var(--sans-zh);font-size:min(4.6vw,8.2vh);line-height:1;letter-spacing:-.03em;font-weight:200;color:#fff">Engineering<br/><span style="font-style:italic;font-weight:300">rigor</span> over<br/>fancy losses.</h2>
-          <div style="font-family:var(--sans),var(--sans-zh);font-size:max(13px,1vw);line-height:1.6;color:rgba(255,255,255,.9);font-weight:300;max-width:36ch;margin-top:1.4vh">工程严谨性，胜过损失函数堆砌。<br/>4 组负样本 + 3 个 Bug 复盘 = 1 条干净归因。</div>
+          <div style="font-family:var(--sans),var(--sans-zh);font-size:max(14px,1.05vw);line-height:1.6;color:rgba(255,255,255,.9);font-weight:300;max-width:36ch;margin-top:1.4vh">工程严谨性，胜过损失函数堆砌。<br/>4 组负样本 + 3 个工程复盘 = 1 条干净归因。</div>
         </div>
         <div data-anim="signature" style="display:flex;justify-content:space-between;align-items:end;border-top:1px solid rgba(255,255,255,.3);padding-top:2vh;position:relative;z-index:1">
           <div class="t-meta" style="color:rgba(255,255,255,.72)">USST · D Group · Chen</div>
           <div class="t-meta" style="color:rgba(255,255,255,.72)">2026.06.14</div>
         </div>
       </div>
-      <div class="half" style="background:var(--paper);padding:5.6vh 3.6vw 4.4vh;display:flex;flex-direction:column;justify-content:space-between">
-        <div class="chrome-min"><div class="l">TAKEAWAYS</div><div class="r">03 STAGES</div></div>
-        <div data-anim="rules" style="display:flex;flex-direction:column;gap:0">
-          <div style="display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start;padding:2.6vh 0;border-top:1px solid var(--border-subtle)">
-            <div style="font-family:var(--sans);font-weight:200;font-size:min(4.4vw,7.8vh);line-height:.9;color:var(--text-primary)">01</div>
+      <div class="half" style="background:var(--paper);padding:4vh 3.6vw 3.2vh;display:flex;flex-direction:column;justify-content:space-between">
+        <div class="chrome-min"><div class="l">TAKEAWAYS</div><div class="r"><span style="color:var(--accent)">D · 陈</span> · 03 STAGES</div></div>
+        <div data-anim="rules" style="display:flex;flex-direction:column;gap:0;flex:1;justify-content:center">
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start;padding:3.4vh 0;border-top:1px solid var(--border-subtle)">
+            <div style="font-family:var(--sans);font-weight:200;font-size:min(4.8vw,8.4vh);line-height:.9;color:var(--text-primary)">01</div>
             <div>
-              <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:500;font-size:max(16px,1.5vw);line-height:1.2;letter-spacing:-.015em;color:var(--text-primary);margin-bottom:.8vh">已交付</h3>
-              <p style="font-family:var(--sans),var(--sans-zh);font-size:max(12px,.92vw);line-height:1.5;color:var(--text-secondary);font-weight:300">Baseline 77.58 / 93.64 · 6 组消融 · 3 Bug 修复 · 单模型 HFlip TTA · Docker</p>
+              <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:500;font-size:max(19px,1.75vw);line-height:1.2;letter-spacing:-.015em;color:var(--text-primary);margin-bottom:1vh">结果</h3>
+              <p style="font-family:var(--sans),var(--sans-zh);font-size:max(15px,1.12vw);line-height:1.55;color:var(--text-secondary);font-weight:300">Baseline 77.58 / 93.64 · 6 组消融 · 3 个工程复盘 · 单模型 HFlip TTA · Docker</p>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start;padding:2.6vh 0;border-top:1px solid var(--border-subtle)">
-            <div style="font-family:var(--sans);font-weight:200;font-size:min(4.4vw,7.8vh);line-height:.9;color:var(--text-primary)">02</div>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start;padding:3.4vh 0;border-top:1px solid var(--border-subtle)">
+            <div style="font-family:var(--sans);font-weight:200;font-size:min(4.8vw,8.4vh);line-height:.9;color:var(--text-primary)">02</div>
             <div>
-              <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:500;font-size:max(16px,1.5vw);line-height:1.2;letter-spacing:-.015em;color:var(--text-primary);margin-bottom:.8vh">最终路线</h3>
-              <p style="font-family:var(--sans),var(--sans-zh);font-size:max(12px,.92vw);line-height:1.5;color:var(--text-secondary);font-weight:300">full_mixcut plain 77.57 · HFlip TTA 77.99 · best_source=raw · 单模型提交</p>
+              <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:500;font-size:max(19px,1.75vw);line-height:1.2;letter-spacing:-.015em;color:var(--text-primary);margin-bottom:1vh">最终路线</h3>
+              <p style="font-family:var(--sans),var(--sans-zh);font-size:max(15px,1.12vw);line-height:1.55;color:var(--text-secondary);font-weight:300">full_mixcut plain 77.57 · HFlip TTA 77.99 · best_source=raw · 单模型提交</p>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start;padding:2.6vh 0;border-top:1px solid var(--border-subtle);border-bottom:2px solid var(--accent)">
-            <div style="font-family:var(--sans);font-weight:200;font-size:min(4.4vw,7.8vh);line-height:.9;color:var(--accent)">03</div>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start;padding:3.4vh 0;border-top:1px solid var(--border-subtle);border-bottom:2px solid var(--accent)">
+            <div style="font-family:var(--sans);font-weight:200;font-size:min(4.8vw,8.4vh);line-height:.9;color:var(--accent)">03</div>
             <div>
-              <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:500;font-size:max(16px,1.5vw);line-height:1.2;letter-spacing:-.015em;color:var(--accent);margin-bottom:.8vh">待答辩 · 6/14</h3>
-              <p style="font-family:var(--sans),var(--sans-zh);font-size:max(12px,.92vw);line-height:1.5;color:var(--text-secondary);font-weight:300">交付物：result.csv · Dockerfile · 技术方案 · 答辩 HTML deck</p>
+              <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:500;font-size:max(19px,1.75vw);line-height:1.2;letter-spacing:-.015em;color:var(--accent);margin-bottom:1vh">交付物</h3>
+              <p style="font-family:var(--sans),var(--sans-zh);font-size:max(15px,1.12vw);line-height:1.55;color:var(--text-secondary);font-weight:300">result.csv · Dockerfile · 技术方案 · 答辩 HTML deck</p>
             </div>
           </div>
         </div>
